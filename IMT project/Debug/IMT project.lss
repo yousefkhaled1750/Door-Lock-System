@@ -3,31 +3,31 @@ IMT project.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000006c4  00000000  00000000  00000094  2**1
+  0 .text         00000978  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         000001b2  00800060  000006c4  00000758  2**0
+  1 .data         0000021c  00800060  00000978  00000a0c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          000000a2  00800212  00800212  0000090a  2**0
+  2 .bss          000000a2  0080027c  0080027c  00000c28  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000090a  2**0
+  3 .comment      00000030  00000000  00000000  00000c28  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000093c  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000c58  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000a8  00000000  00000000  00000978  2**0
+  5 .debug_aranges 00000100  00000000  00000000  00000c94  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000109b  00000000  00000000  00000a20  2**0
+  6 .debug_info   0000158f  00000000  00000000  00000d94  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007e0  00000000  00000000  00001abb  2**0
+  7 .debug_abbrev 00000955  00000000  00000000  00002323  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000678  00000000  00000000  0000229b  2**0
+  8 .debug_line   00000ae5  00000000  00000000  00002c78  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001e0  00000000  00000000  00002914  2**2
+  9 .debug_frame  00000284  00000000  00000000  00003760  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000047b  00000000  00000000  00002af4  2**0
+ 10 .debug_str    000005ed  00000000  00000000  000039e4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000633  00000000  00000000  00002f6f  2**0
+ 11 .debug_loc    00000aef  00000000  00000000  00003fd1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000078  00000000  00000000  000035a2  2**0
+ 12 .debug_ranges 000000c0  00000000  00000000  00004ac0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,18 +67,18 @@ Disassembly of section .text:
   60:	12 e0       	ldi	r17, 0x02	; 2
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 ec       	ldi	r30, 0xC4	; 196
-  68:	f6 e0       	ldi	r31, 0x06	; 6
+  66:	e8 e7       	ldi	r30, 0x78	; 120
+  68:	f9 e0       	ldi	r31, 0x09	; 9
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a2 31       	cpi	r26, 0x12	; 18
+  70:	ac 37       	cpi	r26, 0x7C	; 124
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
-  76:	22 e0       	ldi	r18, 0x02	; 2
-  78:	a2 e1       	ldi	r26, 0x12	; 18
+  76:	23 e0       	ldi	r18, 0x03	; 3
+  78:	ac e7       	ldi	r26, 0x7C	; 124
   7a:	b2 e0       	ldi	r27, 0x02	; 2
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -86,11 +86,11 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a4 3b       	cpi	r26, 0xB4	; 180
+  80:	ae 31       	cpi	r26, 0x1E	; 30
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 60 03 	jmp	0x6c0	; 0x6c0 <_exit>
+  8a:	0c 94 ba 04 	jmp	0x974	; 0x974 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -108,1062 +108,1502 @@ int main (void)
   98:	cd b7       	in	r28, 0x3d	; 61
   9a:	de b7       	in	r29, 0x3e	; 62
 	u8 choose;
+	DIO_voidSetPortDirection(DIO_PORTC, DIO_OUTPUT);
+  9c:	61 e0       	ldi	r22, 0x01	; 1
+  9e:	82 e0       	ldi	r24, 0x02	; 2
+  a0:	0e 94 47 01 	call	0x28e	; 0x28e <DIO_voidSetPortDirection>
 	UART_voidInit();
-  9c:	0e 94 90 00 	call	0x120	; 0x120 <UART_voidInit>
+  a4:	0e 94 83 01 	call	0x306	; 0x306 <UART_voidInit>
 	while(1){
 		UART_voidSendStringSynch("1. Enter new user name. ");
-  a0:	80 e6       	ldi	r24, 0x60	; 96
-  a2:	90 e0       	ldi	r25, 0x00	; 0
-  a4:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidSendStringSynch("2. Sign In. ");
-  a8:	89 e7       	ldi	r24, 0x79	; 121
+  a8:	80 e6       	ldi	r24, 0x60	; 96
   aa:	90 e0       	ldi	r25, 0x00	; 0
-  ac:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidSendStringSynch("3. Edit current data. ");
-  b0:	86 e8       	ldi	r24, 0x86	; 134
+  ac:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidSendStringSynch("2. Sign In. ");
+  b0:	89 e7       	ldi	r24, 0x79	; 121
   b2:	90 e0       	ldi	r25, 0x00	; 0
-  b4:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidSendStringSynch("4. Show current data. ");
-  b8:	8d e9       	ldi	r24, 0x9D	; 157
+  b4:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidSendStringSynch("3. Edit current data. ");
+  b8:	86 e8       	ldi	r24, 0x86	; 134
   ba:	90 e0       	ldi	r25, 0x00	; 0
-  bc:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidSendStringSynch("Choose a choice: ");
-  c0:	84 eb       	ldi	r24, 0xB4	; 180
+  bc:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidSendStringSynch("4. Show current data. ");
+  c0:	8d e9       	ldi	r24, 0x9D	; 157
   c2:	90 e0       	ldi	r25, 0x00	; 0
-  c4:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+  c4:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidSendStringSynch("Choose a choice: ");
+  c8:	84 eb       	ldi	r24, 0xB4	; 180
+  ca:	90 e0       	ldi	r25, 0x00	; 0
+  cc:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 		UART_u8ReceiveDataSynch(&choose);
-  c8:	ce 01       	movw	r24, r28
-  ca:	01 96       	adiw	r24, 0x01	; 1
-  cc:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
+  d0:	ce 01       	movw	r24, r28
+  d2:	01 96       	adiw	r24, 0x01	; 1
+  d4:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
 		UART_voidSendDataSynch(choose);
-  d0:	89 81       	ldd	r24, Y+1	; 0x01
-  d2:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+  d8:	89 81       	ldd	r24, Y+1	; 0x01
+  da:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 		UART_voidSendDataSynch(' ');
-  d6:	80 e2       	ldi	r24, 0x20	; 32
-  d8:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+  de:	80 e2       	ldi	r24, 0x20	; 32
+  e0:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 		switch(choose){
-  dc:	89 81       	ldd	r24, Y+1	; 0x01
-  de:	82 33       	cpi	r24, 0x32	; 50
-  e0:	61 f0       	breq	.+24     	; 0xfa <main+0x68>
-  e2:	18 f4       	brcc	.+6      	; 0xea <main+0x58>
-  e4:	81 33       	cpi	r24, 0x31	; 49
-  e6:	31 f0       	breq	.+12     	; 0xf4 <main+0x62>
-  e8:	db cf       	rjmp	.-74     	; 0xa0 <main+0xe>
-  ea:	83 33       	cpi	r24, 0x33	; 51
-  ec:	69 f0       	breq	.+26     	; 0x108 <main+0x76>
-  ee:	84 33       	cpi	r24, 0x34	; 52
-  f0:	71 f0       	breq	.+28     	; 0x10e <main+0x7c>
-  f2:	d6 cf       	rjmp	.-84     	; 0xa0 <main+0xe>
+  e4:	89 81       	ldd	r24, Y+1	; 0x01
+  e6:	82 33       	cpi	r24, 0x32	; 50
+  e8:	61 f0       	breq	.+24     	; 0x102 <main+0x70>
+  ea:	18 f4       	brcc	.+6      	; 0xf2 <main+0x60>
+  ec:	81 33       	cpi	r24, 0x31	; 49
+  ee:	31 f0       	breq	.+12     	; 0xfc <main+0x6a>
+  f0:	db cf       	rjmp	.-74     	; 0xa8 <main+0x16>
+  f2:	83 33       	cpi	r24, 0x33	; 51
+  f4:	99 f0       	breq	.+38     	; 0x11c <main+0x8a>
+  f6:	84 33       	cpi	r24, 0x34	; 52
+  f8:	a1 f0       	breq	.+40     	; 0x122 <main+0x90>
+  fa:	d6 cf       	rjmp	.-84     	; 0xa8 <main+0x16>
 			case '1':
 				new();
-  f4:	0e 94 b0 01 	call	0x360	; 0x360 <new>
+  fc:	0e 94 a3 02 	call	0x546	; 0x546 <new>
 				break;
-  f8:	d3 cf       	rjmp	.-90     	; 0xa0 <main+0xe>
+ 100:	d3 cf       	rjmp	.-90     	; 0xa8 <main+0x16>
 			case '2':
 				SignIn();
-  fa:	0e 94 0e 02 	call	0x41c	; 0x41c <SignIn>
+ 102:	0e 94 01 03 	call	0x602	; 0x602 <SignIn>
 				if(lock == 2)
-  fe:	80 91 12 02 	lds	r24, 0x0212	; 0x800212 <__data_end>
- 102:	82 30       	cpi	r24, 0x02	; 2
- 104:	69 f6       	brne	.-102    	; 0xa0 <main+0xe>
- 106:	06 c0       	rjmp	.+12     	; 0x114 <main+0x82>
+ 106:	80 91 7c 02 	lds	r24, 0x027C	; 0x80027c <__data_end>
+ 10a:	82 30       	cpi	r24, 0x02	; 2
+ 10c:	69 f0       	breq	.+26     	; 0x128 <main+0x96>
 					return 0;
+				if(lock == 1){
+ 10e:	81 30       	cpi	r24, 0x01	; 1
+ 110:	59 f6       	brne	.-106    	; 0xa8 <main+0x16>
+					Unlock();		
+ 112:	0e 94 42 04 	call	0x884	; 0x884 <Unlock>
+					Light();
+ 116:	0e 94 56 04 	call	0x8ac	; 0x8ac <Light>
+ 11a:	c6 cf       	rjmp	.-116    	; 0xa8 <main+0x16>
+				}
 				break;
 			case '3':
 				Edit();
- 108:	0e 94 5f 02 	call	0x4be	; 0x4be <Edit>
+ 11c:	0e 94 65 03 	call	0x6ca	; 0x6ca <Edit>
 				break;
- 10c:	c9 cf       	rjmp	.-110    	; 0xa0 <main+0xe>
+ 120:	c3 cf       	rjmp	.-122    	; 0xa8 <main+0x16>
 			case '4':
 				Show();
- 10e:	0e 94 f8 02 	call	0x5f0	; 0x5f0 <Show>
- 112:	c6 cf       	rjmp	.-116    	; 0xa0 <main+0xe>
+ 122:	0e 94 fd 03 	call	0x7fa	; 0x7fa <Show>
+ 126:	c0 cf       	rjmp	.-128    	; 0xa8 <main+0x16>
 			
 		}
 	}
 	return 0;
 
 }
- 114:	80 e0       	ldi	r24, 0x00	; 0
- 116:	90 e0       	ldi	r25, 0x00	; 0
- 118:	0f 90       	pop	r0
- 11a:	df 91       	pop	r29
- 11c:	cf 91       	pop	r28
- 11e:	08 95       	ret
+ 128:	80 e0       	ldi	r24, 0x00	; 0
+ 12a:	90 e0       	ldi	r25, 0x00	; 0
+ 12c:	0f 90       	pop	r0
+ 12e:	df 91       	pop	r29
+ 130:	cf 91       	pop	r28
+ 132:	08 95       	ret
 
-00000120 <UART_voidInit>:
+00000134 <DIO_voidSetPinValue>:
+		}
+
+		return Local_u8PinValue;
+
+	}
+}
+ 134:	84 30       	cpi	r24, 0x04	; 4
+ 136:	08 f0       	brcs	.+2      	; 0x13a <DIO_voidSetPinValue+0x6>
+ 138:	a9 c0       	rjmp	.+338    	; 0x28c <DIO_voidSetPinValue+0x158>
+ 13a:	68 30       	cpi	r22, 0x08	; 8
+ 13c:	08 f0       	brcs	.+2      	; 0x140 <DIO_voidSetPinValue+0xc>
+ 13e:	a6 c0       	rjmp	.+332    	; 0x28c <DIO_voidSetPinValue+0x158>
+ 140:	41 30       	cpi	r20, 0x01	; 1
+ 142:	e9 f1       	breq	.+122    	; 0x1be <DIO_voidSetPinValue+0x8a>
+ 144:	20 f0       	brcs	.+8      	; 0x14e <DIO_voidSetPinValue+0x1a>
+ 146:	42 30       	cpi	r20, 0x02	; 2
+ 148:	09 f4       	brne	.+2      	; 0x14c <DIO_voidSetPinValue+0x18>
+ 14a:	6d c0       	rjmp	.+218    	; 0x226 <DIO_voidSetPinValue+0xf2>
+ 14c:	08 95       	ret
+ 14e:	81 30       	cpi	r24, 0x01	; 1
+ 150:	91 f0       	breq	.+36     	; 0x176 <DIO_voidSetPinValue+0x42>
+ 152:	28 f0       	brcs	.+10     	; 0x15e <DIO_voidSetPinValue+0x2a>
+ 154:	82 30       	cpi	r24, 0x02	; 2
+ 156:	d9 f0       	breq	.+54     	; 0x18e <DIO_voidSetPinValue+0x5a>
+ 158:	83 30       	cpi	r24, 0x03	; 3
+ 15a:	29 f1       	breq	.+74     	; 0x1a6 <DIO_voidSetPinValue+0x72>
+ 15c:	08 95       	ret
+ 15e:	2b b3       	in	r18, 0x1b	; 27
+ 160:	81 e0       	ldi	r24, 0x01	; 1
+ 162:	90 e0       	ldi	r25, 0x00	; 0
+ 164:	02 c0       	rjmp	.+4      	; 0x16a <DIO_voidSetPinValue+0x36>
+ 166:	88 0f       	add	r24, r24
+ 168:	99 1f       	adc	r25, r25
+ 16a:	6a 95       	dec	r22
+ 16c:	e2 f7       	brpl	.-8      	; 0x166 <DIO_voidSetPinValue+0x32>
+ 16e:	80 95       	com	r24
+ 170:	82 23       	and	r24, r18
+ 172:	8b bb       	out	0x1b, r24	; 27
+ 174:	08 95       	ret
+ 176:	28 b3       	in	r18, 0x18	; 24
+ 178:	81 e0       	ldi	r24, 0x01	; 1
+ 17a:	90 e0       	ldi	r25, 0x00	; 0
+ 17c:	02 c0       	rjmp	.+4      	; 0x182 <DIO_voidSetPinValue+0x4e>
+ 17e:	88 0f       	add	r24, r24
+ 180:	99 1f       	adc	r25, r25
+ 182:	6a 95       	dec	r22
+ 184:	e2 f7       	brpl	.-8      	; 0x17e <DIO_voidSetPinValue+0x4a>
+ 186:	80 95       	com	r24
+ 188:	82 23       	and	r24, r18
+ 18a:	88 bb       	out	0x18, r24	; 24
+ 18c:	08 95       	ret
+ 18e:	25 b3       	in	r18, 0x15	; 21
+ 190:	81 e0       	ldi	r24, 0x01	; 1
+ 192:	90 e0       	ldi	r25, 0x00	; 0
+ 194:	02 c0       	rjmp	.+4      	; 0x19a <DIO_voidSetPinValue+0x66>
+ 196:	88 0f       	add	r24, r24
+ 198:	99 1f       	adc	r25, r25
+ 19a:	6a 95       	dec	r22
+ 19c:	e2 f7       	brpl	.-8      	; 0x196 <DIO_voidSetPinValue+0x62>
+ 19e:	80 95       	com	r24
+ 1a0:	82 23       	and	r24, r18
+ 1a2:	85 bb       	out	0x15, r24	; 21
+ 1a4:	08 95       	ret
+ 1a6:	22 b3       	in	r18, 0x12	; 18
+ 1a8:	81 e0       	ldi	r24, 0x01	; 1
+ 1aa:	90 e0       	ldi	r25, 0x00	; 0
+ 1ac:	02 c0       	rjmp	.+4      	; 0x1b2 <DIO_voidSetPinValue+0x7e>
+ 1ae:	88 0f       	add	r24, r24
+ 1b0:	99 1f       	adc	r25, r25
+ 1b2:	6a 95       	dec	r22
+ 1b4:	e2 f7       	brpl	.-8      	; 0x1ae <DIO_voidSetPinValue+0x7a>
+ 1b6:	80 95       	com	r24
+ 1b8:	82 23       	and	r24, r18
+ 1ba:	82 bb       	out	0x12, r24	; 18
+ 1bc:	08 95       	ret
+ 1be:	81 30       	cpi	r24, 0x01	; 1
+ 1c0:	89 f0       	breq	.+34     	; 0x1e4 <DIO_voidSetPinValue+0xb0>
+ 1c2:	28 f0       	brcs	.+10     	; 0x1ce <DIO_voidSetPinValue+0x9a>
+ 1c4:	82 30       	cpi	r24, 0x02	; 2
+ 1c6:	c9 f0       	breq	.+50     	; 0x1fa <DIO_voidSetPinValue+0xc6>
+ 1c8:	83 30       	cpi	r24, 0x03	; 3
+ 1ca:	11 f1       	breq	.+68     	; 0x210 <DIO_voidSetPinValue+0xdc>
+ 1cc:	08 95       	ret
+ 1ce:	2b b3       	in	r18, 0x1b	; 27
+ 1d0:	81 e0       	ldi	r24, 0x01	; 1
+ 1d2:	90 e0       	ldi	r25, 0x00	; 0
+ 1d4:	02 c0       	rjmp	.+4      	; 0x1da <DIO_voidSetPinValue+0xa6>
+ 1d6:	88 0f       	add	r24, r24
+ 1d8:	99 1f       	adc	r25, r25
+ 1da:	6a 95       	dec	r22
+ 1dc:	e2 f7       	brpl	.-8      	; 0x1d6 <DIO_voidSetPinValue+0xa2>
+ 1de:	82 2b       	or	r24, r18
+ 1e0:	8b bb       	out	0x1b, r24	; 27
+ 1e2:	08 95       	ret
+ 1e4:	28 b3       	in	r18, 0x18	; 24
+ 1e6:	81 e0       	ldi	r24, 0x01	; 1
+ 1e8:	90 e0       	ldi	r25, 0x00	; 0
+ 1ea:	02 c0       	rjmp	.+4      	; 0x1f0 <DIO_voidSetPinValue+0xbc>
+ 1ec:	88 0f       	add	r24, r24
+ 1ee:	99 1f       	adc	r25, r25
+ 1f0:	6a 95       	dec	r22
+ 1f2:	e2 f7       	brpl	.-8      	; 0x1ec <DIO_voidSetPinValue+0xb8>
+ 1f4:	82 2b       	or	r24, r18
+ 1f6:	88 bb       	out	0x18, r24	; 24
+ 1f8:	08 95       	ret
+ 1fa:	25 b3       	in	r18, 0x15	; 21
+ 1fc:	81 e0       	ldi	r24, 0x01	; 1
+ 1fe:	90 e0       	ldi	r25, 0x00	; 0
+ 200:	02 c0       	rjmp	.+4      	; 0x206 <DIO_voidSetPinValue+0xd2>
+ 202:	88 0f       	add	r24, r24
+ 204:	99 1f       	adc	r25, r25
+ 206:	6a 95       	dec	r22
+ 208:	e2 f7       	brpl	.-8      	; 0x202 <DIO_voidSetPinValue+0xce>
+ 20a:	82 2b       	or	r24, r18
+ 20c:	85 bb       	out	0x15, r24	; 21
+ 20e:	08 95       	ret
+ 210:	22 b3       	in	r18, 0x12	; 18
+ 212:	81 e0       	ldi	r24, 0x01	; 1
+ 214:	90 e0       	ldi	r25, 0x00	; 0
+ 216:	02 c0       	rjmp	.+4      	; 0x21c <DIO_voidSetPinValue+0xe8>
+ 218:	88 0f       	add	r24, r24
+ 21a:	99 1f       	adc	r25, r25
+ 21c:	6a 95       	dec	r22
+ 21e:	e2 f7       	brpl	.-8      	; 0x218 <DIO_voidSetPinValue+0xe4>
+ 220:	82 2b       	or	r24, r18
+ 222:	82 bb       	out	0x12, r24	; 18
+ 224:	08 95       	ret
+ 226:	81 30       	cpi	r24, 0x01	; 1
+ 228:	89 f0       	breq	.+34     	; 0x24c <DIO_voidSetPinValue+0x118>
+ 22a:	28 f0       	brcs	.+10     	; 0x236 <DIO_voidSetPinValue+0x102>
+ 22c:	82 30       	cpi	r24, 0x02	; 2
+ 22e:	c9 f0       	breq	.+50     	; 0x262 <DIO_voidSetPinValue+0x12e>
+ 230:	83 30       	cpi	r24, 0x03	; 3
+ 232:	11 f1       	breq	.+68     	; 0x278 <DIO_voidSetPinValue+0x144>
+ 234:	08 95       	ret
+ 236:	2b b3       	in	r18, 0x1b	; 27
+ 238:	81 e0       	ldi	r24, 0x01	; 1
+ 23a:	90 e0       	ldi	r25, 0x00	; 0
+ 23c:	02 c0       	rjmp	.+4      	; 0x242 <DIO_voidSetPinValue+0x10e>
+ 23e:	88 0f       	add	r24, r24
+ 240:	99 1f       	adc	r25, r25
+ 242:	6a 95       	dec	r22
+ 244:	e2 f7       	brpl	.-8      	; 0x23e <DIO_voidSetPinValue+0x10a>
+ 246:	82 27       	eor	r24, r18
+ 248:	8b bb       	out	0x1b, r24	; 27
+ 24a:	08 95       	ret
+ 24c:	28 b3       	in	r18, 0x18	; 24
+ 24e:	81 e0       	ldi	r24, 0x01	; 1
+ 250:	90 e0       	ldi	r25, 0x00	; 0
+ 252:	02 c0       	rjmp	.+4      	; 0x258 <DIO_voidSetPinValue+0x124>
+ 254:	88 0f       	add	r24, r24
+ 256:	99 1f       	adc	r25, r25
+ 258:	6a 95       	dec	r22
+ 25a:	e2 f7       	brpl	.-8      	; 0x254 <DIO_voidSetPinValue+0x120>
+ 25c:	82 27       	eor	r24, r18
+ 25e:	88 bb       	out	0x18, r24	; 24
+ 260:	08 95       	ret
+ 262:	25 b3       	in	r18, 0x15	; 21
+ 264:	81 e0       	ldi	r24, 0x01	; 1
+ 266:	90 e0       	ldi	r25, 0x00	; 0
+ 268:	02 c0       	rjmp	.+4      	; 0x26e <DIO_voidSetPinValue+0x13a>
+ 26a:	88 0f       	add	r24, r24
+ 26c:	99 1f       	adc	r25, r25
+ 26e:	6a 95       	dec	r22
+ 270:	e2 f7       	brpl	.-8      	; 0x26a <DIO_voidSetPinValue+0x136>
+ 272:	82 27       	eor	r24, r18
+ 274:	85 bb       	out	0x15, r24	; 21
+ 276:	08 95       	ret
+ 278:	22 b3       	in	r18, 0x12	; 18
+ 27a:	81 e0       	ldi	r24, 0x01	; 1
+ 27c:	90 e0       	ldi	r25, 0x00	; 0
+ 27e:	02 c0       	rjmp	.+4      	; 0x284 <DIO_voidSetPinValue+0x150>
+ 280:	88 0f       	add	r24, r24
+ 282:	99 1f       	adc	r25, r25
+ 284:	6a 95       	dec	r22
+ 286:	e2 f7       	brpl	.-8      	; 0x280 <DIO_voidSetPinValue+0x14c>
+ 288:	82 27       	eor	r24, r18
+ 28a:	82 bb       	out	0x12, r24	; 18
+ 28c:	08 95       	ret
+
+0000028e <DIO_voidSetPortDirection>:
+
+void DIO_voidSetPortDirection(u8 Copy_u8PortNB,u8 Copy_u8PortDirection){
+	/* input validation */
+	if(Copy_u8PortNB>DIO_PORTD ){
+ 28e:	84 30       	cpi	r24, 0x04	; 4
+ 290:	38 f5       	brcc	.+78     	; 0x2e0 <DIO_voidSetPortDirection+0x52>
+		#warning "You Entered invalid inputs"
+		return;
+	}
+	else
+	{
+		switch(Copy_u8PortDirection){
+ 292:	66 23       	and	r22, r22
+ 294:	b1 f0       	breq	.+44     	; 0x2c2 <DIO_voidSetPortDirection+0x34>
+ 296:	61 30       	cpi	r22, 0x01	; 1
+ 298:	19 f5       	brne	.+70     	; 0x2e0 <DIO_voidSetPortDirection+0x52>
+			case DIO_OUTPUT:
+			switch (Copy_u8PortNB){
+ 29a:	81 30       	cpi	r24, 0x01	; 1
+ 29c:	49 f0       	breq	.+18     	; 0x2b0 <DIO_voidSetPortDirection+0x22>
+ 29e:	28 f0       	brcs	.+10     	; 0x2aa <DIO_voidSetPortDirection+0x1c>
+ 2a0:	82 30       	cpi	r24, 0x02	; 2
+ 2a2:	49 f0       	breq	.+18     	; 0x2b6 <DIO_voidSetPortDirection+0x28>
+ 2a4:	83 30       	cpi	r24, 0x03	; 3
+ 2a6:	51 f0       	breq	.+20     	; 0x2bc <DIO_voidSetPortDirection+0x2e>
+ 2a8:	08 95       	ret
+				case DIO_PORTA: DDRA = 0xff; break;
+ 2aa:	8f ef       	ldi	r24, 0xFF	; 255
+ 2ac:	8a bb       	out	0x1a, r24	; 26
+ 2ae:	08 95       	ret
+				case DIO_PORTB: DDRB = 0xff; break;
+ 2b0:	8f ef       	ldi	r24, 0xFF	; 255
+ 2b2:	87 bb       	out	0x17, r24	; 23
+ 2b4:	08 95       	ret
+				case DIO_PORTC: DDRC = 0xff; break;
+ 2b6:	8f ef       	ldi	r24, 0xFF	; 255
+ 2b8:	84 bb       	out	0x14, r24	; 20
+ 2ba:	08 95       	ret
+				case DIO_PORTD: DDRD = 0xff; break;
+ 2bc:	8f ef       	ldi	r24, 0xFF	; 255
+ 2be:	81 bb       	out	0x11, r24	; 17
+ 2c0:	08 95       	ret
+			}
+			break;
+
+			case  DIO_INPUT:
+			switch (Copy_u8PortNB){
+ 2c2:	81 30       	cpi	r24, 0x01	; 1
+ 2c4:	41 f0       	breq	.+16     	; 0x2d6 <DIO_voidSetPortDirection+0x48>
+ 2c6:	28 f0       	brcs	.+10     	; 0x2d2 <DIO_voidSetPortDirection+0x44>
+ 2c8:	82 30       	cpi	r24, 0x02	; 2
+ 2ca:	39 f0       	breq	.+14     	; 0x2da <DIO_voidSetPortDirection+0x4c>
+ 2cc:	83 30       	cpi	r24, 0x03	; 3
+ 2ce:	39 f0       	breq	.+14     	; 0x2de <DIO_voidSetPortDirection+0x50>
+ 2d0:	08 95       	ret
+				case DIO_PORTA: DDRA = 0x00; break;
+ 2d2:	1a ba       	out	0x1a, r1	; 26
+ 2d4:	08 95       	ret
+				case DIO_PORTB: DDRB = 0x00; break;
+ 2d6:	17 ba       	out	0x17, r1	; 23
+ 2d8:	08 95       	ret
+				case DIO_PORTC: DDRC = 0x00; break;
+ 2da:	14 ba       	out	0x14, r1	; 20
+ 2dc:	08 95       	ret
+				case DIO_PORTD: DDRD = 0x00; break;
+ 2de:	11 ba       	out	0x11, r1	; 17
+ 2e0:	08 95       	ret
+
+000002e2 <DIO_voidSetPortValue>:
+}
+
+/* set the value of a port chosen by the user */
+void DIO_voidSetPortValue(u8 Copy_u8PortNB, u8 Copy_u8PinValue){
+/* input validation */
+	if(Copy_u8PortNB>DIO_PORTD ){
+ 2e2:	84 30       	cpi	r24, 0x04	; 4
+ 2e4:	78 f4       	brcc	.+30     	; 0x304 <DIO_voidSetPortValue+0x22>
+		#warning "You Entered invalid inputs"
+		return;
+	}
+	else{
+		switch(Copy_u8PortNB){
+ 2e6:	81 30       	cpi	r24, 0x01	; 1
+ 2e8:	41 f0       	breq	.+16     	; 0x2fa <DIO_voidSetPortValue+0x18>
+ 2ea:	28 f0       	brcs	.+10     	; 0x2f6 <DIO_voidSetPortValue+0x14>
+ 2ec:	82 30       	cpi	r24, 0x02	; 2
+ 2ee:	39 f0       	breq	.+14     	; 0x2fe <DIO_voidSetPortValue+0x1c>
+ 2f0:	83 30       	cpi	r24, 0x03	; 3
+ 2f2:	39 f0       	breq	.+14     	; 0x302 <DIO_voidSetPortValue+0x20>
+ 2f4:	08 95       	ret
+			case DIO_PORTA: PORTA = Copy_u8PinValue; break;
+ 2f6:	6b bb       	out	0x1b, r22	; 27
+ 2f8:	08 95       	ret
+			case DIO_PORTB: PORTB = Copy_u8PinValue; break;
+ 2fa:	68 bb       	out	0x18, r22	; 24
+ 2fc:	08 95       	ret
+			case DIO_PORTC: PORTC = Copy_u8PinValue; break;
+ 2fe:	65 bb       	out	0x15, r22	; 21
+ 300:	08 95       	ret
+			case DIO_PORTD: PORTD = Copy_u8PinValue; break;
+ 302:	62 bb       	out	0x12, r22	; 18
+ 304:	08 95       	ret
+
+00000306 <UART_voidInit>:
 void UART_voidInit(void){
 	u8  ucsrb, ucsrc;	
 	ucsrb = ucsrb |(1<<TXEN | 1<<RXEN);		//Enable TX and RX.    //we didn't set the interrupts yet
 	ucsrc = ucsrc |(1<<URSEL| 3<<UCSZ);		//select UCSRC and set the character size to 8 bit.
 	
 	UBRRL = 51;		//baudrate 9600 for 8MHz
- 120:	83 e3       	ldi	r24, 0x33	; 51
- 122:	89 b9       	out	0x09, r24	; 9
+ 306:	83 e3       	ldi	r24, 0x33	; 51
+ 308:	89 b9       	out	0x09, r24	; 9
 	
 	UCSRB = ucsrb;	//Enable RX , TX only without interrupts
- 124:	88 e1       	ldi	r24, 0x18	; 24
- 126:	8a b9       	out	0x0a, r24	; 10
+ 30a:	88 e1       	ldi	r24, 0x18	; 24
+ 30c:	8a b9       	out	0x0a, r24	; 10
 	UCSRC = ucsrc;	//8-bit data
- 128:	86 e8       	ldi	r24, 0x86	; 134
- 12a:	80 bd       	out	0x20, r24	; 32
- 12c:	08 95       	ret
+ 30e:	86 e8       	ldi	r24, 0x86	; 134
+ 310:	80 bd       	out	0x20, r24	; 32
+ 312:	08 95       	ret
 
-0000012e <UART_voidSendDataSynch>:
+00000314 <UART_voidSendDataSynch>:
 
 
 //For Polling transmission and reception
 void UART_voidSendDataSynch(u8 Copy_u8Data){
 	
 	while(GET_BIT(UCSRA,UDRE) == 0);	//wait until the Data Registe Embty is set
- 12e:	5d 9b       	sbis	0x0b, 5	; 11
- 130:	fe cf       	rjmp	.-4      	; 0x12e <UART_voidSendDataSynch>
+ 314:	5d 9b       	sbis	0x0b, 5	; 11
+ 316:	fe cf       	rjmp	.-4      	; 0x314 <UART_voidSendDataSynch>
 	UDR = Copy_u8Data;
- 132:	8c b9       	out	0x0c, r24	; 12
+ 318:	8c b9       	out	0x0c, r24	; 12
 	while(GET_BIT(UCSRA,TXC) == 0);	//wait until data is transmitted
- 134:	5e 9b       	sbis	0x0b, 6	; 11
- 136:	fe cf       	rjmp	.-4      	; 0x134 <UART_voidSendDataSynch+0x6>
+ 31a:	5e 9b       	sbis	0x0b, 6	; 11
+ 31c:	fe cf       	rjmp	.-4      	; 0x31a <UART_voidSendDataSynch+0x6>
 	SET_BIT(UCSRA,TXC);	//clear the flag of TX complete
- 138:	5e 9a       	sbi	0x0b, 6	; 11
- 13a:	08 95       	ret
+ 31e:	5e 9a       	sbi	0x0b, 6	; 11
+ 320:	08 95       	ret
 
-0000013c <UART_u8ReceiveDataSynch>:
+00000322 <UART_u8ReceiveDataSynch>:
 }
 
 void UART_u8ReceiveDataSynch(u8 *Copy_pu8Data){
 	while(GET_BIT(UCSRA,RXC)==0);	//wait until there's data to be read in the receive buffer
- 13c:	5f 9b       	sbis	0x0b, 7	; 11
- 13e:	fe cf       	rjmp	.-4      	; 0x13c <UART_u8ReceiveDataSynch>
+ 322:	5f 9b       	sbis	0x0b, 7	; 11
+ 324:	fe cf       	rjmp	.-4      	; 0x322 <UART_u8ReceiveDataSynch>
 	SET_BIT(UCSRA,RXC);				//clear the receive flag 
- 140:	5f 9a       	sbi	0x0b, 7	; 11
+ 326:	5f 9a       	sbi	0x0b, 7	; 11
 	*Copy_pu8Data = UDR;			//send the received character to the addressed variable
- 142:	2c b1       	in	r18, 0x0c	; 12
- 144:	fc 01       	movw	r30, r24
- 146:	20 83       	st	Z, r18
- 148:	08 95       	ret
+ 328:	2c b1       	in	r18, 0x0c	; 12
+ 32a:	fc 01       	movw	r30, r24
+ 32c:	20 83       	st	Z, r18
+ 32e:	08 95       	ret
 
-0000014a <UART_voidSendStringSynch>:
+00000330 <UART_voidSendStringSynch>:
 }
 
 void UART_voidSendStringSynch(u8* Copy_pu8String){
- 14a:	0f 93       	push	r16
- 14c:	1f 93       	push	r17
- 14e:	cf 93       	push	r28
- 150:	fc 01       	movw	r30, r24
+ 330:	0f 93       	push	r16
+ 332:	1f 93       	push	r17
+ 334:	cf 93       	push	r28
+ 336:	fc 01       	movw	r30, r24
 	u8 counter = 0;
 		while(Copy_pu8String[counter] != '\0'){
- 152:	80 81       	ld	r24, Z
- 154:	88 23       	and	r24, r24
- 156:	59 f0       	breq	.+22     	; 0x16e <UART_voidSendStringSynch+0x24>
- 158:	8f 01       	movw	r16, r30
- 15a:	c0 e0       	ldi	r28, 0x00	; 0
+ 338:	80 81       	ld	r24, Z
+ 33a:	88 23       	and	r24, r24
+ 33c:	59 f0       	breq	.+22     	; 0x354 <UART_voidSendStringSynch+0x24>
+ 33e:	8f 01       	movw	r16, r30
+ 340:	c0 e0       	ldi	r28, 0x00	; 0
 			
 			UART_voidSendDataSynch(Copy_pu8String[counter]);
- 15c:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 342:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 			counter++;
- 160:	cf 5f       	subi	r28, 0xFF	; 255
+ 346:	cf 5f       	subi	r28, 0xFF	; 255
 	*Copy_pu8Data = UDR;			//send the received character to the addressed variable
 }
 
 void UART_voidSendStringSynch(u8* Copy_pu8String){
 	u8 counter = 0;
 		while(Copy_pu8String[counter] != '\0'){
- 162:	f8 01       	movw	r30, r16
- 164:	ec 0f       	add	r30, r28
- 166:	f1 1d       	adc	r31, r1
- 168:	80 81       	ld	r24, Z
- 16a:	81 11       	cpse	r24, r1
- 16c:	f7 cf       	rjmp	.-18     	; 0x15c <UART_voidSendStringSynch+0x12>
+ 348:	f8 01       	movw	r30, r16
+ 34a:	ec 0f       	add	r30, r28
+ 34c:	f1 1d       	adc	r31, r1
+ 34e:	80 81       	ld	r24, Z
+ 350:	81 11       	cpse	r24, r1
+ 352:	f7 cf       	rjmp	.-18     	; 0x342 <UART_voidSendStringSynch+0x12>
 			UART_voidSendDataSynch(Copy_pu8String[counter]);
 			counter++;
 		}
 		
 	
 }
- 16e:	cf 91       	pop	r28
- 170:	1f 91       	pop	r17
- 172:	0f 91       	pop	r16
- 174:	08 95       	ret
+ 354:	cf 91       	pop	r28
+ 356:	1f 91       	pop	r17
+ 358:	0f 91       	pop	r16
+ 35a:	08 95       	ret
 
-00000176 <UART_voidSendNumberSynch>:
+0000035c <UART_voidSendNumberSynch>:
 
 void UART_voidSendNumberSynch(u32 Copy_u32Number){
- 176:	0f 93       	push	r16
- 178:	1f 93       	push	r17
- 17a:	cf 93       	push	r28
- 17c:	df 93       	push	r29
- 17e:	fc 01       	movw	r30, r24
+ 35c:	0f 93       	push	r16
+ 35e:	1f 93       	push	r17
+ 360:	cf 93       	push	r28
+ 362:	df 93       	push	r29
+ 364:	fc 01       	movw	r30, r24
 	u8 SentChar;
 	u32 y = 1;
- 180:	c1 e0       	ldi	r28, 0x01	; 1
- 182:	d0 e0       	ldi	r29, 0x00	; 0
+ 366:	c1 e0       	ldi	r28, 0x01	; 1
+ 368:	d0 e0       	ldi	r29, 0x00	; 0
 	
 	while(Copy_u32Number/(10*y) !=0){
- 184:	01 c0       	rjmp	.+2      	; 0x188 <UART_voidSendNumberSynch+0x12>
+ 36a:	01 c0       	rjmp	.+2      	; 0x36e <UART_voidSendNumberSynch+0x12>
 		y*=10;
- 186:	e9 01       	movw	r28, r18
+ 36c:	e9 01       	movw	r28, r18
 
 void UART_voidSendNumberSynch(u32 Copy_u32Number){
 	u8 SentChar;
 	u32 y = 1;
 	
 	while(Copy_u32Number/(10*y) !=0){
- 188:	ce 01       	movw	r24, r28
- 18a:	88 0f       	add	r24, r24
- 18c:	99 1f       	adc	r25, r25
- 18e:	88 0f       	add	r24, r24
- 190:	99 1f       	adc	r25, r25
- 192:	88 0f       	add	r24, r24
- 194:	99 1f       	adc	r25, r25
- 196:	9e 01       	movw	r18, r28
- 198:	22 0f       	add	r18, r18
- 19a:	33 1f       	adc	r19, r19
- 19c:	28 0f       	add	r18, r24
- 19e:	39 1f       	adc	r19, r25
- 1a0:	cf 01       	movw	r24, r30
- 1a2:	b9 01       	movw	r22, r18
- 1a4:	0e 94 3d 03 	call	0x67a	; 0x67a <__udivmodhi4>
- 1a8:	67 2b       	or	r22, r23
- 1aa:	69 f7       	brne	.-38     	; 0x186 <UART_voidSendNumberSynch+0x10>
+ 36e:	ce 01       	movw	r24, r28
+ 370:	88 0f       	add	r24, r24
+ 372:	99 1f       	adc	r25, r25
+ 374:	88 0f       	add	r24, r24
+ 376:	99 1f       	adc	r25, r25
+ 378:	88 0f       	add	r24, r24
+ 37a:	99 1f       	adc	r25, r25
+ 37c:	9e 01       	movw	r18, r28
+ 37e:	22 0f       	add	r18, r18
+ 380:	33 1f       	adc	r19, r19
+ 382:	28 0f       	add	r18, r24
+ 384:	39 1f       	adc	r19, r25
+ 386:	cf 01       	movw	r24, r30
+ 388:	b9 01       	movw	r22, r18
+ 38a:	0e 94 97 04 	call	0x92e	; 0x92e <__udivmodhi4>
+ 38e:	67 2b       	or	r22, r23
+ 390:	69 f7       	brne	.-38     	; 0x36c <UART_voidSendNumberSynch+0x10>
 		y*=10;
 	}
 	while(Copy_u32Number !=0){
- 1ac:	30 97       	sbiw	r30, 0x00	; 0
- 1ae:	d1 f0       	breq	.+52     	; 0x1e4 <UART_voidSendNumberSynch+0x6e>
+ 392:	30 97       	sbiw	r30, 0x00	; 0
+ 394:	d1 f0       	breq	.+52     	; 0x3ca <UART_voidSendNumberSynch+0x6e>
 		SentChar = (Copy_u32Number/y)+'0';
 		UART_voidSendDataSynch(SentChar);
- 1b0:	cf 01       	movw	r24, r30
- 1b2:	be 01       	movw	r22, r28
- 1b4:	0e 94 3d 03 	call	0x67a	; 0x67a <__udivmodhi4>
- 1b8:	08 2f       	mov	r16, r24
- 1ba:	19 2f       	mov	r17, r25
- 1bc:	80 e3       	ldi	r24, 0x30	; 48
- 1be:	86 0f       	add	r24, r22
- 1c0:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 396:	cf 01       	movw	r24, r30
+ 398:	be 01       	movw	r22, r28
+ 39a:	0e 94 97 04 	call	0x92e	; 0x92e <__udivmodhi4>
+ 39e:	08 2f       	mov	r16, r24
+ 3a0:	19 2f       	mov	r17, r25
+ 3a2:	80 e3       	ldi	r24, 0x30	; 48
+ 3a4:	86 0f       	add	r24, r22
+ 3a6:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 		Copy_u32Number %=y;
- 1c4:	e0 2f       	mov	r30, r16
- 1c6:	f1 2f       	mov	r31, r17
+ 3aa:	e0 2f       	mov	r30, r16
+ 3ac:	f1 2f       	mov	r31, r17
 		y/=10;
- 1c8:	9e 01       	movw	r18, r28
- 1ca:	ad ec       	ldi	r26, 0xCD	; 205
- 1cc:	bc ec       	ldi	r27, 0xCC	; 204
- 1ce:	0e 94 51 03 	call	0x6a2	; 0x6a2 <__umulhisi3>
- 1d2:	ec 01       	movw	r28, r24
- 1d4:	d6 95       	lsr	r29
- 1d6:	c7 95       	ror	r28
- 1d8:	d6 95       	lsr	r29
- 1da:	c7 95       	ror	r28
- 1dc:	d6 95       	lsr	r29
- 1de:	c7 95       	ror	r28
+ 3ae:	9e 01       	movw	r18, r28
+ 3b0:	ad ec       	ldi	r26, 0xCD	; 205
+ 3b2:	bc ec       	ldi	r27, 0xCC	; 204
+ 3b4:	0e 94 ab 04 	call	0x956	; 0x956 <__umulhisi3>
+ 3b8:	ec 01       	movw	r28, r24
+ 3ba:	d6 95       	lsr	r29
+ 3bc:	c7 95       	ror	r28
+ 3be:	d6 95       	lsr	r29
+ 3c0:	c7 95       	ror	r28
+ 3c2:	d6 95       	lsr	r29
+ 3c4:	c7 95       	ror	r28
 	u32 y = 1;
 	
 	while(Copy_u32Number/(10*y) !=0){
 		y*=10;
 	}
 	while(Copy_u32Number !=0){
- 1e0:	30 97       	sbiw	r30, 0x00	; 0
- 1e2:	31 f7       	brne	.-52     	; 0x1b0 <UART_voidSendNumberSynch+0x3a>
+ 3c6:	30 97       	sbiw	r30, 0x00	; 0
+ 3c8:	31 f7       	brne	.-52     	; 0x396 <UART_voidSendNumberSynch+0x3a>
 		SentChar = (Copy_u32Number/y)+'0';
 		UART_voidSendDataSynch(SentChar);
 		Copy_u32Number %=y;
 		y/=10;
 	}
 }
- 1e4:	df 91       	pop	r29
- 1e6:	cf 91       	pop	r28
- 1e8:	1f 91       	pop	r17
- 1ea:	0f 91       	pop	r16
- 1ec:	08 95       	ret
+ 3ca:	df 91       	pop	r29
+ 3cc:	cf 91       	pop	r28
+ 3ce:	1f 91       	pop	r17
+ 3d0:	0f 91       	pop	r16
+ 3d2:	08 95       	ret
 
-000001ee <UART_voidReceiveStringSynch>:
+000003d4 <UART_voidReceiveStringSynch>:
 
 void UART_voidReceiveStringSynch(u8* Copy_pu8Data , u8 BufferSize){
- 1ee:	cf 92       	push	r12
- 1f0:	df 92       	push	r13
- 1f2:	ef 92       	push	r14
- 1f4:	ff 92       	push	r15
- 1f6:	1f 93       	push	r17
- 1f8:	cf 93       	push	r28
- 1fa:	df 93       	push	r29
- 1fc:	6c 01       	movw	r12, r24
+ 3d4:	cf 92       	push	r12
+ 3d6:	df 92       	push	r13
+ 3d8:	ef 92       	push	r14
+ 3da:	ff 92       	push	r15
+ 3dc:	1f 93       	push	r17
+ 3de:	cf 93       	push	r28
+ 3e0:	df 93       	push	r29
+ 3e2:	6c 01       	movw	r12, r24
 	
 	u8 counter = -1;
- 1fe:	1f ef       	ldi	r17, 0xFF	; 255
+ 3e4:	1f ef       	ldi	r17, 0xFF	; 255
 	do{
 		counter++;
 		UART_u8ReceiveDataSynch(Copy_pu8Data+counter);
 		UART_voidSendDataSynch(Copy_pu8Data[counter]);
 	}while(Copy_pu8Data[counter] != '+' && counter < BufferSize-1 );				//loop until Enter is pressed and is less than the last element of the buffer
- 200:	e6 2e       	mov	r14, r22
- 202:	f1 2c       	mov	r15, r1
- 204:	81 e0       	ldi	r24, 0x01	; 1
- 206:	e8 1a       	sub	r14, r24
- 208:	f1 08       	sbc	r15, r1
+ 3e6:	e6 2e       	mov	r14, r22
+ 3e8:	f1 2c       	mov	r15, r1
+ 3ea:	81 e0       	ldi	r24, 0x01	; 1
+ 3ec:	e8 1a       	sub	r14, r24
+ 3ee:	f1 08       	sbc	r15, r1
 
 void UART_voidReceiveStringSynch(u8* Copy_pu8Data , u8 BufferSize){
 	
 	u8 counter = -1;
 	do{
 		counter++;
- 20a:	1f 5f       	subi	r17, 0xFF	; 255
+ 3f0:	1f 5f       	subi	r17, 0xFF	; 255
 		UART_u8ReceiveDataSynch(Copy_pu8Data+counter);
- 20c:	e6 01       	movw	r28, r12
- 20e:	c1 0f       	add	r28, r17
- 210:	d1 1d       	adc	r29, r1
- 212:	ce 01       	movw	r24, r28
- 214:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
+ 3f2:	e6 01       	movw	r28, r12
+ 3f4:	c1 0f       	add	r28, r17
+ 3f6:	d1 1d       	adc	r29, r1
+ 3f8:	ce 01       	movw	r24, r28
+ 3fa:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
 		UART_voidSendDataSynch(Copy_pu8Data[counter]);
- 218:	88 81       	ld	r24, Y
- 21a:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 3fe:	88 81       	ld	r24, Y
+ 400:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 	}while(Copy_pu8Data[counter] != '+' && counter < BufferSize-1 );				//loop until Enter is pressed and is less than the last element of the buffer
- 21e:	88 81       	ld	r24, Y
- 220:	8b 32       	cpi	r24, 0x2B	; 43
- 222:	29 f0       	breq	.+10     	; 0x22e <UART_voidReceiveStringSynch+0x40>
- 224:	81 2f       	mov	r24, r17
- 226:	90 e0       	ldi	r25, 0x00	; 0
- 228:	8e 15       	cp	r24, r14
- 22a:	9f 05       	cpc	r25, r15
- 22c:	74 f3       	brlt	.-36     	; 0x20a <UART_voidReceiveStringSynch+0x1c>
+ 404:	88 81       	ld	r24, Y
+ 406:	8b 32       	cpi	r24, 0x2B	; 43
+ 408:	29 f0       	breq	.+10     	; 0x414 <__LOCK_REGION_LENGTH__+0x14>
+ 40a:	81 2f       	mov	r24, r17
+ 40c:	90 e0       	ldi	r25, 0x00	; 0
+ 40e:	8e 15       	cp	r24, r14
+ 410:	9f 05       	cpc	r25, r15
+ 412:	74 f3       	brlt	.-36     	; 0x3f0 <UART_voidReceiveStringSynch+0x1c>
 	Copy_pu8Data[counter] = '\0';			//put the null character at the last element of the buffer
- 22e:	18 82       	st	Y, r1
+ 414:	18 82       	st	Y, r1
 }
- 230:	df 91       	pop	r29
- 232:	cf 91       	pop	r28
- 234:	1f 91       	pop	r17
- 236:	ff 90       	pop	r15
- 238:	ef 90       	pop	r14
- 23a:	df 90       	pop	r13
- 23c:	cf 90       	pop	r12
- 23e:	08 95       	ret
+ 416:	df 91       	pop	r29
+ 418:	cf 91       	pop	r28
+ 41a:	1f 91       	pop	r17
+ 41c:	ff 90       	pop	r15
+ 41e:	ef 90       	pop	r14
+ 420:	df 90       	pop	r13
+ 422:	cf 90       	pop	r12
+ 424:	08 95       	ret
 
-00000240 <UART_voidReceiveNumberSynch>:
+00000426 <UART_voidReceiveNumberSynch>:
 
 void UART_voidReceiveNumberSynch(u32 *Copy_pu32Number){
- 240:	5f 92       	push	r5
- 242:	6f 92       	push	r6
- 244:	7f 92       	push	r7
- 246:	8f 92       	push	r8
- 248:	9f 92       	push	r9
- 24a:	af 92       	push	r10
- 24c:	bf 92       	push	r11
- 24e:	cf 92       	push	r12
- 250:	df 92       	push	r13
- 252:	ef 92       	push	r14
- 254:	ff 92       	push	r15
- 256:	0f 93       	push	r16
- 258:	1f 93       	push	r17
- 25a:	cf 93       	push	r28
- 25c:	df 93       	push	r29
- 25e:	cd b7       	in	r28, 0x3d	; 61
- 260:	de b7       	in	r29, 0x3e	; 62
- 262:	2a 97       	sbiw	r28, 0x0a	; 10
- 264:	0f b6       	in	r0, 0x3f	; 63
- 266:	f8 94       	cli
- 268:	de bf       	out	0x3e, r29	; 62
- 26a:	0f be       	out	0x3f, r0	; 63
- 26c:	cd bf       	out	0x3d, r28	; 61
- 26e:	3c 01       	movw	r6, r24
- 270:	ae 01       	movw	r20, r28
- 272:	4f 5f       	subi	r20, 0xFF	; 255
- 274:	5f 4f       	sbci	r21, 0xFF	; 255
- 276:	7a 01       	movw	r14, r20
- 278:	6a 01       	movw	r12, r20
- 27a:	00 e0       	ldi	r16, 0x00	; 0
- 27c:	10 e0       	ldi	r17, 0x00	; 0
+ 426:	5f 92       	push	r5
+ 428:	6f 92       	push	r6
+ 42a:	7f 92       	push	r7
+ 42c:	8f 92       	push	r8
+ 42e:	9f 92       	push	r9
+ 430:	af 92       	push	r10
+ 432:	bf 92       	push	r11
+ 434:	cf 92       	push	r12
+ 436:	df 92       	push	r13
+ 438:	ef 92       	push	r14
+ 43a:	ff 92       	push	r15
+ 43c:	0f 93       	push	r16
+ 43e:	1f 93       	push	r17
+ 440:	cf 93       	push	r28
+ 442:	df 93       	push	r29
+ 444:	cd b7       	in	r28, 0x3d	; 61
+ 446:	de b7       	in	r29, 0x3e	; 62
+ 448:	2a 97       	sbiw	r28, 0x0a	; 10
+ 44a:	0f b6       	in	r0, 0x3f	; 63
+ 44c:	f8 94       	cli
+ 44e:	de bf       	out	0x3e, r29	; 62
+ 450:	0f be       	out	0x3f, r0	; 63
+ 452:	cd bf       	out	0x3d, r28	; 61
+ 454:	3c 01       	movw	r6, r24
+ 456:	ae 01       	movw	r20, r28
+ 458:	4f 5f       	subi	r20, 0xFF	; 255
+ 45a:	5f 4f       	sbci	r21, 0xFF	; 255
+ 45c:	7a 01       	movw	r14, r20
+ 45e:	6a 01       	movw	r12, r20
+ 460:	00 e0       	ldi	r16, 0x00	; 0
+ 462:	10 e0       	ldi	r17, 0x00	; 0
 	u8 counter = 0;
 	u32 number = 0;
 	u32 decimal = 1;
 	u8 temp;
 	do{		//receive the number and put it into a buffer
 		numlen++;
- 27e:	50 2e       	mov	r5, r16
+ 464:	50 2e       	mov	r5, r16
 		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
- 280:	58 01       	movw	r10, r16
- 282:	46 01       	movw	r8, r12
- 284:	c6 01       	movw	r24, r12
- 286:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
+ 466:	58 01       	movw	r10, r16
+ 468:	46 01       	movw	r8, r12
+ 46a:	c6 01       	movw	r24, r12
+ 46c:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
 		UART_voidSendDataSynch(Buffer[numlen]);
- 28a:	d6 01       	movw	r26, r12
- 28c:	8d 91       	ld	r24, X+
- 28e:	6d 01       	movw	r12, r26
- 290:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 470:	d6 01       	movw	r26, r12
+ 472:	8d 91       	ld	r24, X+
+ 474:	6d 01       	movw	r12, r26
+ 476:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 		
 	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
- 294:	f4 01       	movw	r30, r8
- 296:	80 81       	ld	r24, Z
- 298:	8b 32       	cpi	r24, 0x2B	; 43
- 29a:	09 f4       	brne	.+2      	; 0x29e <UART_voidReceiveNumberSynch+0x5e>
- 29c:	47 c0       	rjmp	.+142    	; 0x32c <UART_voidReceiveNumberSynch+0xec>
- 29e:	0f 5f       	subi	r16, 0xFF	; 255
- 2a0:	1f 4f       	sbci	r17, 0xFF	; 255
- 2a2:	0b 30       	cpi	r16, 0x0B	; 11
- 2a4:	11 05       	cpc	r17, r1
- 2a6:	59 f7       	brne	.-42     	; 0x27e <UART_voidReceiveNumberSynch+0x3e>
- 2a8:	41 c0       	rjmp	.+130    	; 0x32c <UART_voidReceiveNumberSynch+0xec>
+ 47a:	f4 01       	movw	r30, r8
+ 47c:	80 81       	ld	r24, Z
+ 47e:	8b 32       	cpi	r24, 0x2B	; 43
+ 480:	09 f4       	brne	.+2      	; 0x484 <UART_voidReceiveNumberSynch+0x5e>
+ 482:	47 c0       	rjmp	.+142    	; 0x512 <UART_voidReceiveNumberSynch+0xec>
+ 484:	0f 5f       	subi	r16, 0xFF	; 255
+ 486:	1f 4f       	sbci	r17, 0xFF	; 255
+ 488:	0b 30       	cpi	r16, 0x0B	; 11
+ 48a:	11 05       	cpc	r17, r1
+ 48c:	59 f7       	brne	.-42     	; 0x464 <UART_voidReceiveNumberSynch+0x3e>
+ 48e:	41 c0       	rjmp	.+130    	; 0x512 <UART_voidReceiveNumberSynch+0xec>
 	
 	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
 		temp = Buffer[numlen - counter-1];
- 2aa:	a8 2f       	mov	r26, r24
- 2ac:	b0 e0       	ldi	r27, 0x00	; 0
- 2ae:	f5 01       	movw	r30, r10
- 2b0:	ea 1b       	sub	r30, r26
- 2b2:	fb 0b       	sbc	r31, r27
- 2b4:	31 97       	sbiw	r30, 0x01	; 1
- 2b6:	41 e0       	ldi	r20, 0x01	; 1
- 2b8:	50 e0       	ldi	r21, 0x00	; 0
- 2ba:	4c 0f       	add	r20, r28
- 2bc:	5d 1f       	adc	r21, r29
- 2be:	e4 0f       	add	r30, r20
- 2c0:	f5 1f       	adc	r31, r21
- 2c2:	90 81       	ld	r25, Z
+ 490:	a8 2f       	mov	r26, r24
+ 492:	b0 e0       	ldi	r27, 0x00	; 0
+ 494:	f5 01       	movw	r30, r10
+ 496:	ea 1b       	sub	r30, r26
+ 498:	fb 0b       	sbc	r31, r27
+ 49a:	31 97       	sbiw	r30, 0x01	; 1
+ 49c:	41 e0       	ldi	r20, 0x01	; 1
+ 49e:	50 e0       	ldi	r21, 0x00	; 0
+ 4a0:	4c 0f       	add	r20, r28
+ 4a2:	5d 1f       	adc	r21, r29
+ 4a4:	e4 0f       	add	r30, r20
+ 4a6:	f5 1f       	adc	r31, r21
+ 4a8:	90 81       	ld	r25, Z
 		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
- 2c4:	a4 0f       	add	r26, r20
- 2c6:	b5 1f       	adc	r27, r21
- 2c8:	2c 91       	ld	r18, X
- 2ca:	20 53       	subi	r18, 0x30	; 48
- 2cc:	20 83       	st	Z, r18
+ 4aa:	a4 0f       	add	r26, r20
+ 4ac:	b5 1f       	adc	r27, r21
+ 4ae:	2c 91       	ld	r18, X
+ 4b0:	20 53       	subi	r18, 0x30	; 48
+ 4b2:	20 83       	st	Z, r18
 		Buffer[counter] = temp - '0';
- 2ce:	90 53       	subi	r25, 0x30	; 48
- 2d0:	9c 93       	st	X, r25
+ 4b4:	90 53       	subi	r25, 0x30	; 48
+ 4b6:	9c 93       	st	X, r25
 		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
 		UART_voidSendDataSynch(Buffer[numlen]);
 		
 	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
 	
 	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
- 2d2:	8f 5f       	subi	r24, 0xFF	; 255
- 2d4:	38 17       	cp	r19, r24
- 2d6:	48 f7       	brcc	.-46     	; 0x2aa <UART_voidReceiveNumberSynch+0x6a>
-		temp = Buffer[numlen - counter-1];
-		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
-		Buffer[counter] = temp - '0';
-		
-	}
-	for(counter = 0; counter<numlen; counter++){
- 2d8:	55 20       	and	r5, r5
- 2da:	11 f1       	breq	.+68     	; 0x320 <UART_voidReceiveNumberSynch+0xe0>
- 2dc:	5a 94       	dec	r5
- 2de:	fe 01       	movw	r30, r28
- 2e0:	e5 0d       	add	r30, r5
- 2e2:	f1 1d       	adc	r31, r1
- 2e4:	32 96       	adiw	r30, 0x02	; 2
- 2e6:	81 e0       	ldi	r24, 0x01	; 1
- 2e8:	90 e0       	ldi	r25, 0x00	; 0
- 2ea:	20 e0       	ldi	r18, 0x00	; 0
- 2ec:	30 e0       	ldi	r19, 0x00	; 0
-		number = number + Buffer[counter]*decimal;
- 2ee:	d7 01       	movw	r26, r14
- 2f0:	6d 91       	ld	r22, X+
- 2f2:	7d 01       	movw	r14, r26
- 2f4:	68 9f       	mul	r22, r24
- 2f6:	a0 01       	movw	r20, r0
- 2f8:	69 9f       	mul	r22, r25
- 2fa:	50 0d       	add	r21, r0
- 2fc:	11 24       	eor	r1, r1
- 2fe:	24 0f       	add	r18, r20
- 300:	35 1f       	adc	r19, r21
-		decimal *= 10;
- 302:	ac 01       	movw	r20, r24
- 304:	44 0f       	add	r20, r20
- 306:	55 1f       	adc	r21, r21
- 308:	88 0f       	add	r24, r24
- 30a:	99 1f       	adc	r25, r25
- 30c:	88 0f       	add	r24, r24
- 30e:	99 1f       	adc	r25, r25
- 310:	88 0f       	add	r24, r24
- 312:	99 1f       	adc	r25, r25
- 314:	84 0f       	add	r24, r20
- 316:	95 1f       	adc	r25, r21
+ 4b8:	8f 5f       	subi	r24, 0xFF	; 255
+ 4ba:	38 17       	cp	r19, r24
+ 4bc:	48 f7       	brcc	.-46     	; 0x490 <UART_voidReceiveNumberSynch+0x6a>
 		temp = Buffer[numlen - counter-1];
 		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
 		Buffer[counter] = temp - '0';
 		
 	}
 	for(counter = 0; counter<numlen; counter++){
- 318:	ae 17       	cp	r26, r30
- 31a:	bf 07       	cpc	r27, r31
- 31c:	41 f7       	brne	.-48     	; 0x2ee <UART_voidReceiveNumberSynch+0xae>
- 31e:	02 c0       	rjmp	.+4      	; 0x324 <UART_voidReceiveNumberSynch+0xe4>
- 320:	20 e0       	ldi	r18, 0x00	; 0
- 322:	30 e0       	ldi	r19, 0x00	; 0
+ 4be:	55 20       	and	r5, r5
+ 4c0:	11 f1       	breq	.+68     	; 0x506 <UART_voidReceiveNumberSynch+0xe0>
+ 4c2:	5a 94       	dec	r5
+ 4c4:	fe 01       	movw	r30, r28
+ 4c6:	e5 0d       	add	r30, r5
+ 4c8:	f1 1d       	adc	r31, r1
+ 4ca:	32 96       	adiw	r30, 0x02	; 2
+ 4cc:	81 e0       	ldi	r24, 0x01	; 1
+ 4ce:	90 e0       	ldi	r25, 0x00	; 0
+ 4d0:	20 e0       	ldi	r18, 0x00	; 0
+ 4d2:	30 e0       	ldi	r19, 0x00	; 0
+		number = number + Buffer[counter]*decimal;
+ 4d4:	d7 01       	movw	r26, r14
+ 4d6:	6d 91       	ld	r22, X+
+ 4d8:	7d 01       	movw	r14, r26
+ 4da:	68 9f       	mul	r22, r24
+ 4dc:	a0 01       	movw	r20, r0
+ 4de:	69 9f       	mul	r22, r25
+ 4e0:	50 0d       	add	r21, r0
+ 4e2:	11 24       	eor	r1, r1
+ 4e4:	24 0f       	add	r18, r20
+ 4e6:	35 1f       	adc	r19, r21
+		decimal *= 10;
+ 4e8:	ac 01       	movw	r20, r24
+ 4ea:	44 0f       	add	r20, r20
+ 4ec:	55 1f       	adc	r21, r21
+ 4ee:	88 0f       	add	r24, r24
+ 4f0:	99 1f       	adc	r25, r25
+ 4f2:	88 0f       	add	r24, r24
+ 4f4:	99 1f       	adc	r25, r25
+ 4f6:	88 0f       	add	r24, r24
+ 4f8:	99 1f       	adc	r25, r25
+ 4fa:	84 0f       	add	r24, r20
+ 4fc:	95 1f       	adc	r25, r21
+		temp = Buffer[numlen - counter-1];
+		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
+		Buffer[counter] = temp - '0';
+		
+	}
+	for(counter = 0; counter<numlen; counter++){
+ 4fe:	ae 17       	cp	r26, r30
+ 500:	bf 07       	cpc	r27, r31
+ 502:	41 f7       	brne	.-48     	; 0x4d4 <UART_voidReceiveNumberSynch+0xae>
+ 504:	02 c0       	rjmp	.+4      	; 0x50a <UART_voidReceiveNumberSynch+0xe4>
+ 506:	20 e0       	ldi	r18, 0x00	; 0
+ 508:	30 e0       	ldi	r19, 0x00	; 0
 		number = number + Buffer[counter]*decimal;
 		decimal *= 10;
 		//UART_voidSendNumberSynch(number);	
 	}
 	
 	*Copy_pu32Number = number;
- 324:	f3 01       	movw	r30, r6
- 326:	31 83       	std	Z+1, r19	; 0x01
- 328:	20 83       	st	Z, r18
+ 50a:	f3 01       	movw	r30, r6
+ 50c:	31 83       	std	Z+1, r19	; 0x01
+ 50e:	20 83       	st	Z, r18
 	
 }
- 32a:	04 c0       	rjmp	.+8      	; 0x334 <UART_voidReceiveNumberSynch+0xf4>
+ 510:	04 c0       	rjmp	.+8      	; 0x51a <UART_voidReceiveNumberSynch+0xf4>
 		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
 		UART_voidSendDataSynch(Buffer[numlen]);
 		
 	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
 	
 	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
- 32c:	35 2d       	mov	r19, r5
- 32e:	36 95       	lsr	r19
- 330:	80 e0       	ldi	r24, 0x00	; 0
- 332:	bb cf       	rjmp	.-138    	; 0x2aa <UART_voidReceiveNumberSynch+0x6a>
+ 512:	35 2d       	mov	r19, r5
+ 514:	36 95       	lsr	r19
+ 516:	80 e0       	ldi	r24, 0x00	; 0
+ 518:	bb cf       	rjmp	.-138    	; 0x490 <UART_voidReceiveNumberSynch+0x6a>
 		//UART_voidSendNumberSynch(number);	
 	}
 	
 	*Copy_pu32Number = number;
 	
 }
- 334:	2a 96       	adiw	r28, 0x0a	; 10
- 336:	0f b6       	in	r0, 0x3f	; 63
- 338:	f8 94       	cli
- 33a:	de bf       	out	0x3e, r29	; 62
- 33c:	0f be       	out	0x3f, r0	; 63
- 33e:	cd bf       	out	0x3d, r28	; 61
- 340:	df 91       	pop	r29
- 342:	cf 91       	pop	r28
- 344:	1f 91       	pop	r17
- 346:	0f 91       	pop	r16
- 348:	ff 90       	pop	r15
- 34a:	ef 90       	pop	r14
- 34c:	df 90       	pop	r13
- 34e:	cf 90       	pop	r12
- 350:	bf 90       	pop	r11
- 352:	af 90       	pop	r10
- 354:	9f 90       	pop	r9
- 356:	8f 90       	pop	r8
- 358:	7f 90       	pop	r7
- 35a:	6f 90       	pop	r6
- 35c:	5f 90       	pop	r5
- 35e:	08 95       	ret
+ 51a:	2a 96       	adiw	r28, 0x0a	; 10
+ 51c:	0f b6       	in	r0, 0x3f	; 63
+ 51e:	f8 94       	cli
+ 520:	de bf       	out	0x3e, r29	; 62
+ 522:	0f be       	out	0x3f, r0	; 63
+ 524:	cd bf       	out	0x3d, r28	; 61
+ 526:	df 91       	pop	r29
+ 528:	cf 91       	pop	r28
+ 52a:	1f 91       	pop	r17
+ 52c:	0f 91       	pop	r16
+ 52e:	ff 90       	pop	r15
+ 530:	ef 90       	pop	r14
+ 532:	df 90       	pop	r13
+ 534:	cf 90       	pop	r12
+ 536:	bf 90       	pop	r11
+ 538:	af 90       	pop	r10
+ 53a:	9f 90       	pop	r9
+ 53c:	8f 90       	pop	r8
+ 53e:	7f 90       	pop	r7
+ 540:	6f 90       	pop	r6
+ 542:	5f 90       	pop	r5
+ 544:	08 95       	ret
 
-00000360 <new>:
+00000546 <new>:
 extern u8 counter = 0;
 extern u8 lock = 0;
 void new(void){
 	//UART_voidSendDataSynch('\n');
 	
 	Buffer[counter] = users[counter].name;
- 360:	80 91 13 02 	lds	r24, 0x0213	; 0x800213 <counter>
- 364:	90 e0       	ldi	r25, 0x00	; 0
- 366:	9c 01       	movw	r18, r24
- 368:	22 0f       	add	r18, r18
- 36a:	33 1f       	adc	r19, r19
- 36c:	f9 01       	movw	r30, r18
- 36e:	e0 56       	subi	r30, 0x60	; 96
- 370:	fd 4f       	sbci	r31, 0xFD	; 253
- 372:	82 0f       	add	r24, r18
- 374:	93 1f       	adc	r25, r19
- 376:	88 0f       	add	r24, r24
- 378:	99 1f       	adc	r25, r25
- 37a:	88 0f       	add	r24, r24
- 37c:	99 1f       	adc	r25, r25
- 37e:	8c 5e       	subi	r24, 0xEC	; 236
- 380:	9d 4f       	sbci	r25, 0xFD	; 253
- 382:	91 83       	std	Z+1, r25	; 0x01
- 384:	80 83       	st	Z, r24
+ 546:	80 91 7d 02 	lds	r24, 0x027D	; 0x80027d <counter>
+ 54a:	90 e0       	ldi	r25, 0x00	; 0
+ 54c:	9c 01       	movw	r18, r24
+ 54e:	22 0f       	add	r18, r18
+ 550:	33 1f       	adc	r19, r19
+ 552:	f9 01       	movw	r30, r18
+ 554:	e6 5f       	subi	r30, 0xF6	; 246
+ 556:	fc 4f       	sbci	r31, 0xFC	; 252
+ 558:	82 0f       	add	r24, r18
+ 55a:	93 1f       	adc	r25, r19
+ 55c:	88 0f       	add	r24, r24
+ 55e:	99 1f       	adc	r25, r25
+ 560:	88 0f       	add	r24, r24
+ 562:	99 1f       	adc	r25, r25
+ 564:	82 58       	subi	r24, 0x82	; 130
+ 566:	9d 4f       	sbci	r25, 0xFD	; 253
+ 568:	91 83       	std	Z+1, r25	; 0x01
+ 56a:	80 83       	st	Z, r24
 	UART_voidSendStringSynch("Enter Your User Name: ");
- 386:	86 ec       	ldi	r24, 0xC6	; 198
- 388:	90 e0       	ldi	r25, 0x00	; 0
- 38a:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 56c:	86 ec       	ldi	r24, 0xC6	; 198
+ 56e:	90 e0       	ldi	r25, 0x00	; 0
+ 570:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_voidReceiveStringSynch(*(Buffer+counter), MAX_NAME_SIZE);
- 38e:	e0 91 13 02 	lds	r30, 0x0213	; 0x800213 <counter>
- 392:	f0 e0       	ldi	r31, 0x00	; 0
- 394:	ee 0f       	add	r30, r30
- 396:	ff 1f       	adc	r31, r31
- 398:	e0 56       	subi	r30, 0x60	; 96
- 39a:	fd 4f       	sbci	r31, 0xFD	; 253
- 39c:	64 e1       	ldi	r22, 0x14	; 20
- 39e:	80 81       	ld	r24, Z
- 3a0:	91 81       	ldd	r25, Z+1	; 0x01
- 3a2:	0e 94 f7 00 	call	0x1ee	; 0x1ee <UART_voidReceiveStringSynch>
+ 574:	e0 91 7d 02 	lds	r30, 0x027D	; 0x80027d <counter>
+ 578:	f0 e0       	ldi	r31, 0x00	; 0
+ 57a:	ee 0f       	add	r30, r30
+ 57c:	ff 1f       	adc	r31, r31
+ 57e:	e6 5f       	subi	r30, 0xF6	; 246
+ 580:	fc 4f       	sbci	r31, 0xFC	; 252
+ 582:	64 e1       	ldi	r22, 0x14	; 20
+ 584:	80 81       	ld	r24, Z
+ 586:	91 81       	ldd	r25, Z+1	; 0x01
+ 588:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <UART_voidReceiveStringSynch>
 	UART_voidSendDataSynch(' ');
- 3a6:	80 e2       	ldi	r24, 0x20	; 32
- 3a8:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 58c:	80 e2       	ldi	r24, 0x20	; 32
+ 58e:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 	
 	UART_voidSendStringSynch("Enter Your Password: ");
- 3ac:	8d ed       	ldi	r24, 0xDD	; 221
- 3ae:	90 e0       	ldi	r25, 0x00	; 0
- 3b0:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 592:	8d ed       	ldi	r24, 0xDD	; 221
+ 594:	90 e0       	ldi	r25, 0x00	; 0
+ 596:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_voidReceiveNumberSynch(pass+counter);
- 3b4:	80 91 13 02 	lds	r24, 0x0213	; 0x800213 <counter>
- 3b8:	90 e0       	ldi	r25, 0x00	; 0
- 3ba:	88 0f       	add	r24, r24
- 3bc:	99 1f       	adc	r25, r25
- 3be:	84 57       	subi	r24, 0x74	; 116
- 3c0:	9d 4f       	sbci	r25, 0xFD	; 253
- 3c2:	0e 94 20 01 	call	0x240	; 0x240 <UART_voidReceiveNumberSynch>
+ 59a:	80 91 7d 02 	lds	r24, 0x027D	; 0x80027d <counter>
+ 59e:	90 e0       	ldi	r25, 0x00	; 0
+ 5a0:	88 0f       	add	r24, r24
+ 5a2:	99 1f       	adc	r25, r25
+ 5a4:	8a 50       	subi	r24, 0x0A	; 10
+ 5a6:	9d 4f       	sbci	r25, 0xFD	; 253
+ 5a8:	0e 94 13 02 	call	0x426	; 0x426 <UART_voidReceiveNumberSynch>
 	users[counter].password = pass[counter];
- 3c6:	80 91 13 02 	lds	r24, 0x0213	; 0x800213 <counter>
- 3ca:	90 e0       	ldi	r25, 0x00	; 0
- 3cc:	9c 01       	movw	r18, r24
- 3ce:	22 0f       	add	r18, r18
- 3d0:	33 1f       	adc	r19, r19
- 3d2:	f9 01       	movw	r30, r18
- 3d4:	e8 0f       	add	r30, r24
- 3d6:	f9 1f       	adc	r31, r25
- 3d8:	ee 0f       	add	r30, r30
- 3da:	ff 1f       	adc	r31, r31
- 3dc:	ee 0f       	add	r30, r30
- 3de:	ff 1f       	adc	r31, r31
- 3e0:	ec 5e       	subi	r30, 0xEC	; 236
- 3e2:	fd 4f       	sbci	r31, 0xFD	; 253
- 3e4:	d9 01       	movw	r26, r18
- 3e6:	a4 57       	subi	r26, 0x74	; 116
- 3e8:	bd 4f       	sbci	r27, 0xFD	; 253
- 3ea:	8d 91       	ld	r24, X+
- 3ec:	9c 91       	ld	r25, X
- 3ee:	93 87       	std	Z+11, r25	; 0x0b
- 3f0:	82 87       	std	Z+10, r24	; 0x0a
-	UART_voidSendDataSynch(' ');
- 3f2:	80 e2       	ldi	r24, 0x20	; 32
- 3f4:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-	
-	UART_voidSendStringSynch("Your ID is ");
- 3f8:	83 ef       	ldi	r24, 0xF3	; 243
- 3fa:	90 e0       	ldi	r25, 0x00	; 0
- 3fc:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-	UART_voidSendDataSynch(counter + '0');
- 400:	80 91 13 02 	lds	r24, 0x0213	; 0x800213 <counter>
- 404:	80 5d       	subi	r24, 0xD0	; 208
- 406:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-	UART_voidSendDataSynch(' ');
- 40a:	80 e2       	ldi	r24, 0x20	; 32
- 40c:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-	
-	counter++;
- 410:	80 91 13 02 	lds	r24, 0x0213	; 0x800213 <counter>
- 414:	8f 5f       	subi	r24, 0xFF	; 255
- 416:	80 93 13 02 	sts	0x0213, r24	; 0x800213 <counter>
- 41a:	08 95       	ret
-
-0000041c <SignIn>:
-}
-void SignIn(void)
-{
- 41c:	1f 93       	push	r17
- 41e:	cf 93       	push	r28
- 420:	df 93       	push	r29
- 422:	00 d0       	rcall	.+0      	; 0x424 <SignIn+0x8>
- 424:	1f 92       	push	r1
- 426:	cd b7       	in	r28, 0x3d	; 61
- 428:	de b7       	in	r29, 0x3e	; 62
-	u8 i;
-	u8 ID;
-	u32 password_check;
-	u8 trials=0;
-	UART_voidSendStringSynch("Enter Your User ID: ");
- 42a:	8f ef       	ldi	r24, 0xFF	; 255
- 42c:	90 e0       	ldi	r25, 0x00	; 0
- 42e:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-	UART_u8ReceiveDataSynch(&ID);
- 432:	ce 01       	movw	r24, r28
- 434:	01 96       	adiw	r24, 0x01	; 1
- 436:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
-	ID -= '0';
- 43a:	89 81       	ldd	r24, Y+1	; 0x01
- 43c:	80 53       	subi	r24, 0x30	; 48
- 43e:	89 83       	std	Y+1, r24	; 0x01
- 440:	13 e0       	ldi	r17, 0x03	; 3
-	while(trials<3)
-	{
-		
-		UART_voidSendStringSynch("Enter Your Password: ");
- 442:	8d ed       	ldi	r24, 0xDD	; 221
- 444:	90 e0       	ldi	r25, 0x00	; 0
- 446:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidReceiveNumberSynch(&password_check);
- 44a:	ce 01       	movw	r24, r28
- 44c:	02 96       	adiw	r24, 0x02	; 2
- 44e:	0e 94 20 01 	call	0x240	; 0x240 <UART_voidReceiveNumberSynch>
-		
-		if(password_check==users[ID].password)	
- 452:	89 81       	ldd	r24, Y+1	; 0x01
- 454:	90 e0       	ldi	r25, 0x00	; 0
- 456:	fc 01       	movw	r30, r24
- 458:	ee 0f       	add	r30, r30
- 45a:	ff 1f       	adc	r31, r31
- 45c:	e8 0f       	add	r30, r24
- 45e:	f9 1f       	adc	r31, r25
- 460:	ee 0f       	add	r30, r30
- 462:	ff 1f       	adc	r31, r31
- 464:	ee 0f       	add	r30, r30
- 466:	ff 1f       	adc	r31, r31
- 468:	ec 5e       	subi	r30, 0xEC	; 236
- 46a:	fd 4f       	sbci	r31, 0xFD	; 253
- 46c:	22 85       	ldd	r18, Z+10	; 0x0a
- 46e:	33 85       	ldd	r19, Z+11	; 0x0b
- 470:	8a 81       	ldd	r24, Y+2	; 0x02
- 472:	9b 81       	ldd	r25, Y+3	; 0x03
- 474:	28 17       	cp	r18, r24
- 476:	39 07       	cpc	r19, r25
- 478:	41 f4       	brne	.+16     	; 0x48a <SignIn+0x6e>
-		{
-			UART_voidSendStringSynch("welcome to our system: ");
- 47a:	84 e1       	ldi	r24, 0x14	; 20
- 47c:	91 e0       	ldi	r25, 0x01	; 1
- 47e:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-			lock=1;
- 482:	81 e0       	ldi	r24, 0x01	; 1
- 484:	80 93 12 02 	sts	0x0212, r24	; 0x800212 <__data_end>
- 488:	13 c0       	rjmp	.+38     	; 0x4b0 <SignIn+0x94>
-			break;
-		}else{
-			UART_voidSendStringSynch("Not Correct! Try Again ");
- 48a:	8c e2       	ldi	r24, 0x2C	; 44
- 48c:	91 e0       	ldi	r25, 0x01	; 1
- 48e:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
- 492:	11 50       	subi	r17, 0x01	; 1
-	u32 password_check;
-	u8 trials=0;
-	UART_voidSendStringSynch("Enter Your User ID: ");
-	UART_u8ReceiveDataSynch(&ID);
-	ID -= '0';
-	while(trials<3)
- 494:	b1 f6       	brne	.-84     	; 0x442 <SignIn+0x26>
- 496:	08 c0       	rjmp	.+16     	; 0x4a8 <SignIn+0x8c>
-	}
-
-
-	if(lock==0&&trials>=3)
-	{
-		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
- 498:	84 e4       	ldi	r24, 0x44	; 68
- 49a:	91 e0       	ldi	r25, 0x01	; 1
- 49c:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		lock = 2;
- 4a0:	82 e0       	ldi	r24, 0x02	; 2
- 4a2:	80 93 12 02 	sts	0x0212, r24	; 0x800212 <__data_end>
-	}
-}
- 4a6:	04 c0       	rjmp	.+8      	; 0x4b0 <SignIn+0x94>
-		}
-
-	}
-
-
-	if(lock==0&&trials>=3)
- 4a8:	80 91 12 02 	lds	r24, 0x0212	; 0x800212 <__data_end>
- 4ac:	88 23       	and	r24, r24
- 4ae:	a1 f3       	breq	.-24     	; 0x498 <SignIn+0x7c>
-	{
-		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
-		lock = 2;
-	}
-}
- 4b0:	0f 90       	pop	r0
- 4b2:	0f 90       	pop	r0
- 4b4:	0f 90       	pop	r0
- 4b6:	df 91       	pop	r29
- 4b8:	cf 91       	pop	r28
- 4ba:	1f 91       	pop	r17
- 4bc:	08 95       	ret
-
-000004be <Edit>:
-void Light();
-void Edit(){
- 4be:	cf 93       	push	r28
- 4c0:	df 93       	push	r29
- 4c2:	00 d0       	rcall	.+0      	; 0x4c4 <Edit+0x6>
- 4c4:	00 d0       	rcall	.+0      	; 0x4c6 <Edit+0x8>
- 4c6:	cd b7       	in	r28, 0x3d	; 61
- 4c8:	de b7       	in	r29, 0x3e	; 62
-	u8 id, choose;
-	u32 pass;
-	
-	UART_voidSendStringSynch("Enter Your ID ");
- 4ca:	86 e6       	ldi	r24, 0x66	; 102
- 4cc:	91 e0       	ldi	r25, 0x01	; 1
- 4ce:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-	UART_u8ReceiveDataSynch(&id);
- 4d2:	ce 01       	movw	r24, r28
- 4d4:	01 96       	adiw	r24, 0x01	; 1
- 4d6:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
-	id -= '0';
- 4da:	89 81       	ldd	r24, Y+1	; 0x01
- 4dc:	80 53       	subi	r24, 0x30	; 48
- 4de:	89 83       	std	Y+1, r24	; 0x01
-	UART_voidSendDataSynch(' ');
- 4e0:	80 e2       	ldi	r24, 0x20	; 32
- 4e2:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-	
-	UART_voidSendStringSynch("Enter the Password: ");
- 4e6:	85 e7       	ldi	r24, 0x75	; 117
- 4e8:	91 e0       	ldi	r25, 0x01	; 1
- 4ea:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-	UART_voidReceiveNumberSynch(&pass);
- 4ee:	ce 01       	movw	r24, r28
- 4f0:	03 96       	adiw	r24, 0x03	; 3
- 4f2:	0e 94 20 01 	call	0x240	; 0x240 <UART_voidReceiveNumberSynch>
-	UART_voidSendDataSynch(' ');
- 4f6:	80 e2       	ldi	r24, 0x20	; 32
- 4f8:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-	
-	if(pass == users[id].password)
- 4fc:	89 81       	ldd	r24, Y+1	; 0x01
- 4fe:	90 e0       	ldi	r25, 0x00	; 0
- 500:	fc 01       	movw	r30, r24
- 502:	ee 0f       	add	r30, r30
- 504:	ff 1f       	adc	r31, r31
- 506:	e8 0f       	add	r30, r24
- 508:	f9 1f       	adc	r31, r25
- 50a:	ee 0f       	add	r30, r30
- 50c:	ff 1f       	adc	r31, r31
- 50e:	ee 0f       	add	r30, r30
- 510:	ff 1f       	adc	r31, r31
- 512:	ec 5e       	subi	r30, 0xEC	; 236
- 514:	fd 4f       	sbci	r31, 0xFD	; 253
- 516:	22 85       	ldd	r18, Z+10	; 0x0a
- 518:	33 85       	ldd	r19, Z+11	; 0x0b
- 51a:	8b 81       	ldd	r24, Y+3	; 0x03
- 51c:	9c 81       	ldd	r25, Y+4	; 0x04
- 51e:	28 17       	cp	r18, r24
- 520:	39 07       	cpc	r19, r25
- 522:	09 f0       	breq	.+2      	; 0x526 <Edit+0x68>
- 524:	5a c0       	rjmp	.+180    	; 0x5da <Edit+0x11c>
-	{
-		UART_voidSendStringSynch("1. Edit Your User Name.	2. Edit Your Password.	 3. exit the edit. ");
- 526:	8a e8       	ldi	r24, 0x8A	; 138
- 528:	91 e0       	ldi	r25, 0x01	; 1
- 52a:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_voidSendStringSynch("Choose a choice: ");
- 52e:	84 eb       	ldi	r24, 0xB4	; 180
- 530:	90 e0       	ldi	r25, 0x00	; 0
- 532:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-		UART_u8ReceiveDataSynch(&choose);
- 536:	ce 01       	movw	r24, r28
- 538:	02 96       	adiw	r24, 0x02	; 2
- 53a:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
-		UART_voidSendDataSynch(' ');
- 53e:	80 e2       	ldi	r24, 0x20	; 32
- 540:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-		
-		switch(choose){
- 544:	8a 81       	ldd	r24, Y+2	; 0x02
- 546:	82 33       	cpi	r24, 0x32	; 50
- 548:	59 f1       	breq	.+86     	; 0x5a0 <Edit+0xe2>
- 54a:	83 33       	cpi	r24, 0x33	; 51
- 54c:	09 f4       	brne	.+2      	; 0x550 <Edit+0x92>
- 54e:	49 c0       	rjmp	.+146    	; 0x5e2 <Edit+0x124>
- 550:	81 33       	cpi	r24, 0x31	; 49
- 552:	09 f0       	breq	.+2      	; 0x556 <Edit+0x98>
- 554:	46 c0       	rjmp	.+140    	; 0x5e2 <Edit+0x124>
-			case '1':
-				Buffer[id] = users[id].name;
- 556:	89 81       	ldd	r24, Y+1	; 0x01
- 558:	90 e0       	ldi	r25, 0x00	; 0
- 55a:	9c 01       	movw	r18, r24
- 55c:	22 0f       	add	r18, r18
- 55e:	33 1f       	adc	r19, r19
- 560:	f9 01       	movw	r30, r18
- 562:	e0 56       	subi	r30, 0x60	; 96
- 564:	fd 4f       	sbci	r31, 0xFD	; 253
- 566:	82 0f       	add	r24, r18
- 568:	93 1f       	adc	r25, r19
- 56a:	88 0f       	add	r24, r24
- 56c:	99 1f       	adc	r25, r25
- 56e:	88 0f       	add	r24, r24
- 570:	99 1f       	adc	r25, r25
- 572:	8c 5e       	subi	r24, 0xEC	; 236
- 574:	9d 4f       	sbci	r25, 0xFD	; 253
- 576:	91 83       	std	Z+1, r25	; 0x01
- 578:	80 83       	st	Z, r24
-				UART_voidSendStringSynch("Enter Your New User Name: ");
- 57a:	8d ec       	ldi	r24, 0xCD	; 205
- 57c:	91 e0       	ldi	r25, 0x01	; 1
- 57e:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-				UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
- 582:	e9 81       	ldd	r30, Y+1	; 0x01
- 584:	f0 e0       	ldi	r31, 0x00	; 0
- 586:	ee 0f       	add	r30, r30
- 588:	ff 1f       	adc	r31, r31
- 58a:	e0 56       	subi	r30, 0x60	; 96
- 58c:	fd 4f       	sbci	r31, 0xFD	; 253
- 58e:	64 e1       	ldi	r22, 0x14	; 20
- 590:	80 81       	ld	r24, Z
- 592:	91 81       	ldd	r25, Z+1	; 0x01
- 594:	0e 94 f7 00 	call	0x1ee	; 0x1ee <UART_voidReceiveStringSynch>
-				UART_voidSendDataSynch(' ');
- 598:	80 e2       	ldi	r24, 0x20	; 32
- 59a:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-				break;
- 59e:	21 c0       	rjmp	.+66     	; 0x5e2 <Edit+0x124>
-			case '2':
-				UART_voidSendStringSynch("Enter Your New Password: ");
- 5a0:	88 ee       	ldi	r24, 0xE8	; 232
- 5a2:	91 e0       	ldi	r25, 0x01	; 1
- 5a4:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
-				UART_voidReceiveNumberSynch(&pass);
- 5a8:	ce 01       	movw	r24, r28
- 5aa:	03 96       	adiw	r24, 0x03	; 3
- 5ac:	0e 94 20 01 	call	0x240	; 0x240 <UART_voidReceiveNumberSynch>
-				users[id].password = pass;
- 5b0:	89 81       	ldd	r24, Y+1	; 0x01
- 5b2:	90 e0       	ldi	r25, 0x00	; 0
- 5b4:	fc 01       	movw	r30, r24
- 5b6:	ee 0f       	add	r30, r30
- 5b8:	ff 1f       	adc	r31, r31
+ 5ac:	80 91 7d 02 	lds	r24, 0x027D	; 0x80027d <counter>
+ 5b0:	90 e0       	ldi	r25, 0x00	; 0
+ 5b2:	9c 01       	movw	r18, r24
+ 5b4:	22 0f       	add	r18, r18
+ 5b6:	33 1f       	adc	r19, r19
+ 5b8:	f9 01       	movw	r30, r18
  5ba:	e8 0f       	add	r30, r24
  5bc:	f9 1f       	adc	r31, r25
  5be:	ee 0f       	add	r30, r30
  5c0:	ff 1f       	adc	r31, r31
  5c2:	ee 0f       	add	r30, r30
  5c4:	ff 1f       	adc	r31, r31
- 5c6:	ec 5e       	subi	r30, 0xEC	; 236
+ 5c6:	e2 58       	subi	r30, 0x82	; 130
  5c8:	fd 4f       	sbci	r31, 0xFD	; 253
- 5ca:	8b 81       	ldd	r24, Y+3	; 0x03
- 5cc:	9c 81       	ldd	r25, Y+4	; 0x04
- 5ce:	93 87       	std	Z+11, r25	; 0x0b
- 5d0:	82 87       	std	Z+10, r24	; 0x0a
-				UART_voidSendDataSynch(' ');
- 5d2:	80 e2       	ldi	r24, 0x20	; 32
- 5d4:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
-				break;
- 5d8:	04 c0       	rjmp	.+8      	; 0x5e2 <Edit+0x124>
-				return;
+ 5ca:	d9 01       	movw	r26, r18
+ 5cc:	aa 50       	subi	r26, 0x0A	; 10
+ 5ce:	bd 4f       	sbci	r27, 0xFD	; 253
+ 5d0:	8d 91       	ld	r24, X+
+ 5d2:	9c 91       	ld	r25, X
+ 5d4:	93 87       	std	Z+11, r25	; 0x0b
+ 5d6:	82 87       	std	Z+10, r24	; 0x0a
+	UART_voidSendDataSynch(' ');
+ 5d8:	80 e2       	ldi	r24, 0x20	; 32
+ 5da:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+	
+	UART_voidSendStringSynch("Your ID is ");
+ 5de:	83 ef       	ldi	r24, 0xF3	; 243
+ 5e0:	90 e0       	ldi	r25, 0x00	; 0
+ 5e2:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+	UART_voidSendDataSynch(counter + '0');
+ 5e6:	80 91 7d 02 	lds	r24, 0x027D	; 0x80027d <counter>
+ 5ea:	80 5d       	subi	r24, 0xD0	; 208
+ 5ec:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+	UART_voidSendDataSynch(' ');
+ 5f0:	80 e2       	ldi	r24, 0x20	; 32
+ 5f2:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+	
+	counter++;
+ 5f6:	80 91 7d 02 	lds	r24, 0x027D	; 0x80027d <counter>
+ 5fa:	8f 5f       	subi	r24, 0xFF	; 255
+ 5fc:	80 93 7d 02 	sts	0x027D, r24	; 0x80027d <counter>
+ 600:	08 95       	ret
+
+00000602 <SignIn>:
+}
+void SignIn(void)
+{
+ 602:	1f 93       	push	r17
+ 604:	cf 93       	push	r28
+ 606:	df 93       	push	r29
+ 608:	00 d0       	rcall	.+0      	; 0x60a <SignIn+0x8>
+ 60a:	1f 92       	push	r1
+ 60c:	cd b7       	in	r28, 0x3d	; 61
+ 60e:	de b7       	in	r29, 0x3e	; 62
+	u8 i;
+	u8 ID;
+	u32 password_check;
+	u8 trials=0;
+	UART_voidSendStringSynch("Enter Your User ID: ");
+ 610:	8f ef       	ldi	r24, 0xFF	; 255
+ 612:	90 e0       	ldi	r25, 0x00	; 0
+ 614:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+	UART_u8ReceiveDataSynch(&ID);
+ 618:	ce 01       	movw	r24, r28
+ 61a:	01 96       	adiw	r24, 0x01	; 1
+ 61c:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
+	ID -= '0';
+ 620:	89 81       	ldd	r24, Y+1	; 0x01
+ 622:	80 53       	subi	r24, 0x30	; 48
+ 624:	89 83       	std	Y+1, r24	; 0x01
+ 626:	13 e0       	ldi	r17, 0x03	; 3
+	while(trials<3)
+	{
+		
+		UART_voidSendStringSynch("Enter Your Password: ");
+ 628:	8d ed       	ldi	r24, 0xDD	; 221
+ 62a:	90 e0       	ldi	r25, 0x00	; 0
+ 62c:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidReceiveNumberSynch(&password_check);
+ 630:	ce 01       	movw	r24, r28
+ 632:	02 96       	adiw	r24, 0x02	; 2
+ 634:	0e 94 13 02 	call	0x426	; 0x426 <UART_voidReceiveNumberSynch>
+		
+		if(password_check==users[ID].password)	
+ 638:	89 81       	ldd	r24, Y+1	; 0x01
+ 63a:	90 e0       	ldi	r25, 0x00	; 0
+ 63c:	fc 01       	movw	r30, r24
+ 63e:	ee 0f       	add	r30, r30
+ 640:	ff 1f       	adc	r31, r31
+ 642:	e8 0f       	add	r30, r24
+ 644:	f9 1f       	adc	r31, r25
+ 646:	ee 0f       	add	r30, r30
+ 648:	ff 1f       	adc	r31, r31
+ 64a:	ee 0f       	add	r30, r30
+ 64c:	ff 1f       	adc	r31, r31
+ 64e:	e2 58       	subi	r30, 0x82	; 130
+ 650:	fd 4f       	sbci	r31, 0xFD	; 253
+ 652:	22 85       	ldd	r18, Z+10	; 0x0a
+ 654:	33 85       	ldd	r19, Z+11	; 0x0b
+ 656:	8a 81       	ldd	r24, Y+2	; 0x02
+ 658:	9b 81       	ldd	r25, Y+3	; 0x03
+ 65a:	28 17       	cp	r18, r24
+ 65c:	39 07       	cpc	r19, r25
+ 65e:	41 f4       	brne	.+16     	; 0x670 <SignIn+0x6e>
+		{	
+			UART_voidSendStringSynch(" |***Correct Password***| ");
+ 660:	84 e1       	ldi	r24, 0x14	; 20
+ 662:	91 e0       	ldi	r25, 0x01	; 1
+ 664:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+			lock=1;
+ 668:	81 e0       	ldi	r24, 0x01	; 1
+ 66a:	80 93 7c 02 	sts	0x027C, r24	; 0x80027c <__data_end>
+ 66e:	26 c0       	rjmp	.+76     	; 0x6bc <SignIn+0xba>
+			break;
+		}else{
+			UART_voidSendStringSynch("Not Correct! ");
+ 670:	8f e2       	ldi	r24, 0x2F	; 47
+ 672:	91 e0       	ldi	r25, 0x01	; 1
+ 674:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+			DIO_voidSetPinValue(DIO_PORTC,DIO_PIN1, DIO_HIGH);
+ 678:	41 e0       	ldi	r20, 0x01	; 1
+ 67a:	61 e0       	ldi	r22, 0x01	; 1
+ 67c:	82 e0       	ldi	r24, 0x02	; 2
+ 67e:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 682:	2f ef       	ldi	r18, 0xFF	; 255
+ 684:	83 ed       	ldi	r24, 0xD3	; 211
+ 686:	90 e3       	ldi	r25, 0x30	; 48
+ 688:	21 50       	subi	r18, 0x01	; 1
+ 68a:	80 40       	sbci	r24, 0x00	; 0
+ 68c:	90 40       	sbci	r25, 0x00	; 0
+ 68e:	e1 f7       	brne	.-8      	; 0x688 <SignIn+0x86>
+ 690:	00 c0       	rjmp	.+0      	; 0x692 <SignIn+0x90>
+ 692:	00 00       	nop
+			_delay_ms(2000);
+			DIO_voidSetPinValue(DIO_PORTC,DIO_PIN1, DIO_LOW);
+ 694:	40 e0       	ldi	r20, 0x00	; 0
+ 696:	61 e0       	ldi	r22, 0x01	; 1
+ 698:	82 e0       	ldi	r24, 0x02	; 2
+ 69a:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+ 69e:	11 50       	subi	r17, 0x01	; 1
+	u32 password_check;
+	u8 trials=0;
+	UART_voidSendStringSynch("Enter Your User ID: ");
+	UART_u8ReceiveDataSynch(&ID);
+	ID -= '0';
+	while(trials<3)
+ 6a0:	19 f6       	brne	.-122    	; 0x628 <SignIn+0x26>
+ 6a2:	08 c0       	rjmp	.+16     	; 0x6b4 <SignIn+0xb2>
+	}
+
+
+	if(lock==0&&trials>=3)
+	{
+		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
+ 6a4:	8d e3       	ldi	r24, 0x3D	; 61
+ 6a6:	91 e0       	ldi	r25, 0x01	; 1
+ 6a8:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		//DIO_voidSetPinValue(DIO_PORTC,DIO_PIN0, DIO_HIGH);	//turn on the buzzer
+		lock = 2;
+ 6ac:	82 e0       	ldi	r24, 0x02	; 2
+ 6ae:	80 93 7c 02 	sts	0x027C, r24	; 0x80027c <__data_end>
+	}
+}
+ 6b2:	04 c0       	rjmp	.+8      	; 0x6bc <SignIn+0xba>
+		}
+
+	}
+
+
+	if(lock==0&&trials>=3)
+ 6b4:	80 91 7c 02 	lds	r24, 0x027C	; 0x80027c <__data_end>
+ 6b8:	88 23       	and	r24, r24
+ 6ba:	a1 f3       	breq	.-24     	; 0x6a4 <SignIn+0xa2>
+	{
+		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
+		//DIO_voidSetPinValue(DIO_PORTC,DIO_PIN0, DIO_HIGH);	//turn on the buzzer
+		lock = 2;
+	}
+}
+ 6bc:	0f 90       	pop	r0
+ 6be:	0f 90       	pop	r0
+ 6c0:	0f 90       	pop	r0
+ 6c2:	df 91       	pop	r29
+ 6c4:	cf 91       	pop	r28
+ 6c6:	1f 91       	pop	r17
+ 6c8:	08 95       	ret
+
+000006ca <Edit>:
+
+void Edit(){
+ 6ca:	cf 93       	push	r28
+ 6cc:	df 93       	push	r29
+ 6ce:	00 d0       	rcall	.+0      	; 0x6d0 <Edit+0x6>
+ 6d0:	00 d0       	rcall	.+0      	; 0x6d2 <Edit+0x8>
+ 6d2:	cd b7       	in	r28, 0x3d	; 61
+ 6d4:	de b7       	in	r29, 0x3e	; 62
+	u8 id, choose, key;
+	u32 pass;
+	
+	UART_voidSendStringSynch("Enter Your ID ");
+ 6d6:	8f e5       	ldi	r24, 0x5F	; 95
+ 6d8:	91 e0       	ldi	r25, 0x01	; 1
+ 6da:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+	UART_u8ReceiveDataSynch(&id);
+ 6de:	ce 01       	movw	r24, r28
+ 6e0:	01 96       	adiw	r24, 0x01	; 1
+ 6e2:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
+	id -= '0';
+ 6e6:	89 81       	ldd	r24, Y+1	; 0x01
+ 6e8:	80 53       	subi	r24, 0x30	; 48
+ 6ea:	89 83       	std	Y+1, r24	; 0x01
+	UART_voidSendDataSynch(' ');
+ 6ec:	80 e2       	ldi	r24, 0x20	; 32
+ 6ee:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+	
+	UART_voidSendStringSynch("Enter the Password: ");
+ 6f2:	8e e6       	ldi	r24, 0x6E	; 110
+ 6f4:	91 e0       	ldi	r25, 0x01	; 1
+ 6f6:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+	UART_voidReceiveNumberSynch(&pass);
+ 6fa:	ce 01       	movw	r24, r28
+ 6fc:	03 96       	adiw	r24, 0x03	; 3
+ 6fe:	0e 94 13 02 	call	0x426	; 0x426 <UART_voidReceiveNumberSynch>
+	UART_voidSendDataSynch(' ');
+ 702:	80 e2       	ldi	r24, 0x20	; 32
+ 704:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+	
+	if(pass == users[id].password)
+ 708:	89 81       	ldd	r24, Y+1	; 0x01
+ 70a:	90 e0       	ldi	r25, 0x00	; 0
+ 70c:	fc 01       	movw	r30, r24
+ 70e:	ee 0f       	add	r30, r30
+ 710:	ff 1f       	adc	r31, r31
+ 712:	e8 0f       	add	r30, r24
+ 714:	f9 1f       	adc	r31, r25
+ 716:	ee 0f       	add	r30, r30
+ 718:	ff 1f       	adc	r31, r31
+ 71a:	ee 0f       	add	r30, r30
+ 71c:	ff 1f       	adc	r31, r31
+ 71e:	e2 58       	subi	r30, 0x82	; 130
+ 720:	fd 4f       	sbci	r31, 0xFD	; 253
+ 722:	22 85       	ldd	r18, Z+10	; 0x0a
+ 724:	33 85       	ldd	r19, Z+11	; 0x0b
+ 726:	8b 81       	ldd	r24, Y+3	; 0x03
+ 728:	9c 81       	ldd	r25, Y+4	; 0x04
+ 72a:	28 17       	cp	r18, r24
+ 72c:	39 07       	cpc	r19, r25
+ 72e:	09 f0       	breq	.+2      	; 0x732 <Edit+0x68>
+ 730:	59 c0       	rjmp	.+178    	; 0x7e4 <Edit+0x11a>
+	{		
+		key = 1;
+		while(key ==1){
+			UART_voidSendStringSynch("1. Edit Your User Name.	2. Edit Your Password.	 3. exit the edit. ");
+ 732:	83 e8       	ldi	r24, 0x83	; 131
+ 734:	91 e0       	ldi	r25, 0x01	; 1
+ 736:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+			UART_voidSendStringSynch("Choose a choice: ");
+ 73a:	84 eb       	ldi	r24, 0xB4	; 180
+ 73c:	90 e0       	ldi	r25, 0x00	; 0
+ 73e:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+			UART_u8ReceiveDataSynch(&choose);
+ 742:	ce 01       	movw	r24, r28
+ 744:	02 96       	adiw	r24, 0x02	; 2
+ 746:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
+			UART_voidSendDataSynch(' ');
+ 74a:	80 e2       	ldi	r24, 0x20	; 32
+ 74c:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+		
+			switch(choose){
+ 750:	8a 81       	ldd	r24, Y+2	; 0x02
+ 752:	82 33       	cpi	r24, 0x32	; 50
+ 754:	51 f1       	breq	.+84     	; 0x7aa <Edit+0xe0>
+ 756:	83 33       	cpi	r24, 0x33	; 51
+ 758:	09 f4       	brne	.+2      	; 0x75c <Edit+0x92>
+ 75a:	48 c0       	rjmp	.+144    	; 0x7ec <Edit+0x122>
+ 75c:	81 33       	cpi	r24, 0x31	; 49
+ 75e:	49 f7       	brne	.-46     	; 0x732 <Edit+0x68>
+				case '1':
+					Buffer[id] = users[id].name;
+ 760:	89 81       	ldd	r24, Y+1	; 0x01
+ 762:	90 e0       	ldi	r25, 0x00	; 0
+ 764:	9c 01       	movw	r18, r24
+ 766:	22 0f       	add	r18, r18
+ 768:	33 1f       	adc	r19, r19
+ 76a:	f9 01       	movw	r30, r18
+ 76c:	e6 5f       	subi	r30, 0xF6	; 246
+ 76e:	fc 4f       	sbci	r31, 0xFC	; 252
+ 770:	82 0f       	add	r24, r18
+ 772:	93 1f       	adc	r25, r19
+ 774:	88 0f       	add	r24, r24
+ 776:	99 1f       	adc	r25, r25
+ 778:	88 0f       	add	r24, r24
+ 77a:	99 1f       	adc	r25, r25
+ 77c:	82 58       	subi	r24, 0x82	; 130
+ 77e:	9d 4f       	sbci	r25, 0xFD	; 253
+ 780:	91 83       	std	Z+1, r25	; 0x01
+ 782:	80 83       	st	Z, r24
+					UART_voidSendStringSynch("Enter Your New User Name: ");
+ 784:	86 ec       	ldi	r24, 0xC6	; 198
+ 786:	91 e0       	ldi	r25, 0x01	; 1
+ 788:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+					UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
+ 78c:	e9 81       	ldd	r30, Y+1	; 0x01
+ 78e:	f0 e0       	ldi	r31, 0x00	; 0
+ 790:	ee 0f       	add	r30, r30
+ 792:	ff 1f       	adc	r31, r31
+ 794:	e6 5f       	subi	r30, 0xF6	; 246
+ 796:	fc 4f       	sbci	r31, 0xFC	; 252
+ 798:	64 e1       	ldi	r22, 0x14	; 20
+ 79a:	80 81       	ld	r24, Z
+ 79c:	91 81       	ldd	r25, Z+1	; 0x01
+ 79e:	0e 94 ea 01 	call	0x3d4	; 0x3d4 <UART_voidReceiveStringSynch>
+					UART_voidSendDataSynch(' ');
+ 7a2:	80 e2       	ldi	r24, 0x20	; 32
+ 7a4:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+					break;
+ 7a8:	c4 cf       	rjmp	.-120    	; 0x732 <Edit+0x68>
+				case '2':
+					UART_voidSendStringSynch("Enter Your New Password: ");
+ 7aa:	81 ee       	ldi	r24, 0xE1	; 225
+ 7ac:	91 e0       	ldi	r25, 0x01	; 1
+ 7ae:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+					UART_voidReceiveNumberSynch(&pass);
+ 7b2:	ce 01       	movw	r24, r28
+ 7b4:	03 96       	adiw	r24, 0x03	; 3
+ 7b6:	0e 94 13 02 	call	0x426	; 0x426 <UART_voidReceiveNumberSynch>
+					users[id].password = pass;
+ 7ba:	89 81       	ldd	r24, Y+1	; 0x01
+ 7bc:	90 e0       	ldi	r25, 0x00	; 0
+ 7be:	fc 01       	movw	r30, r24
+ 7c0:	ee 0f       	add	r30, r30
+ 7c2:	ff 1f       	adc	r31, r31
+ 7c4:	e8 0f       	add	r30, r24
+ 7c6:	f9 1f       	adc	r31, r25
+ 7c8:	ee 0f       	add	r30, r30
+ 7ca:	ff 1f       	adc	r31, r31
+ 7cc:	ee 0f       	add	r30, r30
+ 7ce:	ff 1f       	adc	r31, r31
+ 7d0:	e2 58       	subi	r30, 0x82	; 130
+ 7d2:	fd 4f       	sbci	r31, 0xFD	; 253
+ 7d4:	8b 81       	ldd	r24, Y+3	; 0x03
+ 7d6:	9c 81       	ldd	r25, Y+4	; 0x04
+ 7d8:	93 87       	std	Z+11, r25	; 0x0b
+ 7da:	82 87       	std	Z+10, r24	; 0x0a
+					UART_voidSendDataSynch(' ');
+ 7dc:	80 e2       	ldi	r24, 0x20	; 32
+ 7de:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
+					break;
+ 7e2:	a7 cf       	rjmp	.-178    	; 0x732 <Edit+0x68>
+			}
 		}
 	}
 	else
 	{
 		UART_voidSendStringSynch("Wrong Password!");
- 5da:	82 e0       	ldi	r24, 0x02	; 2
- 5dc:	92 e0       	ldi	r25, 0x02	; 2
- 5de:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 7e4:	8b ef       	ldi	r24, 0xFB	; 251
+ 7e6:	91 e0       	ldi	r25, 0x01	; 1
+ 7e8:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	}
 	
 }
- 5e2:	0f 90       	pop	r0
- 5e4:	0f 90       	pop	r0
- 5e6:	0f 90       	pop	r0
- 5e8:	0f 90       	pop	r0
- 5ea:	df 91       	pop	r29
- 5ec:	cf 91       	pop	r28
- 5ee:	08 95       	ret
+ 7ec:	0f 90       	pop	r0
+ 7ee:	0f 90       	pop	r0
+ 7f0:	0f 90       	pop	r0
+ 7f2:	0f 90       	pop	r0
+ 7f4:	df 91       	pop	r29
+ 7f6:	cf 91       	pop	r28
+ 7f8:	08 95       	ret
 
-000005f0 <Show>:
+000007fa <Show>:
 void Show(){
- 5f0:	cf 93       	push	r28
- 5f2:	df 93       	push	r29
- 5f4:	1f 92       	push	r1
- 5f6:	cd b7       	in	r28, 0x3d	; 61
- 5f8:	de b7       	in	r29, 0x3e	; 62
+ 7fa:	cf 93       	push	r28
+ 7fc:	df 93       	push	r29
+ 7fe:	1f 92       	push	r1
+ 800:	cd b7       	in	r28, 0x3d	; 61
+ 802:	de b7       	in	r29, 0x3e	; 62
 	u8 id;
 	//UART_voidSendDataSynch('\n');
 	
 	UART_voidSendStringSynch("Enter Your ID ");
- 5fa:	86 e6       	ldi	r24, 0x66	; 102
- 5fc:	91 e0       	ldi	r25, 0x01	; 1
- 5fe:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 804:	8f e5       	ldi	r24, 0x5F	; 95
+ 806:	91 e0       	ldi	r25, 0x01	; 1
+ 808:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_u8ReceiveDataSynch(&id);
- 602:	ce 01       	movw	r24, r28
- 604:	01 96       	adiw	r24, 0x01	; 1
- 606:	0e 94 9e 00 	call	0x13c	; 0x13c <UART_u8ReceiveDataSynch>
+ 80c:	ce 01       	movw	r24, r28
+ 80e:	01 96       	adiw	r24, 0x01	; 1
+ 810:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
 	id -= '0';
- 60a:	89 81       	ldd	r24, Y+1	; 0x01
- 60c:	80 53       	subi	r24, 0x30	; 48
- 60e:	89 83       	std	Y+1, r24	; 0x01
+ 814:	89 81       	ldd	r24, Y+1	; 0x01
+ 816:	80 53       	subi	r24, 0x30	; 48
+ 818:	89 83       	std	Y+1, r24	; 0x01
 	UART_voidSendDataSynch(' ');
- 610:	80 e2       	ldi	r24, 0x20	; 32
- 612:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 81a:	80 e2       	ldi	r24, 0x20	; 32
+ 81c:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 	
 	UART_voidSendStringSynch("Your User Name: ");
- 616:	8c ec       	ldi	r24, 0xCC	; 204
- 618:	90 e0       	ldi	r25, 0x00	; 0
- 61a:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 820:	8c ec       	ldi	r24, 0xCC	; 204
+ 822:	90 e0       	ldi	r25, 0x00	; 0
+ 824:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_voidSendStringSynch(users[id].name);
- 61e:	89 81       	ldd	r24, Y+1	; 0x01
- 620:	90 e0       	ldi	r25, 0x00	; 0
- 622:	9c 01       	movw	r18, r24
- 624:	22 0f       	add	r18, r18
- 626:	33 1f       	adc	r19, r19
- 628:	82 0f       	add	r24, r18
- 62a:	93 1f       	adc	r25, r19
- 62c:	88 0f       	add	r24, r24
- 62e:	99 1f       	adc	r25, r25
- 630:	88 0f       	add	r24, r24
- 632:	99 1f       	adc	r25, r25
- 634:	8c 5e       	subi	r24, 0xEC	; 236
- 636:	9d 4f       	sbci	r25, 0xFD	; 253
- 638:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 828:	89 81       	ldd	r24, Y+1	; 0x01
+ 82a:	90 e0       	ldi	r25, 0x00	; 0
+ 82c:	9c 01       	movw	r18, r24
+ 82e:	22 0f       	add	r18, r18
+ 830:	33 1f       	adc	r19, r19
+ 832:	82 0f       	add	r24, r18
+ 834:	93 1f       	adc	r25, r19
+ 836:	88 0f       	add	r24, r24
+ 838:	99 1f       	adc	r25, r25
+ 83a:	88 0f       	add	r24, r24
+ 83c:	99 1f       	adc	r25, r25
+ 83e:	82 58       	subi	r24, 0x82	; 130
+ 840:	9d 4f       	sbci	r25, 0xFD	; 253
+ 842:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_voidSendDataSynch(' ');
- 63c:	80 e2       	ldi	r24, 0x20	; 32
- 63e:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 846:	80 e2       	ldi	r24, 0x20	; 32
+ 848:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 	
 	UART_voidSendStringSynch("Your Password: ");
- 642:	83 ee       	ldi	r24, 0xE3	; 227
- 644:	90 e0       	ldi	r25, 0x00	; 0
- 646:	0e 94 a5 00 	call	0x14a	; 0x14a <UART_voidSendStringSynch>
+ 84c:	83 ee       	ldi	r24, 0xE3	; 227
+ 84e:	90 e0       	ldi	r25, 0x00	; 0
+ 850:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
 	UART_voidSendNumberSynch(users[id].password);
- 64a:	89 81       	ldd	r24, Y+1	; 0x01
- 64c:	90 e0       	ldi	r25, 0x00	; 0
- 64e:	fc 01       	movw	r30, r24
- 650:	ee 0f       	add	r30, r30
- 652:	ff 1f       	adc	r31, r31
- 654:	e8 0f       	add	r30, r24
- 656:	f9 1f       	adc	r31, r25
- 658:	ee 0f       	add	r30, r30
- 65a:	ff 1f       	adc	r31, r31
- 65c:	ee 0f       	add	r30, r30
- 65e:	ff 1f       	adc	r31, r31
- 660:	ec 5e       	subi	r30, 0xEC	; 236
- 662:	fd 4f       	sbci	r31, 0xFD	; 253
- 664:	82 85       	ldd	r24, Z+10	; 0x0a
- 666:	93 85       	ldd	r25, Z+11	; 0x0b
- 668:	0e 94 bb 00 	call	0x176	; 0x176 <UART_voidSendNumberSynch>
+ 854:	89 81       	ldd	r24, Y+1	; 0x01
+ 856:	90 e0       	ldi	r25, 0x00	; 0
+ 858:	fc 01       	movw	r30, r24
+ 85a:	ee 0f       	add	r30, r30
+ 85c:	ff 1f       	adc	r31, r31
+ 85e:	e8 0f       	add	r30, r24
+ 860:	f9 1f       	adc	r31, r25
+ 862:	ee 0f       	add	r30, r30
+ 864:	ff 1f       	adc	r31, r31
+ 866:	ee 0f       	add	r30, r30
+ 868:	ff 1f       	adc	r31, r31
+ 86a:	e2 58       	subi	r30, 0x82	; 130
+ 86c:	fd 4f       	sbci	r31, 0xFD	; 253
+ 86e:	82 85       	ldd	r24, Z+10	; 0x0a
+ 870:	93 85       	ldd	r25, Z+11	; 0x0b
+ 872:	0e 94 ae 01 	call	0x35c	; 0x35c <UART_voidSendNumberSynch>
 	UART_voidSendDataSynch(' ');
- 66c:	80 e2       	ldi	r24, 0x20	; 32
- 66e:	0e 94 97 00 	call	0x12e	; 0x12e <UART_voidSendDataSynch>
+ 876:	80 e2       	ldi	r24, 0x20	; 32
+ 878:	0e 94 8a 01 	call	0x314	; 0x314 <UART_voidSendDataSynch>
 	
- 672:	0f 90       	pop	r0
- 674:	df 91       	pop	r29
- 676:	cf 91       	pop	r28
- 678:	08 95       	ret
+}
+ 87c:	0f 90       	pop	r0
+ 87e:	df 91       	pop	r29
+ 880:	cf 91       	pop	r28
+ 882:	08 95       	ret
 
-0000067a <__udivmodhi4>:
- 67a:	aa 1b       	sub	r26, r26
- 67c:	bb 1b       	sub	r27, r27
- 67e:	51 e1       	ldi	r21, 0x11	; 17
- 680:	07 c0       	rjmp	.+14     	; 0x690 <__udivmodhi4_ep>
+00000884 <Unlock>:
 
-00000682 <__udivmodhi4_loop>:
- 682:	aa 1f       	adc	r26, r26
- 684:	bb 1f       	adc	r27, r27
- 686:	a6 17       	cp	r26, r22
- 688:	b7 07       	cpc	r27, r23
- 68a:	10 f0       	brcs	.+4      	; 0x690 <__udivmodhi4_ep>
- 68c:	a6 1b       	sub	r26, r22
- 68e:	b7 0b       	sbc	r27, r23
+void Unlock(){
+	DIO_voidSetPinValue(DIO_PORTC, DIO_PIN2, DIO_HIGH);
+ 884:	41 e0       	ldi	r20, 0x01	; 1
+ 886:	62 e0       	ldi	r22, 0x02	; 2
+ 888:	82 e0       	ldi	r24, 0x02	; 2
+ 88a:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+ 88e:	2f ef       	ldi	r18, 0xFF	; 255
+ 890:	8d e3       	ldi	r24, 0x3D	; 61
+ 892:	99 e4       	ldi	r25, 0x49	; 73
+ 894:	21 50       	subi	r18, 0x01	; 1
+ 896:	80 40       	sbci	r24, 0x00	; 0
+ 898:	90 40       	sbci	r25, 0x00	; 0
+ 89a:	e1 f7       	brne	.-8      	; 0x894 <Unlock+0x10>
+ 89c:	00 c0       	rjmp	.+0      	; 0x89e <Unlock+0x1a>
+ 89e:	00 00       	nop
+	_delay_ms(3000);
+	DIO_voidSetPinValue(DIO_PORTC, DIO_PIN2, DIO_LOW);
+ 8a0:	40 e0       	ldi	r20, 0x00	; 0
+ 8a2:	62 e0       	ldi	r22, 0x02	; 2
+ 8a4:	82 e0       	ldi	r24, 0x02	; 2
+ 8a6:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+ 8aa:	08 95       	ret
 
-00000690 <__udivmodhi4_ep>:
- 690:	88 1f       	adc	r24, r24
- 692:	99 1f       	adc	r25, r25
- 694:	5a 95       	dec	r21
- 696:	a9 f7       	brne	.-22     	; 0x682 <__udivmodhi4_loop>
- 698:	80 95       	com	r24
- 69a:	90 95       	com	r25
- 69c:	bc 01       	movw	r22, r24
- 69e:	cd 01       	movw	r24, r26
- 6a0:	08 95       	ret
+000008ac <Light>:
+}
 
-000006a2 <__umulhisi3>:
- 6a2:	a2 9f       	mul	r26, r18
- 6a4:	b0 01       	movw	r22, r0
- 6a6:	b3 9f       	mul	r27, r19
- 6a8:	c0 01       	movw	r24, r0
- 6aa:	a3 9f       	mul	r26, r19
- 6ac:	70 0d       	add	r23, r0
- 6ae:	81 1d       	adc	r24, r1
- 6b0:	11 24       	eor	r1, r1
- 6b2:	91 1d       	adc	r25, r1
- 6b4:	b2 9f       	mul	r27, r18
- 6b6:	70 0d       	add	r23, r0
- 6b8:	81 1d       	adc	r24, r1
- 6ba:	11 24       	eor	r1, r1
- 6bc:	91 1d       	adc	r25, r1
- 6be:	08 95       	ret
+void Light(){
+ 8ac:	cf 93       	push	r28
+ 8ae:	df 93       	push	r29
+ 8b0:	1f 92       	push	r1
+ 8b2:	cd b7       	in	r28, 0x3d	; 61
+ 8b4:	de b7       	in	r29, 0x3e	; 62
+	u8 choose;
+	DIO_voidSetPortDirection(DIO_PORTA, DIO_OUTPUT);
+ 8b6:	61 e0       	ldi	r22, 0x01	; 1
+ 8b8:	80 e0       	ldi	r24, 0x00	; 0
+ 8ba:	0e 94 47 01 	call	0x28e	; 0x28e <DIO_voidSetPortDirection>
+	
+	UART_voidSendStringSynch("Welcome to our system! ");
+ 8be:	8b e0       	ldi	r24, 0x0B	; 11
+ 8c0:	92 e0       	ldi	r25, 0x02	; 2
+ 8c2:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+	while(1)
+	{
+		UART_voidSendStringSynch("1. Toggle Red Light.		2. Toggle Blue Light.		3. Toggle the Fan.		4. Exit. ");
+ 8c6:	83 e2       	ldi	r24, 0x23	; 35
+ 8c8:	92 e0       	ldi	r25, 0x02	; 2
+ 8ca:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_voidSendStringSynch("Your Choice: ");
+ 8ce:	8e e6       	ldi	r24, 0x6E	; 110
+ 8d0:	92 e0       	ldi	r25, 0x02	; 2
+ 8d2:	0e 94 98 01 	call	0x330	; 0x330 <UART_voidSendStringSynch>
+		UART_u8ReceiveDataSynch(&choose);
+ 8d6:	ce 01       	movw	r24, r28
+ 8d8:	01 96       	adiw	r24, 0x01	; 1
+ 8da:	0e 94 91 01 	call	0x322	; 0x322 <UART_u8ReceiveDataSynch>
 
-000006c0 <_exit>:
- 6c0:	f8 94       	cli
+		switch(choose){
+ 8de:	89 81       	ldd	r24, Y+1	; 0x01
+ 8e0:	82 33       	cpi	r24, 0x32	; 50
+ 8e2:	79 f0       	breq	.+30     	; 0x902 <Light+0x56>
+ 8e4:	18 f4       	brcc	.+6      	; 0x8ec <Light+0x40>
+ 8e6:	81 33       	cpi	r24, 0x31	; 49
+ 8e8:	31 f0       	breq	.+12     	; 0x8f6 <Light+0x4a>
+ 8ea:	ed cf       	rjmp	.-38     	; 0x8c6 <Light+0x1a>
+ 8ec:	83 33       	cpi	r24, 0x33	; 51
+ 8ee:	79 f0       	breq	.+30     	; 0x90e <Light+0x62>
+ 8f0:	84 33       	cpi	r24, 0x34	; 52
+ 8f2:	99 f0       	breq	.+38     	; 0x91a <Light+0x6e>
+ 8f4:	e8 cf       	rjmp	.-48     	; 0x8c6 <Light+0x1a>
+	
+			case '1':	
+				DIO_voidSetPinValue(LED_PORT,RED_LED, DIO_TOGGLE);
+ 8f6:	42 e0       	ldi	r20, 0x02	; 2
+ 8f8:	63 e0       	ldi	r22, 0x03	; 3
+ 8fa:	80 e0       	ldi	r24, 0x00	; 0
+ 8fc:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+				break;
+ 900:	e2 cf       	rjmp	.-60     	; 0x8c6 <Light+0x1a>
+			case '2':
+				DIO_voidSetPinValue(LED_PORT,BLUE_LED, DIO_TOGGLE);
+ 902:	42 e0       	ldi	r20, 0x02	; 2
+ 904:	64 e0       	ldi	r22, 0x04	; 4
+ 906:	80 e0       	ldi	r24, 0x00	; 0
+ 908:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+				break;
+ 90c:	dc cf       	rjmp	.-72     	; 0x8c6 <Light+0x1a>
+			case '3':
+				DIO_voidSetPinValue(LED_PORT,FAN, DIO_TOGGLE);
+ 90e:	42 e0       	ldi	r20, 0x02	; 2
+ 910:	62 e0       	ldi	r22, 0x02	; 2
+ 912:	80 e0       	ldi	r24, 0x00	; 0
+ 914:	0e 94 9a 00 	call	0x134	; 0x134 <DIO_voidSetPinValue>
+				break;
+ 918:	d6 cf       	rjmp	.-84     	; 0x8c6 <Light+0x1a>
+			case '4':	
+				DIO_voidSetPortValue(LED_PORT, 0x00);
+ 91a:	60 e0       	ldi	r22, 0x00	; 0
+ 91c:	70 e0       	ldi	r23, 0x00	; 0
+ 91e:	80 e0       	ldi	r24, 0x00	; 0
+ 920:	90 e0       	ldi	r25, 0x00	; 0
+ 922:	0e 94 71 01 	call	0x2e2	; 0x2e2 <DIO_voidSetPortValue>
+				return;
+		}
+	}
+	
+ 926:	0f 90       	pop	r0
+ 928:	df 91       	pop	r29
+ 92a:	cf 91       	pop	r28
+ 92c:	08 95       	ret
 
-000006c2 <__stop_program>:
- 6c2:	ff cf       	rjmp	.-2      	; 0x6c2 <__stop_program>
+0000092e <__udivmodhi4>:
+ 92e:	aa 1b       	sub	r26, r26
+ 930:	bb 1b       	sub	r27, r27
+ 932:	51 e1       	ldi	r21, 0x11	; 17
+ 934:	07 c0       	rjmp	.+14     	; 0x944 <__udivmodhi4_ep>
+
+00000936 <__udivmodhi4_loop>:
+ 936:	aa 1f       	adc	r26, r26
+ 938:	bb 1f       	adc	r27, r27
+ 93a:	a6 17       	cp	r26, r22
+ 93c:	b7 07       	cpc	r27, r23
+ 93e:	10 f0       	brcs	.+4      	; 0x944 <__udivmodhi4_ep>
+ 940:	a6 1b       	sub	r26, r22
+ 942:	b7 0b       	sbc	r27, r23
+
+00000944 <__udivmodhi4_ep>:
+ 944:	88 1f       	adc	r24, r24
+ 946:	99 1f       	adc	r25, r25
+ 948:	5a 95       	dec	r21
+ 94a:	a9 f7       	brne	.-22     	; 0x936 <__udivmodhi4_loop>
+ 94c:	80 95       	com	r24
+ 94e:	90 95       	com	r25
+ 950:	bc 01       	movw	r22, r24
+ 952:	cd 01       	movw	r24, r26
+ 954:	08 95       	ret
+
+00000956 <__umulhisi3>:
+ 956:	a2 9f       	mul	r26, r18
+ 958:	b0 01       	movw	r22, r0
+ 95a:	b3 9f       	mul	r27, r19
+ 95c:	c0 01       	movw	r24, r0
+ 95e:	a3 9f       	mul	r26, r19
+ 960:	70 0d       	add	r23, r0
+ 962:	81 1d       	adc	r24, r1
+ 964:	11 24       	eor	r1, r1
+ 966:	91 1d       	adc	r25, r1
+ 968:	b2 9f       	mul	r27, r18
+ 96a:	70 0d       	add	r23, r0
+ 96c:	81 1d       	adc	r24, r1
+ 96e:	11 24       	eor	r1, r1
+ 970:	91 1d       	adc	r25, r1
+ 972:	08 95       	ret
+
+00000974 <_exit>:
+ 974:	f8 94       	cli
+
+00000976 <__stop_program>:
+ 976:	ff cf       	rjmp	.-2      	; 0x976 <__stop_program>

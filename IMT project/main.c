@@ -12,6 +12,7 @@
 int main (void)
 {
 	u8 choose;
+	DIO_voidSetPortDirection(DIO_PORTC, DIO_OUTPUT);
 	UART_voidInit();
 	while(1){
 		UART_voidSendStringSynch("1. Enter new user name. ");
@@ -30,8 +31,10 @@ int main (void)
 				SignIn();
 				if(lock == 2)
 					return 0;
-				if(lock == 1)
+				if(lock == 1){
+					Unlock();		
 					Light();
+				}
 				break;
 			case '3':
 				Edit();

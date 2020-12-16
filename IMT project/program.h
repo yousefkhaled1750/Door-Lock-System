@@ -10,6 +10,12 @@
 #define PROGRAM_H_
 #include "LIB/STD_TYPES.h"
 #define MAX_NAME_SIZE	20
+#define F_CPU	8000000UL
+
+#define RED_LED DIO_PIN3
+#define BLUE_LED DIO_PIN4
+#define FAN	DIO_PIN2
+#define LED_PORT DIO_PORTA
 
 struct user
 {
@@ -30,6 +36,7 @@ void SignIn(void);
 void Light(void);
 void Edit(void);
 void Show(void);
+void Unlock(void);
 
 
 
