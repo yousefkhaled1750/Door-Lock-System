@@ -1,8 +1,6 @@
-main.d main.o: .././main.c .././program.h .././MCAL/UART.h \
+program.d program.o: .././program.c .././MCAL/UART.h \
  .././MCAL/../LIB/Bit_math.h .././MCAL/../LIB/STD_TYPES.h \
- .././MCAL/DIO_INT.h
-
-.././program.h:
+ .././MCAL/DIO_INT.h .././LIB/STD_types.h
 
 .././MCAL/UART.h:
 
@@ -11,3 +9,5 @@ main.d main.o: .././main.c .././program.h .././MCAL/UART.h \
 .././MCAL/../LIB/STD_TYPES.h:
 
 .././MCAL/DIO_INT.h:
+
+.././LIB/STD_types.h:

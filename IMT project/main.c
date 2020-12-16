@@ -4,30 +4,35 @@
  * Created: 8/18/2020 4:18:16 PM
  * Author : EGYPT_LAPTOP
  */ 
-
-#include"MCAL/UART.h"
-#include <util/delay.h>
-
-void __vector_13(void) __attribute__((signal));			//RX interrupt
-void __vector_13(void){
-	
-	
-}
+#include "program.h"
+#include "MCAL/UART.h"
 
 
-int main(void)
-{	
-	u8 x ;
-    /* Replace with your application code */
+
+int main (void)
+{
+	u8 choose;
 	UART_voidInit();
-	
-	UART_voidSendString("Enter a character: ");
- 	
-    while (1) 
-    {
-		x = UART_u8ReceiveChar();
-		UART_voidSendChar(x);
-		
-    }
+	while(1){
+		UART_voidSendStringSynch("Choose a choice: ");
+		UART_u8ReceiveDataSynch(&choose);
+		switch(choose){
+			case '1':
+				new();
+				break;
+			case '2':
+				//SignIn();
+				break;
+			case '3':
+				//Edit();
+				break;
+			case '4':
+				Show();
+			
+		}
+	}
+	return 0;
+
 }
+
 

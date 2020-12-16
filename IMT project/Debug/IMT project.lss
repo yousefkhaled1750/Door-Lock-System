@@ -3,29 +3,31 @@ IMT project.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000114  00000000  00000000  00000074  2**1
+  0 .text         00000468  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000014  00800060  00000114  00000188  2**0
+  1 .data         0000005a  00800060  00000468  000004fc  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000019c  2**0
+  2 .bss          00000051  008000ba  008000ba  00000556  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000556  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001cc  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000588  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000068  00000000  00000000  00000208  2**0
+  5 .debug_aranges 00000098  00000000  00000000  000005c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000007ad  00000000  00000000  00000270  2**0
+  6 .debug_info   00000ba6  00000000  00000000  0000065c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000067c  00000000  00000000  00000a1d  2**0
+  7 .debug_abbrev 00000761  00000000  00000000  00001202  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000002f4  00000000  00000000  00001099  2**0
+  8 .debug_line   00000501  00000000  00000000  00001963  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000000c4  00000000  00000000  00001390  2**2
+  9 .debug_frame  00000198  00000000  00000000  00001e64  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000387  00000000  00000000  00001454  2**0
+ 10 .debug_str    00000459  00000000  00000000  00001ffc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000017c  00000000  00000000  000017db  2**0
+ 11 .debug_loc    00000555  00000000  00000000  00002455  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000048  00000000  00000000  00001957  2**0
+ 12 .debug_ranges 00000068  00000000  00000000  000029aa  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -44,7 +46,7 @@ Disassembly of section .text:
   28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  34:	0c 94 49 00 	jmp	0x92	; 0x92 <__vector_13>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
@@ -65,18 +67,18 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 e1       	ldi	r30, 0x14	; 20
-  68:	f1 e0       	ldi	r31, 0x01	; 1
+  66:	e8 e6       	ldi	r30, 0x68	; 104
+  68:	f4 e0       	ldi	r31, 0x04	; 4
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a4 37       	cpi	r26, 0x74	; 116
+  70:	aa 3b       	cpi	r26, 0xBA	; 186
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
-  76:	20 e0       	ldi	r18, 0x00	; 0
-  78:	a4 e7       	ldi	r26, 0x74	; 116
+  76:	21 e0       	ldi	r18, 0x01	; 1
+  78:	aa eb       	ldi	r26, 0xBA	; 186
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -84,143 +86,707 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a4 37       	cpi	r26, 0x74	; 116
+  80:	ab 30       	cpi	r26, 0x0B	; 11
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 53 00 	call	0xa6	; 0xa6 <main>
-  8a:	0c 94 88 00 	jmp	0x110	; 0x110 <_exit>
+  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
+  8a:	0c 94 32 02 	jmp	0x464	; 0x464 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000092 <__vector_13>:
+00000092 <main>:
+#include "MCAL/UART.h"
 
-#include"MCAL/UART.h"
-#include <util/delay.h>
 
-void __vector_13(void) __attribute__((signal));			//RX interrupt
-void __vector_13(void){
-  92:	1f 92       	push	r1
-  94:	0f 92       	push	r0
-  96:	0f b6       	in	r0, 0x3f	; 63
-  98:	0f 92       	push	r0
-  9a:	11 24       	eor	r1, r1
-	
-	
-}
-  9c:	0f 90       	pop	r0
-  9e:	0f be       	out	0x3f, r0	; 63
-  a0:	0f 90       	pop	r0
-  a2:	1f 90       	pop	r1
-  a4:	18 95       	reti
 
-000000a6 <main>:
-
-int main(void)
-{	
-	u8 x ;
-    /* Replace with your application code */
+int main (void)
+{
+  92:	cf 93       	push	r28
+  94:	df 93       	push	r29
+  96:	1f 92       	push	r1
+  98:	cd b7       	in	r28, 0x3d	; 61
+  9a:	de b7       	in	r29, 0x3e	; 62
+	u8 choose;
 	UART_voidInit();
-  a6:	0e 94 5e 00 	call	0xbc	; 0xbc <UART_voidInit>
-	
-	UART_voidSendString("Enter a character: ");
-  aa:	80 e6       	ldi	r24, 0x60	; 96
-  ac:	90 e0       	ldi	r25, 0x00	; 0
-  ae:	0e 94 72 00 	call	0xe4	; 0xe4 <UART_voidSendString>
- 	
-    while (1) 
-    {
-		x = UART_u8ReceiveChar();
-  b2:	0e 94 6c 00 	call	0xd8	; 0xd8 <UART_u8ReceiveChar>
-		UART_voidSendChar(x);
-  b6:	0e 94 65 00 	call	0xca	; 0xca <UART_voidSendChar>
-  ba:	fb cf       	rjmp	.-10     	; 0xb2 <main+0xc>
+  9c:	0e 94 64 00 	call	0xc8	; 0xc8 <UART_voidInit>
+	while(1){
+		UART_voidSendStringSynch("Choose a choice: ");
+  a0:	80 e6       	ldi	r24, 0x60	; 96
+  a2:	90 e0       	ldi	r25, 0x00	; 0
+  a4:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+		UART_u8ReceiveDataSynch(&choose);
+  a8:	ce 01       	movw	r24, r28
+  aa:	01 96       	adiw	r24, 0x01	; 1
+  ac:	0e 94 72 00 	call	0xe4	; 0xe4 <UART_u8ReceiveDataSynch>
+		switch(choose){
+  b0:	89 81       	ldd	r24, Y+1	; 0x01
+  b2:	81 33       	cpi	r24, 0x31	; 49
+  b4:	19 f0       	breq	.+6      	; 0xbc <main+0x2a>
+  b6:	84 33       	cpi	r24, 0x34	; 52
+  b8:	21 f0       	breq	.+8      	; 0xc2 <main+0x30>
+  ba:	f2 cf       	rjmp	.-28     	; 0xa0 <main+0xe>
+			case '1':
+				new();
+  bc:	0e 94 84 01 	call	0x308	; 0x308 <new>
+				break;
+  c0:	ef cf       	rjmp	.-34     	; 0xa0 <main+0xe>
+				break;
+			case '3':
+				//Edit();
+				break;
+			case '4':
+				Show();
+  c2:	0e 94 d8 01 	call	0x3b0	; 0x3b0 <Show>
+  c6:	ec cf       	rjmp	.-40     	; 0xa0 <main+0xe>
 
-000000bc <UART_voidInit>:
-
-
-
+000000c8 <UART_voidInit>:
 void UART_voidInit(void){
-	//SET_BIT(SREG,7);	
+	u8  ucsrb, ucsrc;	
+	ucsrb = ucsrb |(1<<TXEN | 1<<RXEN);		//Enable TX and RX.    //we didn't set the interrupts yet
+	ucsrc = ucsrc |(1<<URSEL| 3<<UCSZ);		//select UCSRC and set the character size to 8 bit.
+	
 	UBRRL = 51;		//baudrate 9600 for 8MHz
-  bc:	83 e3       	ldi	r24, 0x33	; 51
-  be:	89 b9       	out	0x09, r24	; 9
-	UCSRB = 0x18;	//Enable RX , TX only without interrupts
-  c0:	88 e1       	ldi	r24, 0x18	; 24
-  c2:	8a b9       	out	0x0a, r24	; 10
-	UCSRC = 0x86;	//8-bit data
-  c4:	86 e8       	ldi	r24, 0x86	; 134
-  c6:	80 bd       	out	0x20, r24	; 32
-  c8:	08 95       	ret
-
-000000ca <UART_voidSendChar>:
-}
-
-void UART_voidSendChar(u8 data){
+  c8:	83 e3       	ldi	r24, 0x33	; 51
+  ca:	89 b9       	out	0x09, r24	; 9
 	
-	while(GET_BIT(UCSRA,UDRE) == 0);
-  ca:	5d 9b       	sbis	0x0b, 5	; 11
-  cc:	fe cf       	rjmp	.-4      	; 0xca <UART_voidSendChar>
-	UDR = data;
-  ce:	8c b9       	out	0x0c, r24	; 12
+	UCSRB = ucsrb;	//Enable RX , TX only without interrupts
+  cc:	88 e1       	ldi	r24, 0x18	; 24
+  ce:	8a b9       	out	0x0a, r24	; 10
+	UCSRC = ucsrc;	//8-bit data
+  d0:	86 e8       	ldi	r24, 0x86	; 134
+  d2:	80 bd       	out	0x20, r24	; 32
+  d4:	08 95       	ret
+
+000000d6 <UART_voidSendDataSynch>:
+
+
+//For Polling transmission and reception
+void UART_voidSendDataSynch(u8 Copy_u8Data){
+	
+	while(GET_BIT(UCSRA,UDRE) == 0);	//wait until the Data Registe Embty is set
+  d6:	5d 9b       	sbis	0x0b, 5	; 11
+  d8:	fe cf       	rjmp	.-4      	; 0xd6 <UART_voidSendDataSynch>
+	UDR = Copy_u8Data;
+  da:	8c b9       	out	0x0c, r24	; 12
 	while(GET_BIT(UCSRA,TXC) == 0);	//wait until data is transmitted
-  d0:	5e 9b       	sbis	0x0b, 6	; 11
-  d2:	fe cf       	rjmp	.-4      	; 0xd0 <UART_voidSendChar+0x6>
-	SET_BIT(UCSRA,TXC);
-  d4:	5e 9a       	sbi	0x0b, 6	; 11
-  d6:	08 95       	ret
-
-000000d8 <UART_u8ReceiveChar>:
-}
-
-u16 UART_u8ReceiveChar(void){
-	
-	while(GET_BIT(UCSRA,RXC)==0);
-  d8:	5f 9b       	sbis	0x0b, 7	; 11
-  da:	fe cf       	rjmp	.-4      	; 0xd8 <UART_u8ReceiveChar>
-	
-	SET_BIT(UCSRA,RXC);
-  dc:	5f 9a       	sbi	0x0b, 7	; 11
-	return UDR;
-  de:	8c b1       	in	r24, 0x0c	; 12
-}
-  e0:	90 e0       	ldi	r25, 0x00	; 0
+  dc:	5e 9b       	sbis	0x0b, 6	; 11
+  de:	fe cf       	rjmp	.-4      	; 0xdc <UART_voidSendDataSynch+0x6>
+	SET_BIT(UCSRA,TXC);	//clear the flag of TX complete
+  e0:	5e 9a       	sbi	0x0b, 6	; 11
   e2:	08 95       	ret
 
-000000e4 <UART_voidSendString>:
+000000e4 <UART_u8ReceiveDataSynch>:
+}
 
-void UART_voidSendString(u8* str){
-  e4:	0f 93       	push	r16
-  e6:	1f 93       	push	r17
-  e8:	cf 93       	push	r28
-  ea:	8c 01       	movw	r16, r24
-	u8 i = 0;
-  ec:	c0 e0       	ldi	r28, 0x00	; 0
-	do{	
-		UART_voidSendChar(str[i]);
-  ee:	f8 01       	movw	r30, r16
-  f0:	ec 0f       	add	r30, r28
-  f2:	f1 1d       	adc	r31, r1
-  f4:	80 81       	ld	r24, Z
-  f6:	0e 94 65 00 	call	0xca	; 0xca <UART_voidSendChar>
-		i++;
-  fa:	cf 5f       	subi	r28, 0xFF	; 255
-	}while(str[i] != '\0');
-  fc:	f8 01       	movw	r30, r16
-  fe:	ec 0f       	add	r30, r28
- 100:	f1 1d       	adc	r31, r1
- 102:	80 81       	ld	r24, Z
- 104:	81 11       	cpse	r24, r1
- 106:	f3 cf       	rjmp	.-26     	; 0xee <UART_voidSendString+0xa>
+void UART_u8ReceiveDataSynch(u8 *Copy_pu8Data){
+	while(GET_BIT(UCSRA,RXC)==0);	//wait until there's data to be read in the receive buffer
+  e4:	5f 9b       	sbis	0x0b, 7	; 11
+  e6:	fe cf       	rjmp	.-4      	; 0xe4 <UART_u8ReceiveDataSynch>
+	SET_BIT(UCSRA,RXC);				//clear the receive flag 
+  e8:	5f 9a       	sbi	0x0b, 7	; 11
+	*Copy_pu8Data = UDR;			//send the received character to the addressed variable
+  ea:	2c b1       	in	r18, 0x0c	; 12
+  ec:	fc 01       	movw	r30, r24
+  ee:	20 83       	st	Z, r18
+  f0:	08 95       	ret
+
+000000f2 <UART_voidSendStringSynch>:
+}
+
+void UART_voidSendStringSynch(u8* Copy_pu8String){
+  f2:	0f 93       	push	r16
+  f4:	1f 93       	push	r17
+  f6:	cf 93       	push	r28
+  f8:	fc 01       	movw	r30, r24
+	u8 counter = 0;
+		while(Copy_pu8String[counter] != '\0'){
+  fa:	80 81       	ld	r24, Z
+  fc:	88 23       	and	r24, r24
+  fe:	59 f0       	breq	.+22     	; 0x116 <UART_voidSendStringSynch+0x24>
+ 100:	8f 01       	movw	r16, r30
+ 102:	c0 e0       	ldi	r28, 0x00	; 0
+			
+			UART_voidSendDataSynch(Copy_pu8String[counter]);
+ 104:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+			counter++;
+ 108:	cf 5f       	subi	r28, 0xFF	; 255
+	*Copy_pu8Data = UDR;			//send the received character to the addressed variable
+}
+
+void UART_voidSendStringSynch(u8* Copy_pu8String){
+	u8 counter = 0;
+		while(Copy_pu8String[counter] != '\0'){
+ 10a:	f8 01       	movw	r30, r16
+ 10c:	ec 0f       	add	r30, r28
+ 10e:	f1 1d       	adc	r31, r1
+ 110:	80 81       	ld	r24, Z
+ 112:	81 11       	cpse	r24, r1
+ 114:	f7 cf       	rjmp	.-18     	; 0x104 <UART_voidSendStringSynch+0x12>
+			UART_voidSendDataSynch(Copy_pu8String[counter]);
+			counter++;
+		}
+		
 	
 }
- 108:	cf 91       	pop	r28
- 10a:	1f 91       	pop	r17
- 10c:	0f 91       	pop	r16
- 10e:	08 95       	ret
+ 116:	cf 91       	pop	r28
+ 118:	1f 91       	pop	r17
+ 11a:	0f 91       	pop	r16
+ 11c:	08 95       	ret
 
-00000110 <_exit>:
- 110:	f8 94       	cli
+0000011e <UART_voidSendNumberSynch>:
 
-00000112 <__stop_program>:
- 112:	ff cf       	rjmp	.-2      	; 0x112 <__stop_program>
+void UART_voidSendNumberSynch(u32 Copy_u32Number){
+ 11e:	0f 93       	push	r16
+ 120:	1f 93       	push	r17
+ 122:	cf 93       	push	r28
+ 124:	df 93       	push	r29
+ 126:	fc 01       	movw	r30, r24
+	u8 SentChar;
+	u32 y = 1;
+ 128:	c1 e0       	ldi	r28, 0x01	; 1
+ 12a:	d0 e0       	ldi	r29, 0x00	; 0
+	
+	while(Copy_u32Number/(10*y) !=0){
+ 12c:	01 c0       	rjmp	.+2      	; 0x130 <UART_voidSendNumberSynch+0x12>
+		y*=10;
+ 12e:	e9 01       	movw	r28, r18
+
+void UART_voidSendNumberSynch(u32 Copy_u32Number){
+	u8 SentChar;
+	u32 y = 1;
+	
+	while(Copy_u32Number/(10*y) !=0){
+ 130:	ce 01       	movw	r24, r28
+ 132:	88 0f       	add	r24, r24
+ 134:	99 1f       	adc	r25, r25
+ 136:	88 0f       	add	r24, r24
+ 138:	99 1f       	adc	r25, r25
+ 13a:	88 0f       	add	r24, r24
+ 13c:	99 1f       	adc	r25, r25
+ 13e:	9e 01       	movw	r18, r28
+ 140:	22 0f       	add	r18, r18
+ 142:	33 1f       	adc	r19, r19
+ 144:	28 0f       	add	r18, r24
+ 146:	39 1f       	adc	r19, r25
+ 148:	cf 01       	movw	r24, r30
+ 14a:	b9 01       	movw	r22, r18
+ 14c:	0e 94 0f 02 	call	0x41e	; 0x41e <__udivmodhi4>
+ 150:	67 2b       	or	r22, r23
+ 152:	69 f7       	brne	.-38     	; 0x12e <UART_voidSendNumberSynch+0x10>
+		y*=10;
+	}
+	while(Copy_u32Number !=0){
+ 154:	30 97       	sbiw	r30, 0x00	; 0
+ 156:	d1 f0       	breq	.+52     	; 0x18c <UART_voidSendNumberSynch+0x6e>
+		SentChar = (Copy_u32Number/y)+'0';
+		UART_voidSendDataSynch(SentChar);
+ 158:	cf 01       	movw	r24, r30
+ 15a:	be 01       	movw	r22, r28
+ 15c:	0e 94 0f 02 	call	0x41e	; 0x41e <__udivmodhi4>
+ 160:	08 2f       	mov	r16, r24
+ 162:	19 2f       	mov	r17, r25
+ 164:	80 e3       	ldi	r24, 0x30	; 48
+ 166:	86 0f       	add	r24, r22
+ 168:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+		Copy_u32Number %=y;
+ 16c:	e0 2f       	mov	r30, r16
+ 16e:	f1 2f       	mov	r31, r17
+		y/=10;
+ 170:	9e 01       	movw	r18, r28
+ 172:	ad ec       	ldi	r26, 0xCD	; 205
+ 174:	bc ec       	ldi	r27, 0xCC	; 204
+ 176:	0e 94 23 02 	call	0x446	; 0x446 <__umulhisi3>
+ 17a:	ec 01       	movw	r28, r24
+ 17c:	d6 95       	lsr	r29
+ 17e:	c7 95       	ror	r28
+ 180:	d6 95       	lsr	r29
+ 182:	c7 95       	ror	r28
+ 184:	d6 95       	lsr	r29
+ 186:	c7 95       	ror	r28
+	u32 y = 1;
+	
+	while(Copy_u32Number/(10*y) !=0){
+		y*=10;
+	}
+	while(Copy_u32Number !=0){
+ 188:	30 97       	sbiw	r30, 0x00	; 0
+ 18a:	31 f7       	brne	.-52     	; 0x158 <UART_voidSendNumberSynch+0x3a>
+		SentChar = (Copy_u32Number/y)+'0';
+		UART_voidSendDataSynch(SentChar);
+		Copy_u32Number %=y;
+		y/=10;
+	}
+}
+ 18c:	df 91       	pop	r29
+ 18e:	cf 91       	pop	r28
+ 190:	1f 91       	pop	r17
+ 192:	0f 91       	pop	r16
+ 194:	08 95       	ret
+
+00000196 <UART_voidReceiveStringSynch>:
+
+void UART_voidReceiveStringSynch(u8* Copy_pu8Data , u8 BufferSize){
+ 196:	cf 92       	push	r12
+ 198:	df 92       	push	r13
+ 19a:	ef 92       	push	r14
+ 19c:	ff 92       	push	r15
+ 19e:	1f 93       	push	r17
+ 1a0:	cf 93       	push	r28
+ 1a2:	df 93       	push	r29
+ 1a4:	6c 01       	movw	r12, r24
+	
+	u8 counter = -1;
+ 1a6:	1f ef       	ldi	r17, 0xFF	; 255
+	do{
+		counter++;
+		UART_u8ReceiveDataSynch(Copy_pu8Data+counter);
+		UART_voidSendDataSynch(Copy_pu8Data[counter]);
+	}while(Copy_pu8Data[counter] != '+' && counter < BufferSize-1 );				//loop until Enter is pressed and is less than the last element of the buffer
+ 1a8:	e6 2e       	mov	r14, r22
+ 1aa:	f1 2c       	mov	r15, r1
+ 1ac:	81 e0       	ldi	r24, 0x01	; 1
+ 1ae:	e8 1a       	sub	r14, r24
+ 1b0:	f1 08       	sbc	r15, r1
+
+void UART_voidReceiveStringSynch(u8* Copy_pu8Data , u8 BufferSize){
+	
+	u8 counter = -1;
+	do{
+		counter++;
+ 1b2:	1f 5f       	subi	r17, 0xFF	; 255
+		UART_u8ReceiveDataSynch(Copy_pu8Data+counter);
+ 1b4:	e6 01       	movw	r28, r12
+ 1b6:	c1 0f       	add	r28, r17
+ 1b8:	d1 1d       	adc	r29, r1
+ 1ba:	ce 01       	movw	r24, r28
+ 1bc:	0e 94 72 00 	call	0xe4	; 0xe4 <UART_u8ReceiveDataSynch>
+		UART_voidSendDataSynch(Copy_pu8Data[counter]);
+ 1c0:	88 81       	ld	r24, Y
+ 1c2:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+	}while(Copy_pu8Data[counter] != '+' && counter < BufferSize-1 );				//loop until Enter is pressed and is less than the last element of the buffer
+ 1c6:	88 81       	ld	r24, Y
+ 1c8:	8b 32       	cpi	r24, 0x2B	; 43
+ 1ca:	29 f0       	breq	.+10     	; 0x1d6 <UART_voidReceiveStringSynch+0x40>
+ 1cc:	81 2f       	mov	r24, r17
+ 1ce:	90 e0       	ldi	r25, 0x00	; 0
+ 1d0:	8e 15       	cp	r24, r14
+ 1d2:	9f 05       	cpc	r25, r15
+ 1d4:	74 f3       	brlt	.-36     	; 0x1b2 <UART_voidReceiveStringSynch+0x1c>
+	Copy_pu8Data[counter] = '\0';			//put the null character at the last element of the buffer
+ 1d6:	18 82       	st	Y, r1
+}
+ 1d8:	df 91       	pop	r29
+ 1da:	cf 91       	pop	r28
+ 1dc:	1f 91       	pop	r17
+ 1de:	ff 90       	pop	r15
+ 1e0:	ef 90       	pop	r14
+ 1e2:	df 90       	pop	r13
+ 1e4:	cf 90       	pop	r12
+ 1e6:	08 95       	ret
+
+000001e8 <UART_voidReceiveNumberSynch>:
+
+void UART_voidReceiveNumberSynch(u32 *Copy_pu32Number){
+ 1e8:	5f 92       	push	r5
+ 1ea:	6f 92       	push	r6
+ 1ec:	7f 92       	push	r7
+ 1ee:	8f 92       	push	r8
+ 1f0:	9f 92       	push	r9
+ 1f2:	af 92       	push	r10
+ 1f4:	bf 92       	push	r11
+ 1f6:	cf 92       	push	r12
+ 1f8:	df 92       	push	r13
+ 1fa:	ef 92       	push	r14
+ 1fc:	ff 92       	push	r15
+ 1fe:	0f 93       	push	r16
+ 200:	1f 93       	push	r17
+ 202:	cf 93       	push	r28
+ 204:	df 93       	push	r29
+ 206:	cd b7       	in	r28, 0x3d	; 61
+ 208:	de b7       	in	r29, 0x3e	; 62
+ 20a:	2a 97       	sbiw	r28, 0x0a	; 10
+ 20c:	0f b6       	in	r0, 0x3f	; 63
+ 20e:	f8 94       	cli
+ 210:	de bf       	out	0x3e, r29	; 62
+ 212:	0f be       	out	0x3f, r0	; 63
+ 214:	cd bf       	out	0x3d, r28	; 61
+ 216:	3c 01       	movw	r6, r24
+ 218:	ae 01       	movw	r20, r28
+ 21a:	4f 5f       	subi	r20, 0xFF	; 255
+ 21c:	5f 4f       	sbci	r21, 0xFF	; 255
+ 21e:	7a 01       	movw	r14, r20
+ 220:	6a 01       	movw	r12, r20
+ 222:	00 e0       	ldi	r16, 0x00	; 0
+ 224:	10 e0       	ldi	r17, 0x00	; 0
+	u8 counter = 0;
+	u32 number = 0;
+	u32 decimal = 1;
+	u8 temp;
+	do{		//receive the number and put it into a buffer
+		numlen++;
+ 226:	50 2e       	mov	r5, r16
+		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
+ 228:	58 01       	movw	r10, r16
+ 22a:	46 01       	movw	r8, r12
+ 22c:	c6 01       	movw	r24, r12
+ 22e:	0e 94 72 00 	call	0xe4	; 0xe4 <UART_u8ReceiveDataSynch>
+		UART_voidSendDataSynch(Buffer[numlen]);
+ 232:	d6 01       	movw	r26, r12
+ 234:	8d 91       	ld	r24, X+
+ 236:	6d 01       	movw	r12, r26
+ 238:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+		
+	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
+ 23c:	f4 01       	movw	r30, r8
+ 23e:	80 81       	ld	r24, Z
+ 240:	8b 32       	cpi	r24, 0x2B	; 43
+ 242:	09 f4       	brne	.+2      	; 0x246 <UART_voidReceiveNumberSynch+0x5e>
+ 244:	47 c0       	rjmp	.+142    	; 0x2d4 <UART_voidReceiveNumberSynch+0xec>
+ 246:	0f 5f       	subi	r16, 0xFF	; 255
+ 248:	1f 4f       	sbci	r17, 0xFF	; 255
+ 24a:	0b 30       	cpi	r16, 0x0B	; 11
+ 24c:	11 05       	cpc	r17, r1
+ 24e:	59 f7       	brne	.-42     	; 0x226 <UART_voidReceiveNumberSynch+0x3e>
+ 250:	41 c0       	rjmp	.+130    	; 0x2d4 <UART_voidReceiveNumberSynch+0xec>
+	
+	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
+		temp = Buffer[numlen - counter-1];
+ 252:	a8 2f       	mov	r26, r24
+ 254:	b0 e0       	ldi	r27, 0x00	; 0
+ 256:	f5 01       	movw	r30, r10
+ 258:	ea 1b       	sub	r30, r26
+ 25a:	fb 0b       	sbc	r31, r27
+ 25c:	31 97       	sbiw	r30, 0x01	; 1
+ 25e:	41 e0       	ldi	r20, 0x01	; 1
+ 260:	50 e0       	ldi	r21, 0x00	; 0
+ 262:	4c 0f       	add	r20, r28
+ 264:	5d 1f       	adc	r21, r29
+ 266:	e4 0f       	add	r30, r20
+ 268:	f5 1f       	adc	r31, r21
+ 26a:	90 81       	ld	r25, Z
+		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
+ 26c:	a4 0f       	add	r26, r20
+ 26e:	b5 1f       	adc	r27, r21
+ 270:	2c 91       	ld	r18, X
+ 272:	20 53       	subi	r18, 0x30	; 48
+ 274:	20 83       	st	Z, r18
+		Buffer[counter] = temp - '0';
+ 276:	90 53       	subi	r25, 0x30	; 48
+ 278:	9c 93       	st	X, r25
+		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
+		UART_voidSendDataSynch(Buffer[numlen]);
+		
+	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
+	
+	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
+ 27a:	8f 5f       	subi	r24, 0xFF	; 255
+ 27c:	38 17       	cp	r19, r24
+ 27e:	48 f7       	brcc	.-46     	; 0x252 <UART_voidReceiveNumberSynch+0x6a>
+		temp = Buffer[numlen - counter-1];
+		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
+		Buffer[counter] = temp - '0';
+		
+	}
+	for(counter = 0; counter<numlen; counter++){
+ 280:	55 20       	and	r5, r5
+ 282:	11 f1       	breq	.+68     	; 0x2c8 <UART_voidReceiveNumberSynch+0xe0>
+ 284:	5a 94       	dec	r5
+ 286:	fe 01       	movw	r30, r28
+ 288:	e5 0d       	add	r30, r5
+ 28a:	f1 1d       	adc	r31, r1
+ 28c:	32 96       	adiw	r30, 0x02	; 2
+ 28e:	81 e0       	ldi	r24, 0x01	; 1
+ 290:	90 e0       	ldi	r25, 0x00	; 0
+ 292:	20 e0       	ldi	r18, 0x00	; 0
+ 294:	30 e0       	ldi	r19, 0x00	; 0
+		number = number + Buffer[counter]*decimal;
+ 296:	d7 01       	movw	r26, r14
+ 298:	6d 91       	ld	r22, X+
+ 29a:	7d 01       	movw	r14, r26
+ 29c:	68 9f       	mul	r22, r24
+ 29e:	a0 01       	movw	r20, r0
+ 2a0:	69 9f       	mul	r22, r25
+ 2a2:	50 0d       	add	r21, r0
+ 2a4:	11 24       	eor	r1, r1
+ 2a6:	24 0f       	add	r18, r20
+ 2a8:	35 1f       	adc	r19, r21
+		decimal *= 10;
+ 2aa:	ac 01       	movw	r20, r24
+ 2ac:	44 0f       	add	r20, r20
+ 2ae:	55 1f       	adc	r21, r21
+ 2b0:	88 0f       	add	r24, r24
+ 2b2:	99 1f       	adc	r25, r25
+ 2b4:	88 0f       	add	r24, r24
+ 2b6:	99 1f       	adc	r25, r25
+ 2b8:	88 0f       	add	r24, r24
+ 2ba:	99 1f       	adc	r25, r25
+ 2bc:	84 0f       	add	r24, r20
+ 2be:	95 1f       	adc	r25, r21
+		temp = Buffer[numlen - counter-1];
+		Buffer[numlen - counter - 1] = Buffer[counter] - '0';
+		Buffer[counter] = temp - '0';
+		
+	}
+	for(counter = 0; counter<numlen; counter++){
+ 2c0:	ae 17       	cp	r26, r30
+ 2c2:	bf 07       	cpc	r27, r31
+ 2c4:	41 f7       	brne	.-48     	; 0x296 <UART_voidReceiveNumberSynch+0xae>
+ 2c6:	02 c0       	rjmp	.+4      	; 0x2cc <UART_voidReceiveNumberSynch+0xe4>
+ 2c8:	20 e0       	ldi	r18, 0x00	; 0
+ 2ca:	30 e0       	ldi	r19, 0x00	; 0
+		number = number + Buffer[counter]*decimal;
+		decimal *= 10;
+		//UART_voidSendNumberSynch(number);	
+	}
+	
+	*Copy_pu32Number = number;
+ 2cc:	f3 01       	movw	r30, r6
+ 2ce:	31 83       	std	Z+1, r19	; 0x01
+ 2d0:	20 83       	st	Z, r18
+	
+}
+ 2d2:	04 c0       	rjmp	.+8      	; 0x2dc <UART_voidReceiveNumberSynch+0xf4>
+		UART_u8ReceiveDataSynch(&(Buffer[numlen]));
+		UART_voidSendDataSynch(Buffer[numlen]);
+		
+	}while(Buffer[numlen] != '+' && numlen< 10);		//the last element storing Enter char.
+	
+	for( ;counter<=numlen/2;counter++){	//swap the buffer element	as it is stored inversely
+ 2d4:	35 2d       	mov	r19, r5
+ 2d6:	36 95       	lsr	r19
+ 2d8:	80 e0       	ldi	r24, 0x00	; 0
+ 2da:	bb cf       	rjmp	.-138    	; 0x252 <UART_voidReceiveNumberSynch+0x6a>
+		//UART_voidSendNumberSynch(number);	
+	}
+	
+	*Copy_pu32Number = number;
+	
+}
+ 2dc:	2a 96       	adiw	r28, 0x0a	; 10
+ 2de:	0f b6       	in	r0, 0x3f	; 63
+ 2e0:	f8 94       	cli
+ 2e2:	de bf       	out	0x3e, r29	; 62
+ 2e4:	0f be       	out	0x3f, r0	; 63
+ 2e6:	cd bf       	out	0x3d, r28	; 61
+ 2e8:	df 91       	pop	r29
+ 2ea:	cf 91       	pop	r28
+ 2ec:	1f 91       	pop	r17
+ 2ee:	0f 91       	pop	r16
+ 2f0:	ff 90       	pop	r15
+ 2f2:	ef 90       	pop	r14
+ 2f4:	df 90       	pop	r13
+ 2f6:	cf 90       	pop	r12
+ 2f8:	bf 90       	pop	r11
+ 2fa:	af 90       	pop	r10
+ 2fc:	9f 90       	pop	r9
+ 2fe:	8f 90       	pop	r8
+ 300:	7f 90       	pop	r7
+ 302:	6f 90       	pop	r6
+ 304:	5f 90       	pop	r5
+ 306:	08 95       	ret
+
+00000308 <new>:
+u32 pass[10];
+
+void new(void){
+	//UART_voidSendDataSynch('\n');
+	
+	UART_voidSendStringSynch("Enter Your User Name: ");
+ 308:	82 e7       	ldi	r24, 0x72	; 114
+ 30a:	90 e0       	ldi	r25, 0x00	; 0
+ 30c:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidReceiveStringSynch(*(Buffer+counter), sizeof(users[counter].name));
+ 310:	e0 91 ba 00 	lds	r30, 0x00BA	; 0x8000ba <__data_end>
+ 314:	f0 e0       	ldi	r31, 0x00	; 0
+ 316:	ee 0f       	add	r30, r30
+ 318:	ff 1f       	adc	r31, r31
+ 31a:	e9 50       	subi	r30, 0x09	; 9
+ 31c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 31e:	62 e0       	ldi	r22, 0x02	; 2
+ 320:	80 81       	ld	r24, Z
+ 322:	91 81       	ldd	r25, Z+1	; 0x01
+ 324:	0e 94 cb 00 	call	0x196	; 0x196 <UART_voidReceiveStringSynch>
+	users[counter].name = *(Buffer+counter);
+ 328:	80 91 ba 00 	lds	r24, 0x00BA	; 0x8000ba <__data_end>
+ 32c:	90 e0       	ldi	r25, 0x00	; 0
+ 32e:	dc 01       	movw	r26, r24
+ 330:	aa 0f       	add	r26, r26
+ 332:	bb 1f       	adc	r27, r27
+ 334:	aa 0f       	add	r26, r26
+ 336:	bb 1f       	adc	r27, r27
+ 338:	a5 54       	subi	r26, 0x45	; 69
+ 33a:	bf 4f       	sbci	r27, 0xFF	; 255
+ 33c:	88 0f       	add	r24, r24
+ 33e:	99 1f       	adc	r25, r25
+ 340:	fc 01       	movw	r30, r24
+ 342:	e9 50       	subi	r30, 0x09	; 9
+ 344:	ff 4f       	sbci	r31, 0xFF	; 255
+ 346:	80 81       	ld	r24, Z
+ 348:	91 81       	ldd	r25, Z+1	; 0x01
+ 34a:	8d 93       	st	X+, r24
+ 34c:	9c 93       	st	X, r25
+	
+	UART_voidSendStringSynch("Enter Your Password: ");
+ 34e:	89 e8       	ldi	r24, 0x89	; 137
+ 350:	90 e0       	ldi	r25, 0x00	; 0
+ 352:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidReceiveNumberSynch(pass+counter);
+ 356:	80 91 ba 00 	lds	r24, 0x00BA	; 0x8000ba <__data_end>
+ 35a:	90 e0       	ldi	r25, 0x00	; 0
+ 35c:	88 0f       	add	r24, r24
+ 35e:	99 1f       	adc	r25, r25
+ 360:	8d 51       	subi	r24, 0x1D	; 29
+ 362:	9f 4f       	sbci	r25, 0xFF	; 255
+ 364:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <UART_voidReceiveNumberSynch>
+	users[counter].password = pass[counter];
+ 368:	80 91 ba 00 	lds	r24, 0x00BA	; 0x8000ba <__data_end>
+ 36c:	90 e0       	ldi	r25, 0x00	; 0
+ 36e:	dc 01       	movw	r26, r24
+ 370:	aa 0f       	add	r26, r26
+ 372:	bb 1f       	adc	r27, r27
+ 374:	aa 0f       	add	r26, r26
+ 376:	bb 1f       	adc	r27, r27
+ 378:	a5 54       	subi	r26, 0x45	; 69
+ 37a:	bf 4f       	sbci	r27, 0xFF	; 255
+ 37c:	88 0f       	add	r24, r24
+ 37e:	99 1f       	adc	r25, r25
+ 380:	fc 01       	movw	r30, r24
+ 382:	ed 51       	subi	r30, 0x1D	; 29
+ 384:	ff 4f       	sbci	r31, 0xFF	; 255
+ 386:	80 81       	ld	r24, Z
+ 388:	91 81       	ldd	r25, Z+1	; 0x01
+ 38a:	13 96       	adiw	r26, 0x03	; 3
+ 38c:	9c 93       	st	X, r25
+ 38e:	8e 93       	st	-X, r24
+ 390:	12 97       	sbiw	r26, 0x02	; 2
+	
+	UART_voidSendStringSynch("Your ID is ");
+ 392:	8f e9       	ldi	r24, 0x9F	; 159
+ 394:	90 e0       	ldi	r25, 0x00	; 0
+ 396:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidSendDataSynch(counter + '0');
+ 39a:	80 91 ba 00 	lds	r24, 0x00BA	; 0x8000ba <__data_end>
+ 39e:	80 5d       	subi	r24, 0xD0	; 208
+ 3a0:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+	counter++;
+ 3a4:	80 91 ba 00 	lds	r24, 0x00BA	; 0x8000ba <__data_end>
+ 3a8:	8f 5f       	subi	r24, 0xFF	; 255
+ 3aa:	80 93 ba 00 	sts	0x00BA, r24	; 0x8000ba <__data_end>
+ 3ae:	08 95       	ret
+
+000003b0 <Show>:
+}
+void SignIn(void);
+void Light();
+void Edit();
+void Show(){
+ 3b0:	cf 93       	push	r28
+ 3b2:	df 93       	push	r29
+ 3b4:	1f 92       	push	r1
+ 3b6:	cd b7       	in	r28, 0x3d	; 61
+ 3b8:	de b7       	in	r29, 0x3e	; 62
+	u8 id;
+	//UART_voidSendDataSynch('\n');
+	
+	UART_voidSendStringSynch("Enter Your ID ");
+ 3ba:	8b ea       	ldi	r24, 0xAB	; 171
+ 3bc:	90 e0       	ldi	r25, 0x00	; 0
+ 3be:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_u8ReceiveDataSynch(&id);
+ 3c2:	ce 01       	movw	r24, r28
+ 3c4:	01 96       	adiw	r24, 0x01	; 1
+ 3c6:	0e 94 72 00 	call	0xe4	; 0xe4 <UART_u8ReceiveDataSynch>
+	id -= '0';
+ 3ca:	89 81       	ldd	r24, Y+1	; 0x01
+ 3cc:	80 53       	subi	r24, 0x30	; 48
+ 3ce:	89 83       	std	Y+1, r24	; 0x01
+	UART_voidSendStringSynch("Your User Name: ");
+ 3d0:	88 e7       	ldi	r24, 0x78	; 120
+ 3d2:	90 e0       	ldi	r25, 0x00	; 0
+ 3d4:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidSendStringSynch(users[id].name);
+ 3d8:	e9 81       	ldd	r30, Y+1	; 0x01
+ 3da:	f0 e0       	ldi	r31, 0x00	; 0
+ 3dc:	ee 0f       	add	r30, r30
+ 3de:	ff 1f       	adc	r31, r31
+ 3e0:	ee 0f       	add	r30, r30
+ 3e2:	ff 1f       	adc	r31, r31
+ 3e4:	e5 54       	subi	r30, 0x45	; 69
+ 3e6:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3e8:	80 81       	ld	r24, Z
+ 3ea:	91 81       	ldd	r25, Z+1	; 0x01
+ 3ec:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidSendDataSynch('\n');
+ 3f0:	8a e0       	ldi	r24, 0x0A	; 10
+ 3f2:	0e 94 6b 00 	call	0xd6	; 0xd6 <UART_voidSendDataSynch>
+	UART_voidSendStringSynch("Your Password: ");
+ 3f6:	8f e8       	ldi	r24, 0x8F	; 143
+ 3f8:	90 e0       	ldi	r25, 0x00	; 0
+ 3fa:	0e 94 79 00 	call	0xf2	; 0xf2 <UART_voidSendStringSynch>
+	UART_voidSendNumberSynch(users[id].password);
+ 3fe:	e9 81       	ldd	r30, Y+1	; 0x01
+ 400:	f0 e0       	ldi	r31, 0x00	; 0
+ 402:	ee 0f       	add	r30, r30
+ 404:	ff 1f       	adc	r31, r31
+ 406:	ee 0f       	add	r30, r30
+ 408:	ff 1f       	adc	r31, r31
+ 40a:	e5 54       	subi	r30, 0x45	; 69
+ 40c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 40e:	82 81       	ldd	r24, Z+2	; 0x02
+ 410:	93 81       	ldd	r25, Z+3	; 0x03
+ 412:	0e 94 8f 00 	call	0x11e	; 0x11e <UART_voidSendNumberSynch>
+	
+ 416:	0f 90       	pop	r0
+ 418:	df 91       	pop	r29
+ 41a:	cf 91       	pop	r28
+ 41c:	08 95       	ret
+
+0000041e <__udivmodhi4>:
+ 41e:	aa 1b       	sub	r26, r26
+ 420:	bb 1b       	sub	r27, r27
+ 422:	51 e1       	ldi	r21, 0x11	; 17
+ 424:	07 c0       	rjmp	.+14     	; 0x434 <__udivmodhi4_ep>
+
+00000426 <__udivmodhi4_loop>:
+ 426:	aa 1f       	adc	r26, r26
+ 428:	bb 1f       	adc	r27, r27
+ 42a:	a6 17       	cp	r26, r22
+ 42c:	b7 07       	cpc	r27, r23
+ 42e:	10 f0       	brcs	.+4      	; 0x434 <__udivmodhi4_ep>
+ 430:	a6 1b       	sub	r26, r22
+ 432:	b7 0b       	sbc	r27, r23
+
+00000434 <__udivmodhi4_ep>:
+ 434:	88 1f       	adc	r24, r24
+ 436:	99 1f       	adc	r25, r25
+ 438:	5a 95       	dec	r21
+ 43a:	a9 f7       	brne	.-22     	; 0x426 <__udivmodhi4_loop>
+ 43c:	80 95       	com	r24
+ 43e:	90 95       	com	r25
+ 440:	bc 01       	movw	r22, r24
+ 442:	cd 01       	movw	r24, r26
+ 444:	08 95       	ret
+
+00000446 <__umulhisi3>:
+ 446:	a2 9f       	mul	r26, r18
+ 448:	b0 01       	movw	r22, r0
+ 44a:	b3 9f       	mul	r27, r19
+ 44c:	c0 01       	movw	r24, r0
+ 44e:	a3 9f       	mul	r26, r19
+ 450:	70 0d       	add	r23, r0
+ 452:	81 1d       	adc	r24, r1
+ 454:	11 24       	eor	r1, r1
+ 456:	91 1d       	adc	r25, r1
+ 458:	b2 9f       	mul	r27, r18
+ 45a:	70 0d       	add	r23, r0
+ 45c:	81 1d       	adc	r24, r1
+ 45e:	11 24       	eor	r1, r1
+ 460:	91 1d       	adc	r25, r1
+ 462:	08 95       	ret
+
+00000464 <_exit>:
+ 464:	f8 94       	cli
+
+00000466 <__stop_program>:
+ 466:	ff cf       	rjmp	.-2      	; 0x466 <__stop_program>

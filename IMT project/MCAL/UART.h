@@ -50,22 +50,23 @@
 #define UPM		4	//2 bits for parity 
 #define USBS	3	//1-bit stop = 0, 2-bit stop =1
 #define UCSZ	1	//2 bits with UCSZ2	for character size
-#define UCPOL	0	//used with synch mode, when Asynch put 0
+#define UCPOL	0	//used with synch mode
 
 
 
 
 void UART_voidInit(void);
 
-void UART_voidSendChar(u8 data);
+void UART_voidSendDataSynch(u8 Copy_u8Data);
 
-u16 UART_u8ReceiveChar(void);
+void UART_u8ReceiveDataSynch(u8 *Copy_pu8Data);
 
-void UART_voidSendString(u8* str);
+void UART_voidSendStringSynch(u8* Copy_pu8String);
 
-void UART_voidSendNumber(u32 Num);
+void UART_voidSendNumberSynch(u32 Copy_u32Number);
 
-void UART_voidReceiveString(u8* str);
+void UART_voidReceiveStringSynch(u8* Copy_pu8Data , u8 BufferSize);
 
+void UART_voidReceiveNumberSynch(u32 *Copy_pu32Number);
 
 #endif /* UART_H_ */
