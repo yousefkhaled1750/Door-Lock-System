@@ -6,14 +6,37 @@
  */ 
 
 
-#ifndef INCFILE1_H_
-#define INCFILE1_H_
+#ifndef PROGRAM_H_
+#define PROGRAM_H_
+#include "LIB/STD_TYPES.h"
+#define MAX_NAME_SIZE	20
+#define F_CPU	8000000UL
+
+#define RED_LED DIO_PIN3
+#define BLUE_LED DIO_PIN4
+#define FAN	DIO_PIN2
+#define LED_PORT DIO_PORTA
+
+struct user
+{
+	u8 name[10];
+	u32 password;
+
+};
+struct user users[10] ;
+
+u8 counter ;
+u8 lock ;
+u8 *Buffer[10];
+u32 pass[10];
+
 
 void new(void);
 void SignIn(void);
 void Light(void);
 void Edit(void);
 void Show(void);
+void Unlock(void);
 
 
 
