@@ -6,8 +6,10 @@
  */ 
 
 
-#ifndef INCFILE1_H_
-#define INCFILE1_H_
+#ifndef PROGRAM_H_
+#define PROGRAM_H_
+
+#define MAX_NAME_SIZE	20
 
 void new(void);
 void SignIn(void);

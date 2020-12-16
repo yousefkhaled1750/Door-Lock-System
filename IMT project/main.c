@@ -16,6 +16,8 @@ int main (void)
 	while(1){
 		UART_voidSendStringSynch("Choose a choice: ");
 		UART_u8ReceiveDataSynch(&choose);
+		UART_voidSendDataSynch(choose);
+		UART_voidSendDataSynch(' ');
 		switch(choose){
 			case '1':
 				new();
@@ -24,7 +26,7 @@ int main (void)
 				//SignIn();
 				break;
 			case '3':
-				//Edit();
+				Edit();
 				break;
 			case '4':
 				Show();
