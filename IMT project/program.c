@@ -9,25 +9,16 @@
 #include "program.h"
 #include "LIB/STD_types.h"
 
-struct user
-{
-	u8 *name;
-	u32 password;
+extern struct user users[10] = {0};
 
-};
-struct user users[10] = {0};
-
-u8 counter = 0;
-u8 lock = 0;
-u8 *Buffer[10];
-u32 pass[10];
-
+extern u8 counter = 0;
+extern u8 lock = 0;
 void new(void){
 	//UART_voidSendDataSynch('\n');
 	
+	Buffer[counter] = users[counter].name;
 	UART_voidSendStringSynch("Enter Your User Name: ");
 	UART_voidReceiveStringSynch(*(Buffer+counter), MAX_NAME_SIZE);
-	users[counter].name = *(Buffer+counter);
 	UART_voidSendDataSynch(' ');
 	
 	UART_voidSendStringSynch("Enter Your Password: ");
@@ -41,11 +32,44 @@ void new(void){
 	
 	counter++;
 }
-void SignIn(void);
+void SignIn(void)
+{
+	u8 i;
+	u8 ID;
+	u32 password_check;
+	u8 trials=0;
+	UART_voidSendStringSynch("Enter Your User ID: ");
+	UART_u8ReceiveDataSynch(&ID);
+	ID -= '0';
+	while(trials<3)
+	{
+		
+		UART_voidSendStringSynch("Enter Your Password: ");
+		UART_voidReceiveNumberSynch(&password_check);
+		
+		if(password_check==users[ID].password)	
+		{
+			UART_voidSendStringSynch("welcome to our system: ");
+			lock=1;
+			break;
+		}else{
+			UART_voidSendStringSynch("Not Correct! Try Again ");
+			trials++;
+		}
+
+	}
+
+
+	if(lock==0&&trials>=3)
+	{
+		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
+		lock = 2;
+	}
+}
 void Light();
 void Edit(){
 	u8 id, choose;
-	//u32 pass;
+	u32 pass;
 	
 	UART_voidSendStringSynch("Enter Your ID ");
 	UART_u8ReceiveDataSynch(&id);
@@ -65,15 +89,15 @@ void Edit(){
 		
 		switch(choose){
 			case '1':
+				Buffer[id] = users[id].name;
 				UART_voidSendStringSynch("Enter Your New User Name: ");
 				UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
-				users[id].name = *(Buffer+id);
 				UART_voidSendDataSynch(' ');
 				break;
 			case '2':
 				UART_voidSendStringSynch("Enter Your New Password: ");
-				UART_voidReceiveNumberSynch(pass+id);
-				users[id].password = pass[id];
+				UART_voidReceiveNumberSynch(&pass);
+				users[id].password = pass;
 				UART_voidSendDataSynch(' ');
 				break;
 			case '3':
