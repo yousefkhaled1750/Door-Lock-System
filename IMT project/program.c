@@ -7,6 +7,7 @@
 
 #include "MCAL/UART.h"
 #include "program.h"
+#include "EEPROM_interface.h"
 #include "LIB/STD_types.h"
 #include "util/delay.h"
 

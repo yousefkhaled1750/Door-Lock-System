@@ -151,6 +151,18 @@
     <Compile Include="CFile1.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="EEPROM_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEPROM_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEPROM_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="EEPROM_program.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="program.h">
       <SubType>compile</SubType>
     </Compile>
@@ -185,6 +197,21 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI_interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI_program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TWI_register.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

@@ -31,6 +31,23 @@ Discarded input sections
  .debug_line    0x00000000       0x1a CFile1.o
  .debug_str     0x00000000      0x14b CFile1.o
  .comment       0x00000000       0x31 CFile1.o
+ .text          0x00000000        0x0 EEPROM_program.o
+ .data          0x00000000        0x0 EEPROM_program.o
+ .bss           0x00000000        0x0 EEPROM_program.o
+ .text.EEPROM_voidSendDataByte
+                0x00000000       0x3c EEPROM_program.o
+ .text.EEPROM_u8ReadDataByte
+                0x00000000       0x48 EEPROM_program.o
+ .debug_info    0x00000000      0x2bf EEPROM_program.o
+ .debug_abbrev  0x00000000      0x147 EEPROM_program.o
+ .debug_loc     0x00000000      0x1a2 EEPROM_program.o
+ .debug_aranges
+                0x00000000       0x28 EEPROM_program.o
+ .debug_ranges  0x00000000       0x18 EEPROM_program.o
+ .debug_line    0x00000000      0x1ac EEPROM_program.o
+ .debug_str     0x00000000      0x2fd EEPROM_program.o
+ .comment       0x00000000       0x31 EEPROM_program.o
+ .debug_frame   0x00000000       0x60 EEPROM_program.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -66,6 +83,37 @@ Discarded input sections
  .text          0x00000000        0x0 program.o
  .data          0x00000000        0x0 program.o
  .bss           0x00000000        0x0 program.o
+ .text          0x00000000        0x0 TWI_program.o
+ .data          0x00000000        0x0 TWI_program.o
+ .bss           0x00000000        0x0 TWI_program.o
+ .text.TWI_voidInitMaster
+                0x00000000       0x1e TWI_program.o
+ .text.TWI_voidInitSlave
+                0x00000000       0x12 TWI_program.o
+ .text.TWI_SendStartCondition
+                0x00000000       0x20 TWI_program.o
+ .text.TWI_SendRepeatedStart
+                0x00000000       0x22 TWI_program.o
+ .text.TWI_SendSlaveAddressWithWrite
+                0x00000000       0x28 TWI_program.o
+ .text.TWI_SendSlaveAddressWithRead
+                0x00000000       0x28 TWI_program.o
+ .text.TWI_MasterWriteDataByte
+                0x00000000       0x1e TWI_program.o
+ .text.TWI_MasterReadDataByte
+                0x00000000       0x22 TWI_program.o
+ .text.TWI_SendStopCondition
+                0x00000000        0xe TWI_program.o
+ .debug_info    0x00000000      0x26e TWI_program.o
+ .debug_abbrev  0x00000000       0xd3 TWI_program.o
+ .debug_loc     0x00000000      0x1bd TWI_program.o
+ .debug_aranges
+                0x00000000       0x60 TWI_program.o
+ .debug_ranges  0x00000000       0x50 TWI_program.o
+ .debug_line    0x00000000      0x25f TWI_program.o
+ .debug_str     0x00000000      0x303 TWI_program.o
+ .comment       0x00000000       0x31 TWI_program.o
+ .debug_frame   0x00000000       0xa4 TWI_program.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
@@ -159,11 +207,13 @@ Linker script and memory map
 
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
 LOAD CFile1.o
+LOAD EEPROM_program.o
 LOAD main.o
 LOAD MCAL/ADC_PROG.o
 LOAD MCAL/DIO_PROG.o
 LOAD MCAL/UART.o
 LOAD program.o
+LOAD TWI_program.o
 START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libm.a
 END GROUP
