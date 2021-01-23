@@ -185,7 +185,7 @@ void DIO_voidSetPortDirection(u8 Copy_u8PortNB,u8 Copy_u8PortDirection){
 	else
 	{
 		switch(Copy_u8PortDirection){
-			case DIO_OUTPUT:
+			case DIO_HIGH:
 			switch (Copy_u8PortNB){
 				case DIO_PORTA: DDRA = 0xff; break;
 				case DIO_PORTB: DDRB = 0xff; break;
@@ -194,7 +194,7 @@ void DIO_voidSetPortDirection(u8 Copy_u8PortNB,u8 Copy_u8PortDirection){
 			}
 			break;
 
-			case  DIO_INPUT:
+			case  DIO_LOW:
 			switch (Copy_u8PortNB){
 				case DIO_PORTA: DDRA = 0x00; break;
 				case DIO_PORTB: DDRB = 0x00; break;
@@ -244,16 +244,3 @@ u8 DIO_u8GetPortValue(u8 Copy_u8PortNB){
 	}
 	
 }
-/*
-void DIO_VidTogglePin(u8 Loc_U8Port,u8 Loc_U8Pin)
-{
-	switch(Loc_U8Port)
-	{
-		case 0:TOG_BIT(PORTA,Loc_U8Pin);break;
-		case 1:TOG_BIT(PORTB,Loc_U8Pin);break;
-		case 2:TOG_BIT(PORTC,Loc_U8Pin);break;
-		case 3:TOG_BIT(PORTD,Loc_U8Pin);break;
-
-	}
-}
-*/

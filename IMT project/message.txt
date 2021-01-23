@@ -81,46 +81,44 @@ void Edit(){
 	UART_u8ReceiveDataSynch(&id);
 	id -= '0';
 	UART_voidSendDataSynch(' ');
-	if(id<counter){
-		UART_voidSendStringSynch("Enter the Password: ");
-		UART_voidReceiveNumberSynch(&pass);
-		UART_voidSendDataSynch(' ');
 	
-		if(pass == users[id].password)
-		{		
-			key = 1;
-			while(key ==1){
-				UART_voidSendStringSynch("1. Edit Your User Name.	2. Edit Your Password.	 3. exit the edit. ");
-				UART_voidSendStringSynch("Choose a choice: ");
-				UART_u8ReceiveDataSynch(&choose);
-				UART_voidSendDataSynch(' ');
+	UART_voidSendStringSynch("Enter the Password: ");
+	UART_voidReceiveNumberSynch(&pass);
+	UART_voidSendDataSynch(' ');
+	
+	if(pass == users[id].password)
+	{		
+		key = 1;
+		while(key ==1){
+			UART_voidSendStringSynch("1. Edit Your User Name.	2. Edit Your Password.	 3. exit the edit. ");
+			UART_voidSendStringSynch("Choose a choice: ");
+			UART_u8ReceiveDataSynch(&choose);
+			UART_voidSendDataSynch(' ');
 		
-				switch(choose){
-					case '1':
-						Buffer[id] = users[id].name;
-						UART_voidSendStringSynch("Enter Your New User Name: ");
-						UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
-						UART_voidSendDataSynch(' ');
-						break;
-					case '2':
-						UART_voidSendStringSynch("Enter Your New Password: ");
-						UART_voidReceiveNumberSynch(&pass);
-						users[id].password = pass;
-						UART_voidSendDataSynch(' ');
-						break;
-					case '3':
-						key = 0;
-						break;
-				}
+			switch(choose){
+				case '1':
+					Buffer[id] = users[id].name;
+					UART_voidSendStringSynch("Enter Your New User Name: ");
+					UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
+					UART_voidSendDataSynch(' ');
+					break;
+				case '2':
+					UART_voidSendStringSynch("Enter Your New Password: ");
+					UART_voidReceiveNumberSynch(&pass);
+					users[id].password = pass;
+					UART_voidSendDataSynch(' ');
+					break;
+				case '3':
+					key = 0;
+					break;
 			}
 		}
-		else
-		{
-			UART_voidSendStringSynch("Wrong Password!");
-		}
-	}else{
-		UART_voidSendStringSynch("We Don't have this ID! ");
 	}
+	else
+	{
+		UART_voidSendStringSynch("Wrong Password!");
+	}
+	
 }
 void Show(){
 	u8 id;
@@ -129,24 +127,19 @@ void Show(){
 	UART_voidSendStringSynch("Enter Your ID ");
 	UART_u8ReceiveDataSynch(&id);
 	id -= '0';
-	if(id < counter){
-		UART_voidSendDataSynch(' ');
+	UART_voidSendDataSynch(' ');
 	
-		UART_voidSendStringSynch("Your User Name: ");
-		UART_voidSendStringSynch(users[id].name);
-		UART_voidSendDataSynch(' ');
+	UART_voidSendStringSynch("Your User Name: ");
+	UART_voidSendStringSynch(users[id].name);
+	UART_voidSendDataSynch(' ');
 	
-		UART_voidSendStringSynch("Your Password: ");
-		UART_voidSendNumberSynch(users[id].password);
-		UART_voidSendDataSynch(' ');
-	}else{
-		UART_voidSendStringSynch("We Don't Have this ID ");
-	}
+	UART_voidSendStringSynch("Your Password: ");
+	UART_voidSendNumberSynch(users[id].password);
+	UART_voidSendDataSynch(' ');
 	
 }
 
 void Unlock(){
-	DIO_voidSetPortDirection(DIO_PORTC, DIO_OUTPUT);
 	DIO_voidSetPinValue(DIO_PORTC, DIO_PIN2, DIO_HIGH);
 	_delay_ms(3000);
 	DIO_voidSetPinValue(DIO_PORTC, DIO_PIN2, DIO_LOW);

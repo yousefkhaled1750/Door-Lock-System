@@ -12,7 +12,6 @@
 int main (void)
 {
 	u8 choose;
-	DIO_voidSetPortDirection(DIO_PORTC, DIO_OUTPUT);
 	UART_voidInit();
 	while(1){
 		UART_voidSendStringSynch("1. Enter new user name. ");
@@ -20,7 +19,7 @@ int main (void)
 		UART_voidSendStringSynch("3. Edit current data. ");
 		UART_voidSendStringSynch("4. Show current data. ");
 		UART_voidSendStringSynch("Choose a choice: ");
-		UART_u8ReceiveDataSynch(&choose);
+		UART_u8ReceiveDataSynch(&choose);			//enter '+' after you insert your choice
 		UART_voidSendDataSynch(choose);
 		UART_voidSendDataSynch(' ');
 		switch(choose){
@@ -31,10 +30,8 @@ int main (void)
 				SignIn();
 				if(lock == 2)
 					return 0;
-				if(lock == 1){
-					Unlock();		
+				if(lock == 1)
 					Light();
-				}
 				break;
 			case '3':
 				Edit();
