@@ -207,21 +207,34 @@ void DIO_voidSetPortDirection(u8 Copy_u8PortNB,u8 Copy_u8PortDirection){
 }
 
 /* set the value of a port chosen by the user */
-void DIO_voidSetPortValue(u8 Copy_u8PortNB, u8 Copy_u8PinValue){
+void DIO_voidSetPortValue(u8 Copy_u8PortNB, u8 Copy_u8Value){
 /* input validation */
 	if(Copy_u8PortNB>DIO_PORTD ){
 		#warning "You Entered invalid inputs"
 		return;
 	}
-	else{
-		switch(Copy_u8PortNB){
-			case DIO_PORTA: PORTA = Copy_u8PinValue; break;
-			case DIO_PORTB: PORTB = Copy_u8PinValue; break;
-			case DIO_PORTC: PORTC = Copy_u8PinValue; break;
-			case DIO_PORTD: PORTD = Copy_u8PinValue; break;
-		}
+	else
+	{
+		switch(Copy_u8Value){
+			case DIO_HIGH:
+			switch (Copy_u8PortNB){
+				case DIO_PORTA: PORTA = 0xff; break;
+				case DIO_PORTB: PORTB = 0xff; break;
+				case DIO_PORTC: PORTC = 0xff; break;
+				case DIO_PORTD: PORTD = 0xff; break;
+			}
+			break;
 
+			case  DIO_LOW:
+			switch (Copy_u8PortNB){
+				case DIO_PORTA: PORTA = 0x00; break;
+				case DIO_PORTB: PORTB = 0x00; break;
+				case DIO_PORTC: PORTC = 0x00; break;
+				case DIO_PORTD: PORTD = 0x00; break;
+			}break;
+		}
 	}
+
 	
 }
 

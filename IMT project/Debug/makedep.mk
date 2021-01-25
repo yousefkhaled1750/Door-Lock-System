@@ -2,7 +2,9 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-CFile1.c
+eeprom.c
+
+I2C.c
 
 main.c
 
