@@ -2,9 +2,9 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-CFile1.c
+eeprom.c
 
-EEPROM_program.c
+I2C.c
 
 main.c
 
@@ -15,6 +15,4 @@ MCAL\DIO_PROG.c
 MCAL\UART.c
 
 program.c
-
-TWI_program.c
 

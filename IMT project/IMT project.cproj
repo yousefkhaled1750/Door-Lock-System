@@ -148,22 +148,16 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CFile1.c">
+    <Compile Include="eeprom.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="EEPROM_config.h">
+    <Compile Include="eeprom.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="EEPROM_interface.h">
+    <Compile Include="I2C.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="EEPROM_private.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EEPROM_program.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="program.h">
+    <Compile Include="I2c.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LIB\Bit_math.h">
@@ -199,19 +193,7 @@
     <Compile Include="program.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TWI_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TWI_interface.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TWI_private.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TWI_program.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TWI_register.h">
+    <Compile Include="program.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

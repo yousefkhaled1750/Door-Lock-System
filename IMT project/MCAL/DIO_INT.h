@@ -8,7 +8,7 @@
 
 #ifndef DIO_INT_H_
 #define DIO_INT_H_
-
+#include "DIO_REG.h"
 #include "../LIB/STD_TYPES.h"
 #include "../LIB/Bit_math.h"
 
@@ -46,7 +46,7 @@ u8 DIO_u8GetPinValue(u8 Copy_u8PortNB, u8 Copy_u8PinNB);
 void DIO_voidSetPortDirection(u8 Copy_u8PortNB,u8 Copy_u8PortDirection);
 
 /* set the value of a port chosen by the user */
-u8 DIO_u8SetPortValue(u8 Copy_u8PortNB, u8 Copy_u8PinValue);
+void DIO_voidSetPortValue(u8 Copy_u8PortNB, u8 Copy_u8PinValue);
 
 /* get the value of a port chosen by the user */
 u8 DIO_u8GetPortValue(u8 Copy_u8PortNB);
