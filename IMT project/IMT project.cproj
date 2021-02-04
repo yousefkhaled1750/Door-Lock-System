@@ -169,12 +169,6 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="MCAL\ADC.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="MCAL\ADC_PROG.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="MCAL\DIO_INT.h">
       <SubType>compile</SubType>
     </Compile>
@@ -194,6 +188,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="program.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER_Interface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER_Program.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER_Register.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

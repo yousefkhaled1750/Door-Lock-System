@@ -17,7 +17,7 @@ void EEPROM_voidSendDataByte(unsigned short address, unsigned char data)
 	i2c_write_byte((unsigned char)address);
 	i2c_write_byte(data);
 	i2c_stop();
-	_delay_ms(100);
+	_delay_ms(10);
     return;
 }
 
@@ -33,6 +33,6 @@ unsigned char EEPROM_u8ReadDataByte(unsigned short address)
 	i2c_send_slave_address_with_read_req( 0b01010000 /*| ((address & 0x07)>>8)*/ );
 	data = i2c_read_byte();
 	i2c_stop();
-	_delay_ms(100);
+	_delay_ms(10);
     return data;
 }

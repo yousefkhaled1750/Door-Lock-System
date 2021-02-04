@@ -15,17 +15,33 @@
 
 #define RED_LED DIO_PIN3
 #define BLUE_LED DIO_PIN4
-#define FAN	DIO_PIN2
 #define LED_PORT DIO_PORTA
+
+#define BUZZER_PIN	DIO_PIN2
+#define BUZZER_PORT DIO_PORTA
+#define PASSWORD_LED	DIO_PIN1
+
+#define SOL_PIN		DIO_PIN0
+#define SOL_PORT	DIO_PORTA	
+
+#define FAN_PIN DIO_PIN3//edited
+#define FAN_PORT DIO_PORTB//edited
+#define SPEED_MAX 255 //edited
+#define SPEED_50 128 //edited
+#define SPEED_25 64 //edited
+#define STOP 0 //edited
 
 struct user
 {
-	u8 name[MAX_NAME_SIZE];
 	u32 password;
+	u8 name[MAX_NAME_SIZE];
+	
 
 };
 struct user users[MAX_USER] ;
 
+//used for storing the choices of menus
+u8 choose;
 //counter for the user data that will be stored in the struct
 u8 counter ;
 //To determine whether sign in was successful or not
@@ -47,12 +63,16 @@ void Edit(void);
 void Show(void);
 //used to unlock the door lock 
 void Unlock(void);
+//used to control the fan
+void fan(void);
 
 void EEPROM_voidWriteName(u8* Copy_pu8String,u8 user_id);
 void EEPROM_voidWriteId(u8 user_id);
 void EEPROM_voidWritePassword(u32 Copy_u32Number,u8 user_id);
 u32 EEPROM_u8SearchForPassword(u8 user_id);
 u8 EEPROM_u8SearchForName(u8*name,u8 user_id);
+void MovToStruct(void);
+
 
 
 #endif /* INCFILE1_H_ */

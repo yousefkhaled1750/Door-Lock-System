@@ -14,12 +14,13 @@
 #include "MCAL/UART.h"
 #include "program.h"
 #include "eeprom.h"
+#include "TIMER_Interface.h"//edited
 #include "LIB/STD_types.h"
 #include "util/delay.h"
 
 
-extern struct user users[10] = {0};
-u8 address=0;
+extern struct user users[10] = {0};	//initialize the structures with 0
+static u8 address=0;
 extern u8 counter = 0;
 extern u8 lock = 0;
 
@@ -29,10 +30,9 @@ extern u8 lock = 0;
 
 void new(void){
 	if(counter<MAX_USER){		//the max number is 10
-		Buffer[counter] = users[counter].name;
+		Buffer[counter] = users[counter].name;	//set buffer pointer to the pointer of the struct member so it gets stored in it
 		UART_voidSendStringSynch("Enter Your User name: ");
 		UART_voidReceiveStringSynch(*(Buffer+counter), MAX_NAME_SIZE);
-
 		UART_voidSendDataSynch(' ');
 	
 		UART_voidSendStringSynch("Enter Your Password: ");
@@ -50,10 +50,6 @@ void new(void){
 		counter++;	//increment before sending counter to 0x03FF to indicate the number of user as number of users = id + 1
 		EEPROM_voidSendDataByte(0x03FF, counter);	//Put the number of users in the last address of eeprom
 	
-	
-		/******//*
-		EEPROM_voidSendDataByte(0,'a');
-		/******/
 	}
 }
 
@@ -92,37 +88,6 @@ void EEPROM_voidWritePassword(u32 Copy_u32Number,u8 user_id)
 	}
 	
 }
-
-
-
-
-/*u8 EEPROM_u8SearchForStartData(u8 id_search)//return address of id
-{
-	u8 i=0;
-	u8 found=0;
-	u8 data;
-	u8 id;
-
-	for(i=0;i<address;i++)
-	{
-		data=EEPROM_u8ReadDataByte(i);
-
-		if(data=='=')
-		{
-			id=EEPROM_u8ReadDataByte(i+1);
-			if(id==id_search)
-			{
-			found=1;
-			return (i+1);
-			}
-	    }
-	if (found==0)
-	{
-		return '-';
-	}
-}
-*/
-
 
 
 
@@ -180,17 +145,29 @@ void SignIn(void)
 		
 		UART_voidSendStringSynch("Enter Your Password: ");
 		UART_voidReceiveNumberSynch(&password_check);
-		users[ID].password==EEPROM_u8SearchForPassword(ID);
 		if(password_check==users[ID].password)	
 		{	
 			UART_voidSendStringSynch(" |***Correct Password***| ");
+			DIO_voidSetPinValue(BUZZER_PORT, BUZZER_PIN, DIO_LOW);	//turn off the buzzer
+			DIO_voidSetPinValue(LED_PORT, PASSWORD_LED, DIO_LOW);	//turn off the wrong password led
+			DIO_voidSetPinValue(SOL_PORT,SOL_PIN, DIO_HIGH);
+			_delay_ms(5000);
+			DIO_voidSetPinValue(SOL_PORT, SOL_PIN, DIO_LOW);
 			lock=1;
 			break;
 		}else{
 			UART_voidSendStringSynch("Not Correct! ");
-			DIO_voidSetPinValue(DIO_PORTC,DIO_PIN1, DIO_HIGH);
-			_delay_ms(2000);
-			DIO_voidSetPinValue(DIO_PORTC,DIO_PIN1, DIO_LOW);
+			DIO_voidSetPinValue(LED_PORT, PASSWORD_LED, DIO_HIGH);	//turn on the wrong password
+			label:
+			UART_voidSendStringSynch(" 1. Try Again ");
+			UART_voidSendStringSynch(" 2. back to menu ");
+			UART_u8ReceiveDataSynch(&choose);
+			if(choose == '1'){	continue;}	//repeat the loop to enter again the password
+			else if(choose == '2'){ return; }	//close the function and get back to main menu
+			else{
+				UART_voidSendStringSynch(" choose a valid choice! ");
+				goto label;
+			}
 			trials++;
 		}
 
@@ -200,7 +177,7 @@ void SignIn(void)
 	if(lock==0&&trials>=3)
 	{
 		UART_voidSendStringSynch("WARNING!! you are out of trials. ");
-		//DIO_voidSetPinValue(DIO_PORTC,DIO_PIN0, DIO_HIGH);	//turn on the buzzer
+		DIO_voidSetPinValue(BUZZER_PORT,BUZZER_PIN, DIO_HIGH);	//turn on the buzzer
 		lock = 2;
 	}
 }
@@ -221,7 +198,6 @@ void Edit(){
 		UART_voidSendStringSynch("Enter the Password: ");
 		UART_voidReceiveNumberSynch(&pass);
 		UART_voidSendDataSynch(' ');
-		users[id].password=EEPROM_u8SearchForPassword(id);
 		if(pass == users[id].password)
 		{		
 			key = 1;
@@ -233,7 +209,7 @@ void Edit(){
 			
 				switch(choose){
 					case '1':
-						Buffer[id] = users[id].name;
+						Buffer[id] = users[id].name;	//to point at the name array so it edits the struct member
 						UART_voidSendStringSynch("Enter Your New User Name: ");
 						UART_voidReceiveStringSynch(*(Buffer+id), MAX_NAME_SIZE);
 						EEPROM_voidWriteName(*(Buffer+id),id);
@@ -283,7 +259,6 @@ void Show(){
 		
 			UART_voidSendStringSynch("Your User Name: ");
 
-			z=EEPROM_u8SearchForName(users[id].name,id);
 			UART_voidSendStringSynch(users[id].name);
 			UART_voidSendDataSynch(' ');
 		
@@ -315,12 +290,11 @@ void Unlock(){
 
 void Light(){
 	u8 choose;
-	DIO_voidSetPortDirection(DIO_PORTA, DIO_OUTPUT);
 	
 	UART_voidSendStringSynch("Welcome to our system! ");
 	while(1)
 	{
-		UART_voidSendStringSynch("1. Toggle Red Light.		2. Toggle Blue Light.		3. Toggle the Fan.		4. Exit. ");
+		UART_voidSendStringSynch("1. Toggle Red Light.		2. Toggle Blue Light.		3. Control the Fan.		4. Exit. ");
 		UART_voidSendStringSynch("Your Choice: ");
 		UART_u8ReceiveDataSynch(&choose);
 
@@ -333,13 +307,49 @@ void Light(){
 				DIO_voidSetPinValue(LED_PORT,BLUE_LED, DIO_TOGGLE);
 				break;
 			case '3':
-				DIO_voidSetPinValue(LED_PORT,FAN, DIO_TOGGLE);
+				//case 3 edited
+				fan();
 				break;
 			case '4':	
 				DIO_voidSetPortValue(LED_PORT, 0x00);
+				TIMER0_VidPWMDutyCycle(STOP);	//turn off the DC fan
 				return;
 		}
 	}
 	
 }
 
+void fan(void){
+	u8 choose;
+	TIMER0_VidPWMInit();
+	while(1){
+		UART_voidSendStringSynch("1.speed max .		2. speed 50% .		3. speed 25%.		4.stop.			5. back to menu. ");
+		UART_voidSendStringSynch("Your Choice: ");
+		UART_u8ReceiveDataSynch(&choose);
+		switch(choose)
+		{
+			case '1':
+			TIMER0_VidPWMDutyCycle(SPEED_MAX);
+			break;
+			case '2':
+			TIMER0_VidPWMDutyCycle(SPEED_50);
+			break;
+			case '3':
+			TIMER0_VidPWMDutyCycle(SPEED_25);
+			break;
+			case '4':
+			TIMER0_VidPWMDutyCycle(STOP);
+			break;
+			case '5':
+			return;
+		}
+	}
+}
+
+void MovToStruct(void){
+	u8 i = 0;
+	for(i = 0; i<counter; i++){
+		users[i].password = EEPROM_u8SearchForPassword(i);
+		EEPROM_u8SearchForName(users[i].name,i);
+	} 
+}
