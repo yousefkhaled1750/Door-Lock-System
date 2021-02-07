@@ -266,7 +266,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xed2
+.text           0x00000000      0xf02
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -352,117 +352,117 @@ END GROUP
                 0x00000092        0x6 eeprom.o
                 0x00000092                EEPROM_voidInit
  .text.EEPROM_voidSendDataByte
-                0x00000098       0x34 eeprom.o
+                0x00000098       0x40 eeprom.o
                 0x00000098                EEPROM_voidSendDataByte
  .text.EEPROM_u8ReadDataByte
-                0x000000cc       0x3a eeprom.o
-                0x000000cc                EEPROM_u8ReadDataByte
+                0x000000d8       0x4c eeprom.o
+                0x000000d8                EEPROM_u8ReadDataByte
  .text.i2c_init_master
-                0x00000106       0x10 I2C.o
-                0x00000106                i2c_init_master
+                0x00000124       0x10 I2C.o
+                0x00000124                i2c_init_master
  .text.i2c_start
-                0x00000116       0x14 I2C.o
-                0x00000116                i2c_start
+                0x00000134       0x14 I2C.o
+                0x00000134                i2c_start
  .text.i2c_repeated_start
-                0x0000012a       0x14 I2C.o
-                0x0000012a                i2c_repeated_start
+                0x00000148       0x14 I2C.o
+                0x00000148                i2c_repeated_start
  .text.i2c_send_slave_address_with_write_req
-                0x0000013e       0x18 I2C.o
-                0x0000013e                i2c_send_slave_address_with_write_req
+                0x0000015c       0x18 I2C.o
+                0x0000015c                i2c_send_slave_address_with_write_req
  .text.i2c_send_slave_address_with_read_req
-                0x00000156       0x1a I2C.o
-                0x00000156                i2c_send_slave_address_with_read_req
+                0x00000174       0x1a I2C.o
+                0x00000174                i2c_send_slave_address_with_read_req
  .text.i2c_write_byte
-                0x00000170       0x16 I2C.o
-                0x00000170                i2c_write_byte
+                0x0000018e       0x16 I2C.o
+                0x0000018e                i2c_write_byte
  .text.i2c_read_byte
-                0x00000186       0x16 I2C.o
-                0x00000186                i2c_read_byte
+                0x000001a4       0x16 I2C.o
+                0x000001a4                i2c_read_byte
  .text.i2c_stop
-                0x0000019c        0x6 I2C.o
-                0x0000019c                i2c_stop
- .text.main     0x000001a2       0xe8 main.o
-                0x000001a2                main
+                0x000001ba        0x6 I2C.o
+                0x000001ba                i2c_stop
+ .text.main     0x000001c0       0xe8 main.o
+                0x000001c0                main
  .text.DIO_voidSetPinDirection
-                0x0000028a       0xee MCAL/DIO_PROG.o
-                0x0000028a                DIO_voidSetPinDirection
+                0x000002a8       0xee MCAL/DIO_PROG.o
+                0x000002a8                DIO_voidSetPinDirection
  .text.DIO_voidSetPinValue
-                0x00000378      0x15a MCAL/DIO_PROG.o
-                0x00000378                DIO_voidSetPinValue
+                0x00000396      0x15a MCAL/DIO_PROG.o
+                0x00000396                DIO_voidSetPinValue
  .text.DIO_voidSetPortDirection
-                0x000004d2       0x54 MCAL/DIO_PROG.o
-                0x000004d2                DIO_voidSetPortDirection
+                0x000004f0       0x54 MCAL/DIO_PROG.o
+                0x000004f0                DIO_voidSetPortDirection
  .text.DIO_voidSetPortValue
-                0x00000526       0x54 MCAL/DIO_PROG.o
-                0x00000526                DIO_voidSetPortValue
+                0x00000544       0x54 MCAL/DIO_PROG.o
+                0x00000544                DIO_voidSetPortValue
  .text.UART_voidInit
-                0x0000057a        0xe MCAL/UART.o
-                0x0000057a                UART_voidInit
+                0x00000598        0xe MCAL/UART.o
+                0x00000598                UART_voidInit
  .text.UART_voidSendDataSynch
-                0x00000588        0xe MCAL/UART.o
-                0x00000588                UART_voidSendDataSynch
+                0x000005a6        0xe MCAL/UART.o
+                0x000005a6                UART_voidSendDataSynch
  .text.UART_u8ReceiveDataSynch
-                0x00000596        0xe MCAL/UART.o
-                0x00000596                UART_u8ReceiveDataSynch
+                0x000005b4        0xe MCAL/UART.o
+                0x000005b4                UART_u8ReceiveDataSynch
  .text.UART_voidSendStringSynch
-                0x000005a4       0x2c MCAL/UART.o
-                0x000005a4                UART_voidSendStringSynch
+                0x000005c2       0x2c MCAL/UART.o
+                0x000005c2                UART_voidSendStringSynch
  .text.UART_voidSendNumberSynch
-                0x000005d0       0x78 MCAL/UART.o
-                0x000005d0                UART_voidSendNumberSynch
+                0x000005ee       0x78 MCAL/UART.o
+                0x000005ee                UART_voidSendNumberSynch
  .text.UART_voidReceiveStringSynch
-                0x00000648       0x52 MCAL/UART.o
-                0x00000648                UART_voidReceiveStringSynch
+                0x00000666       0x52 MCAL/UART.o
+                0x00000666                UART_voidReceiveStringSynch
  .text.UART_voidReceiveNumberSynch
-                0x0000069a      0x120 MCAL/UART.o
-                0x0000069a                UART_voidReceiveNumberSynch
+                0x000006b8      0x120 MCAL/UART.o
+                0x000006b8                UART_voidReceiveNumberSynch
  .text.EEPROM_voidWriteName
-                0x000007ba       0x6e program.o
-                0x000007ba                EEPROM_voidWriteName
+                0x000007d8       0x6e program.o
+                0x000007d8                EEPROM_voidWriteName
  .text.EEPROM_voidWriteId
-                0x00000828       0x1a program.o
-                0x00000828                EEPROM_voidWriteId
+                0x00000846       0x1a program.o
+                0x00000846                EEPROM_voidWriteId
  .text.EEPROM_voidWritePassword
-                0x00000842       0x56 program.o
-                0x00000842                EEPROM_voidWritePassword
- .text.new      0x00000898       0xf8 program.o
-                0x00000898                new
+                0x00000860       0x56 program.o
+                0x00000860                EEPROM_voidWritePassword
+ .text.new      0x000008b6      0x10a program.o
+                0x000008b6                new
  .text.EEPROM_u8SearchForPassword
-                0x00000990       0x64 program.o
-                0x00000990                EEPROM_u8SearchForPassword
+                0x000009c0       0x64 program.o
+                0x000009c0                EEPROM_u8SearchForPassword
  .text.EEPROM_u8SearchForName
-                0x000009f4       0x54 program.o
-                0x000009f4                EEPROM_u8SearchForName
- .text.SignIn   0x00000a48       0xec program.o
-                0x00000a48                SignIn
- .text.Edit     0x00000b34      0x14a program.o
-                0x00000b34                Edit
- .text.Show     0x00000c7e       0xa8 program.o
-                0x00000c7e                Show
- .text.fan      0x00000d26       0x6a program.o
-                0x00000d26                fan
- .text.Light    0x00000d90       0x76 program.o
-                0x00000d90                Light
+                0x00000a24       0x54 program.o
+                0x00000a24                EEPROM_u8SearchForName
+ .text.SignIn   0x00000a78       0xec program.o
+                0x00000a78                SignIn
+ .text.Edit     0x00000b64      0x14a program.o
+                0x00000b64                Edit
+ .text.Show     0x00000cae       0xa8 program.o
+                0x00000cae                Show
+ .text.fan      0x00000d56       0x6a program.o
+                0x00000d56                fan
+ .text.Light    0x00000dc0       0x76 program.o
+                0x00000dc0                Light
  .text.MovToStruct
-                0x00000e06       0x52 program.o
-                0x00000e06                MovToStruct
+                0x00000e36       0x52 program.o
+                0x00000e36                MovToStruct
  .text.TIMER0_VidPWMInit
-                0x00000e58       0x2c TIMER_Program.o
-                0x00000e58                TIMER0_VidPWMInit
+                0x00000e88       0x2c TIMER_Program.o
+                0x00000e88                TIMER0_VidPWMInit
  .text.TIMER0_VidPWMDutyCycle
-                0x00000e84        0x4 TIMER_Program.o
-                0x00000e84                TIMER0_VidPWMDutyCycle
+                0x00000eb4        0x4 TIMER_Program.o
+                0x00000eb4                TIMER0_VidPWMDutyCycle
  .text.libgcc.div
-                0x00000e88       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000e88                __udivmodhi4
+                0x00000eb8       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x00000eb8                __udivmodhi4
  .text.libgcc.mul
-                0x00000eb0       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
-                0x00000eb0                __umulhisi3
-                0x00000ece                . = ALIGN (0x2)
+                0x00000ee0       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x00000ee0                __umulhisi3
+                0x00000efe                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000ece        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000ece                _exit
-                0x00000ece                exit
+ .fini9         0x00000efe        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000efe                _exit
+                0x00000efe                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -481,11 +481,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000ece        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000efe        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000ed2                _etext = .
+                0x00000f02                _etext = .
 
-.data           0x00800060      0x30e load address 0x00000ed2
+.data           0x00800060      0x35a load address 0x00000f02
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -495,38 +495,39 @@ END GROUP
  .rodata.str1.1
                 0x00800060       0xb5 main.o
  .rodata.str1.1
-                0x00800115      0x259 program.o
-                                0x27b (size before relaxing)
+                0x00800115      0x2a4 program.o
+                                0x2c6 (size before relaxing)
  *(.gnu.linkonce.r*)
-                0x0080036e                . = ALIGN (0x2)
-                0x0080036e                _edata = .
-                0x0080036e                PROVIDE (__data_end, .)
+                0x008003ba                . = ALIGN (0x2)
+ *fill*         0x008003b9        0x1 
+                0x008003ba                _edata = .
+                0x008003ba                PROVIDE (__data_end, .)
 
-.bss            0x0080036e      0x108
-                0x0080036e                PROVIDE (__bss_start, .)
+.bss            0x008003ba      0x108
+                0x008003ba                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.address   0x0080036e        0x1 program.o
- .bss.lock      0x0080036f        0x1 program.o
-                0x0080036f                lock
- .bss.counter   0x00800370        0x1 program.o
-                0x00800370                counter
- .bss.users     0x00800371       0xdc program.o
-                0x00800371                users
+ .bss.address   0x008003ba        0x1 program.o
+ .bss.lock      0x008003bb        0x1 program.o
+                0x008003bb                lock
+ .bss.counter   0x008003bc        0x1 program.o
+                0x008003bc                counter
+ .bss.users     0x008003bd       0xdc program.o
+                0x008003bd                users
  *(COMMON)
- COMMON         0x0080044d       0x29 main.o
-                0x0080044d                pass
-                0x00800461                choose
-                0x00800462                Buffer
-                0x00800476                PROVIDE (__bss_end, .)
-                0x00000ed2                __data_load_start = LOADADDR (.data)
-                0x000011e0                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800499       0x29 main.o
+                0x00800499                pass
+                0x008004ad                choose
+                0x008004ae                Buffer
+                0x008004c2                PROVIDE (__bss_end, .)
+                0x00000f02                __data_load_start = LOADADDR (.data)
+                0x0000125c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800476        0x0
+.noinit         0x008004c2        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800476                _end = .
+                0x008004c2                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -617,74 +618,74 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x2142
+.debug_info     0x00000000     0x218e
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x2d6 eeprom.o
- .debug_info    0x000007bc      0x1df I2C.o
- .debug_info    0x0000099b      0x495 main.o
- .debug_info    0x00000e30      0x1d2 MCAL/DIO_PROG.o
- .debug_info    0x00001002      0x2c3 MCAL/UART.o
- .debug_info    0x000012c5      0xdd7 program.o
- .debug_info    0x0000209c       0xa6 TIMER_Program.o
+ .debug_info    0x000004e6      0x2ee eeprom.o
+ .debug_info    0x000007d4      0x1df I2C.o
+ .debug_info    0x000009b3      0x491 main.o
+ .debug_info    0x00000e44      0x1d2 MCAL/DIO_PROG.o
+ .debug_info    0x00001016      0x2c3 MCAL/UART.o
+ .debug_info    0x000012d9      0xe0f program.o
+ .debug_info    0x000020e8       0xa6 TIMER_Program.o
 
-.debug_abbrev   0x00000000      0xc8f
+.debug_abbrev   0x00000000      0xc9c
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3      0x145 eeprom.o
- .debug_abbrev  0x000005e8       0xac I2C.o
- .debug_abbrev  0x00000694      0x126 main.o
- .debug_abbrev  0x000007ba       0xb4 MCAL/DIO_PROG.o
- .debug_abbrev  0x0000086e      0x115 MCAL/UART.o
- .debug_abbrev  0x00000983      0x294 program.o
- .debug_abbrev  0x00000c17       0x78 TIMER_Program.o
+ .debug_abbrev  0x000004a3      0x152 eeprom.o
+ .debug_abbrev  0x000005f5       0xac I2C.o
+ .debug_abbrev  0x000006a1      0x126 main.o
+ .debug_abbrev  0x000007c7       0xb4 MCAL/DIO_PROG.o
+ .debug_abbrev  0x0000087b      0x115 MCAL/UART.o
+ .debug_abbrev  0x00000990      0x294 program.o
+ .debug_abbrev  0x00000c24       0x78 TIMER_Program.o
 
-.debug_line     0x00000000     0x12fc
+.debug_line     0x00000000     0x1320
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x115 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000115      0x19c eeprom.o
- .debug_line    0x000002b1      0x2ed I2C.o
- .debug_line    0x0000059e      0x13f main.o
- .debug_line    0x000006dd      0x2f3 MCAL/DIO_PROG.o
- .debug_line    0x000009d0      0x25c MCAL/UART.o
- .debug_line    0x00000c2c      0x638 program.o
- .debug_line    0x00001264       0x98 TIMER_Program.o
+ .debug_line    0x00000115      0x1b4 eeprom.o
+ .debug_line    0x000002c9      0x2ed I2C.o
+ .debug_line    0x000005b6      0x13f main.o
+ .debug_line    0x000006f5      0x2f3 MCAL/DIO_PROG.o
+ .debug_line    0x000009e8      0x25c MCAL/UART.o
+ .debug_line    0x00000c44      0x644 program.o
+ .debug_line    0x00001288       0x98 TIMER_Program.o
 
-.debug_frame    0x00000000      0x504
+.debug_frame    0x00000000      0x510
  *(.debug_frame)
- .debug_frame   0x00000000       0x58 eeprom.o
- .debug_frame   0x00000058       0xe4 I2C.o
- .debug_frame   0x0000013c       0x24 main.o
- .debug_frame   0x00000160       0x74 MCAL/DIO_PROG.o
- .debug_frame   0x000001d4      0x120 MCAL/UART.o
- .debug_frame   0x000002f4      0x1dc program.o
- .debug_frame   0x000004d0       0x34 TIMER_Program.o
+ .debug_frame   0x00000000       0x64 eeprom.o
+ .debug_frame   0x00000064       0xe4 I2C.o
+ .debug_frame   0x00000148       0x24 main.o
+ .debug_frame   0x0000016c       0x74 MCAL/DIO_PROG.o
+ .debug_frame   0x000001e0      0x120 MCAL/UART.o
+ .debug_frame   0x00000300      0x1dc program.o
+ .debug_frame   0x000004dc       0x34 TIMER_Program.o
 
-.debug_str      0x00000000      0x8bd
+.debug_str      0x00000000      0x87b
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x26c eeprom.o
-                                0x2a8 (size before relaxing)
- .debug_str     0x00000402       0xc4 I2C.o
+ .debug_str     0x00000196      0x27c eeprom.o
+                                0x2b8 (size before relaxing)
+ .debug_str     0x00000412       0xc4 I2C.o
                                 0x2ba (size before relaxing)
- .debug_str     0x000004c6      0x15a main.o
-                                0x2ba (size before relaxing)
- .debug_str     0x00000620       0xc0 MCAL/DIO_PROG.o
+ .debug_str     0x000004d6      0x108 main.o
+                                0x2b9 (size before relaxing)
+ .debug_str     0x000005de       0xc0 MCAL/DIO_PROG.o
                                 0x22e (size before relaxing)
- .debug_str     0x000006e0       0xc9 MCAL/UART.o
+ .debug_str     0x0000069e       0xc9 MCAL/UART.o
                                 0x28d (size before relaxing)
- .debug_str     0x000007a9       0xf7 program.o
+ .debug_str     0x00000767       0xf7 program.o
                                 0x43f (size before relaxing)
- .debug_str     0x000008a0       0x1d TIMER_Program.o
+ .debug_str     0x0000085e       0x1d TIMER_Program.o
                                 0x183 (size before relaxing)
 
-.debug_loc      0x00000000     0x12ab
+.debug_loc      0x00000000     0x12f2
  *(.debug_loc)
- .debug_loc     0x00000000      0x182 eeprom.o
- .debug_loc     0x00000182       0x9c I2C.o
- .debug_loc     0x0000021e      0x447 MCAL/DIO_PROG.o
- .debug_loc     0x00000665      0x4c5 MCAL/UART.o
- .debug_loc     0x00000b2a      0x781 program.o
+ .debug_loc     0x00000000      0x1c9 eeprom.o
+ .debug_loc     0x000001c9       0x9c I2C.o
+ .debug_loc     0x00000265      0x447 MCAL/DIO_PROG.o
+ .debug_loc     0x000006ac      0x4c5 MCAL/UART.o
+ .debug_loc     0x00000b71      0x781 program.o
 
 .debug_macinfo
  *(.debug_macinfo)

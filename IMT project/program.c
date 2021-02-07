@@ -50,6 +50,9 @@ void new(void){
 		counter++;	//increment before sending counter to 0x03FF to indicate the number of user as number of users = id + 1
 		EEPROM_voidSendDataByte(0x03FF, counter);	//Put the number of users in the last address of eeprom
 	
+	}else{
+		UART_voidSendStringSynch("****No Space For New Users!****");
+		UART_voidSendStringSynch(" You can edit the data of a current user. ");
 	}
 }
 

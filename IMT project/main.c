@@ -22,15 +22,17 @@ int main (void)
     
 	//check for previous data
 	if(EEPROM_u8ReadDataByte(0) == 0){	//if there's a user stored in eeprom then get the number of users from the last address
+		
 		counter = EEPROM_u8ReadDataByte(0x03FF);
 		MovToStruct();
+		UART_voidSendStringSynch("***** ");
+		UART_voidSendStringSynch("The number of current users: ");
+		UART_voidSendNumberSynch(counter);
+		UART_voidSendDataSynch(' ');
 	}
 
 
-	UART_voidSendStringSynch("***** ");
-	UART_voidSendStringSynch("The number of current users: ");
-	UART_voidSendNumberSynch(counter);
-	UART_voidSendDataSynch(' ');
+	
 	while(1){
 		UART_voidSendStringSynch("1. Enter new user name. ");
 		UART_voidSendStringSynch("2. Sign In. ");
