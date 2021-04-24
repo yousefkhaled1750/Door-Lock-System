@@ -143,6 +143,7 @@ void SignIn(void)
 	UART_voidSendStringSynch("Enter Your User ID: ");
 	UART_u8ReceiveDataSynch(&ID);
 	ID -= '0';
+	label1:
 	while(trials<3)
 	{
 		
@@ -159,6 +160,10 @@ void SignIn(void)
 			lock=1;
 			break;
 		}else{
+			trials++;
+			if(trials>2){
+				goto label1;
+			}
 			UART_voidSendStringSynch("Not Correct! ");
 			DIO_voidSetPinValue(LED_PORT, PASSWORD_LED, DIO_HIGH);	//turn on the wrong password
 			label:
@@ -171,7 +176,7 @@ void SignIn(void)
 				UART_voidSendStringSynch(" choose a valid choice! ");
 				goto label;
 			}
-			trials++;
+			
 		}
 
 	}
